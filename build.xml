@@ -20,8 +20,8 @@
          <pathelement location="/cs/faculty/pconrad/public_html/cs56/lib/junit-4.8.2.jar"/>            
      </classpath>
     </javac>
-     <copy todir="build">
-       <fileset dir="src/edu/ucsb/cs56/projects/games/treasure_hunter/bin"/>
+	<copy todir="build/resources">
+       <fileset dir="src/edu/ucsb/cs56/projects/games/treasure_hunter/resources" />
      </copy>
   </target>
 

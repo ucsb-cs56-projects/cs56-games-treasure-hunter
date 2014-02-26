@@ -69,7 +69,12 @@ public class GameComponent extends JComponent
     public void loadMap(String name){
 	tiletypes = new ArrayList<Character>();
 	try {
-	    Scanner scanner = new Scanner(getClass().getResourceAsStream("/" + name));
+	    
+            String dir = "resources/";
+	    String imagefile1 = "bush.png";
+	    String imagefile2 = "grass.png"; 
+	    
+	    Scanner scanner = new Scanner(getClass().getResourceAsStream(dir));
 	    BufferedImage grassTile = ImageIO.read(getClass().getResource("grass.png"));
 	    BufferedImage bushTile = ImageIO.read(getClass().getResource("bush.png"));
 	    tilesWidth = scanner.nextInt();
@@ -87,7 +92,8 @@ public class GameComponent extends JComponent
 				tiletypes.add('B');
 			}
 	    }
-	} catch (IOException e) {}
+	} catch (IOException e) {
+		e.printStackTrace();}
 	
     }
     public void checkMove(int xTile, int yTile) {
