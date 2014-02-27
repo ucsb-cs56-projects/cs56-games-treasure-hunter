@@ -1,5 +1,6 @@
 package edu.ucsb.cs56.projects.games.treasure_hunter;
 
+import java.net.URL;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
@@ -43,10 +44,10 @@ public class GameComponent extends JComponent
     private int tilesWidth;
     private int tilesHeight;
     
-    public GameComponent(){
-	this.loadMap("map.txt");
+//    public GameComponent(){
+//	this.loadMap("map.txt");
 		
-	}   
+//	}   
 
     public void paintComponent(Graphics g)   
   {  		
@@ -74,17 +75,20 @@ public class GameComponent extends JComponent
 
     public void loadMap(String name){
 	tiletypes = new ArrayList<Character>();
-	//try {
-	    
-            String dir = "resources/";
+	try {
+	   
+            String dir = "/resources/";
 	    String imagefile1 = "bush.png";
 	    String imagefile2 = "grass.png"; 
+	    URL url = (getClass().getResource(dir+name));	    
+
+	  if(GameGui.debug){  	
+	System.out.println("dir + name = " + (dir + name));
+	System.out.println("url = " + url);  }
+	    Scanner scanner = new Scanner(getClass().getResourceAsStream(dir+ name));
 	    
-	    System.out.println(getClass().getResource(name));
-	    //Scanner scanner = new Scanner(getClass().getResourceAsStream(name));
-	    /*
-	    BufferedImage grassTile = ImageIO.read(getClass().getResource("resources/grass.png"));
-	    BufferedImage bushTile = ImageIO.read(getClass().getResource("resources/bush.png"));
+	    BufferedImage grassTile = ImageIO.read(getClass().getResource("/resources/grass.png"));
+	    BufferedImage bushTile = ImageIO.read(getClass().getResource("/resources/bush.png"));
 	    tilesWidth = scanner.nextInt();
 	    tilesHeight = scanner.nextInt();
 	    String temp;
@@ -103,7 +107,7 @@ public class GameComponent extends JComponent
 	    
 	} catch (IOException e) {
 		e.printStackTrace();}
-	    */
+	    
     }
     public void checkMove(int xTile, int yTile) {
 		if(xTile < 0 || xTile > 7 || yTile < 0 || yTile > 7)

@@ -30,7 +30,7 @@ public class Player {
 	try {
 	    sprites = new ArrayList<BufferedImage>();
 	    for(int i = 0; i < numSprites; i++)
-		sprites.add(ImageIO.read(getClass().getResource(name + "/" + name + i + ".png")));
+		sprites.add(ImageIO.read(getClass().getResource(GameGui.resourcesDir + name + "/" + name + i + ".png")));
 	    this.xTile = xTile;
 	    this.yTile = yTile;
 	    this.currentSprite = currentSprite;
