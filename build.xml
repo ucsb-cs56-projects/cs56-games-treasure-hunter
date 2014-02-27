@@ -21,8 +21,8 @@
      </classpath>
     </javac>
 	<copy todir="build/resources">
-       <fileset dir="src/edu/ucsb/cs56/projects/games/treasure_hunter/resources" />
-     </copy>
+	  <fileset dir="src/resources" includes="*.*"/>
+	</copy>
   </target>
 
 

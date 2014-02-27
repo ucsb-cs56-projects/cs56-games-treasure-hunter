@@ -51,14 +51,14 @@ public class GameGui
       component = new GameComponent();
       component.loadPlayer(player,"player");
       component.loadPlayer(treasure,"treasure");
-      component.loadMap("map.txt");
+      //component.loadMap("map.txt");
       addBindings();
       // Always add your component to the frame 
       // and then make the window visible
       
-      frame.add(component);
+      //frame.add(component);
       frame.setVisible(true);
-      component.repaint();
+      //component.repaint();
    }
     class MoveAction extends AbstractAction {
 	int startingSprite = 0;
