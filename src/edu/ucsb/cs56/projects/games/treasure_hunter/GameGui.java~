@@ -63,8 +63,8 @@ public class GameGui
       component1 = new GameComponent();
       component.loadPlayer(player,"player");
       component.loadPlayer(treasure,"treasure");
-      component.loadPlayer(treasure1,"treasure1");
-      component.loadPlayer(treasure2,"treasure2");
+      component.loadPlayer(treasure1,"treasure");
+      component.loadPlayer(treasure2,"treasure");
       component.loadMap("map.txt");
 
 

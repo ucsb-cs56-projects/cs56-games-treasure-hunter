@@ -127,12 +127,6 @@ public class GameComponent extends JComponent
 		if(xTile == treasure.getXTile() && yTile == treasure.getYTile()) {
 			winGame();
 		}
-		else if(xTile == treasure1.getXTile() && yTile == treasure1.getYTile()) {
-			winGame();
-		}
-		else if(xTile == treasure2.getXTile() && yTile == treasure2.getYTile()) {
-			winGame();
-		}
     }
 
 	public void winGame() {
