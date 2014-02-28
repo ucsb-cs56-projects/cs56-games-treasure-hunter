@@ -20,9 +20,11 @@ public class GameGui
 {
     Player player;
     Player treasure;
+    Player treasure1;
+    Player treasure2;
     GameComponent component;
    
-	public static boolean debug = true; 
+	public static boolean debug = false; 
 	public static final String resourcesDir = "/resources/";
 
    public static void main(String[] args)
@@ -40,7 +42,7 @@ public class GameGui
       // Set the size to whatever size you like (width, height)
       // For projects you turn in, lets not get any bigger than 640,480
       
-      frame.setSize(420,450); // @@@ MODIFY THIS LINE IF YOU LIKE
+      frame.setSize(608,480); // @@@ MODIFY THIS LINE IF YOU LIKE
 
       // Set your own title
       frame.setTitle("Treasure Hunter"); // @@@ MODIFY THIS LINE
@@ -52,9 +54,13 @@ public class GameGui
       
       // Instantiate your drawing as a "component"
       player = new Player(0,0,16,8,"player");
-      treasure = new Player(5,5,1,0,"treasure");
+      treasure = new Player(4,5,1,0,"treasure");
+      treasure1 = new Player(10,8,1,0,"treasure");
+      treasure2 = new Player(7,3,1,0,"treasure"); 
       component = new GameComponent();
       component.loadPlayer(player,"player");
+      component.loadPlayer(treasure2, "treasure2");
+      component.loadPlayer(treasure1, "treasure1");
       component.loadPlayer(treasure,"treasure");
       component.loadMap("map.txt");
       addBindings();
@@ -63,6 +69,7 @@ public class GameGui
       
       frame.add(component);
       frame.setVisible(true);
+      component.validate();
       component.repaint();
    }
     class MoveAction extends AbstractAction {
@@ -99,7 +106,8 @@ public class GameGui
 		}
 		player.setTiles(player.getXTile() + x, player.getYTile()+y);
 	    }
-	    component.repaint();
+	    	component.validate();
+		component.repaint();
 	}
 
     }
@@ -112,6 +120,6 @@ public class GameGui
 	component.registerKeyboardAction(new MoveAction(0,1), KeyStroke.getKeyStroke(KeyEvent.VK_DOWN,0), JComponent.WHEN_FOCUSED);
 	component.registerKeyboardAction(new MoveAction(-1,0), KeyStroke.getKeyStroke(KeyEvent.VK_LEFT,0), JComponent.WHEN_FOCUSED);
 	component.registerKeyboardAction(new MoveAction(1,0), KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT,0), JComponent.WHEN_FOCUSED);
-	//component.registerKeyboardAction(new MoveAction(0,0), KeyStroke.getKeyStroke(KeyEvent.VK_SPACE,0), JComponent.WHEN_FOCUSED);
+	component.registerKeyboardAction(new MoveAction(0,0), KeyStroke.getKeyStroke(KeyEvent.VK_SPACE,0), JComponent.WHEN_FOCUSED);
     }
 }
