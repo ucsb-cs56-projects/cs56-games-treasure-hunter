@@ -29,7 +29,9 @@ There are 3 treasures on the map. The first one is located here.
 ![](http://i.imgur.com/j9XEtBM.png)
 
 Treasure 2 is located here. 
+
 ![](http://i.imgur.com/NlbbtiM.png)
 
 Treasure 3 is located here. 
+
 ![](http://i.imgur.com/P1P8uKm.png)
