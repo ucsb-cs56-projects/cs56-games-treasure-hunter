@@ -1,5 +1,6 @@
 package edu.ucsb.cs56.projects.games.treasure_hunter;
 
+import java.net.URL;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
@@ -36,42 +37,61 @@ public class GameComponent extends JComponent
      */
     Player player;
     Player treasure;
+    Player treasure1;
+    Player treasure2;
     private ArrayList<BufferedImage> tiles;
     private ArrayList<Character> tiletypes;
 	private String message = "";
 	private BufferedImage messageBox;
     private int tilesWidth;
     private int tilesHeight;
-   public void paintComponent(Graphics g)
-   { 
-       for(int i = 0; i < tilesHeight; i++) {
+    
+//    public GameComponent(){
+//	this.loadMap("map.txt");
+		
+//	}   
+
+    public void paintComponent(Graphics g)   
+  {  		
+	for(int i = 0; i < tilesHeight; i++) {
 	       for(int j = 0; j< tilesWidth; j++) {
 		   g.drawImage(tiles.get(tilesWidth*i + j), j*50, i*50, null);
 	       }
 	    }
 	   g.drawImage(treasure.getCurrentImage(), treasure.getXPos(), treasure.getYPos(),null);
+	 //  g.drawImage(treasure2.getCurrentImage(), treasure2.getXPos(), treasure2.getYPos(), null);
 	   g.drawImage(player.getCurrentImage(), player.getXPos(), player.getYPos(),null);
        Graphics2D g2 = (Graphics2D) g;
 		if(!message.equals("")) {
 			g2.setColor(Color.WHITE);
-			g2.fill(new Rectangle(100,0,200,100));
+			g2.fill(new Rectangle(100,0,250,100));
 			g2.setFont(new Font(null,Font.BOLD, 20));
 			g2.setColor(Color.BLACK);
 			g2.drawString(message, 110, 50);
-		}
+			
 
    }
-
+}
     public void updatePlayer() {
-	paintImmediately(player.getXPos()-10, player.getYPos()-10,60,60); 
+	paintImmediately(player.getXPos()-10, player.getYPos()-10,100,100); 
     }
 
     public void loadMap(String name){
 	tiletypes = new ArrayList<Character>();
 	try {
-	    Scanner scanner = new Scanner(getClass().getResourceAsStream("/" + name));
-	    BufferedImage grassTile = ImageIO.read(getClass().getResource("grass.png"));
-	    BufferedImage bushTile = ImageIO.read(getClass().getResource("bush.png"));
+	   
+            String dir = "/resources/";
+	    String imagefile1 = "bush.png";
+	    String imagefile2 = "grass.png"; 
+	    URL url = (getClass().getResource(dir+name));	    
+
+	  if(GameGui.debug){  	
+	System.out.println("dir + name = " + (dir + name));
+	System.out.println("url = " + url);  }
+	    Scanner scanner = new Scanner(getClass().getResourceAsStream(dir+ name));
+	    
+	    BufferedImage grassTile = ImageIO.read(getClass().getResource("/resources/grass.png"));
+	    BufferedImage bushTile = ImageIO.read(getClass().getResource("/resources/bush.png"));
 	    tilesWidth = scanner.nextInt();
 	    tilesHeight = scanner.nextInt();
 	    String temp;
@@ -87,34 +107,66 @@ public class GameComponent extends JComponent
 				tiletypes.add('B');
 			}
 	    }
-	} catch (IOException e) {}
-	
+	    
+	} catch (IOException e) {
+		e.printStackTrace();}
+	    
     }
-    public void checkMove(int xTile, int yTile) {
-		if(xTile < 0 || xTile > 7 || yTile < 0 || yTile > 7)
+    	 
+	public void checkMove(int xTile, int yTile) {
+		//limits where the player can move (ie. can move out of the box)
+		if(xTile < 0 || xTile > 11 || yTile < 0 || yTile > 8)
 			player.setMovable(false);
+		//allows player to move after finding treasure
 		else if(!message.equals(""))
-			player.setMovable(false);
+			player.setMovable(true);
+		//allows player to move into bushes
 		else if(tiletypes.get(yTile*tilesWidth + xTile) == 'B')
-			player.setMovable(false);
+			player.setMovable(true);
 		else if(player.getXPos() != player.getXTile() * 50 || player.getYPos() != player.getYTile() * 50)
 			player.setMovable(false);
 		else
 			player.setMovable(true);
+		//if player finds treasure the string "Treasure Found is displayed"
 		if(xTile == treasure.getXTile() && yTile == treasure.getYTile()) {
-			winGame();
+			winGame(1);
 		}
+		else if(xTile == treasure1.getXTile() && yTile == treasure1.getYTile()) {
+			winGame(2);
+	}
+		else if(xTile == treasure2.getXTile() && yTile == treasure2.getYTile()) {
+			winGame(3);
+	}
     }
 
-	public void winGame() {
-		message = "TREASURE FOUND!";
+	public void winGame(int treasure_number) {
+		switch(treasure_number){
+			case 1:	
+				message = "TREASURE 1 FOUND!";
+				break;
+			case 2: 	
+				message = "TREASURE 2 FOUND!";
+				break;
+			case 3:
+				message = "TREASURE 3 FOUND!";
+				break;
+			}
+		
 	}
 
+//	public void winGame1(){
+//			message = "TREASURE 2 FOUND";
+	
+//		}
     public void loadPlayer(Player player, String name) {
 	if( name.equals("player"))
 	    this.player = player;
 	if( name.equals("treasure"))
 	    treasure = player;
+	if( name.equals("treasure1"))
+	    treasure1 = player;
+	if( name.equals("treasure2"))
+	    treasure2 = player;
     }
     
 }
