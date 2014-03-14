@@ -22,11 +22,14 @@ The project creates an instance of the game which allows the user to control a p
 In order to run the game you must do the following:
 1. type "ant run"  
 
-Once you start the game you the board will appear and your character will be at position 0,0 ![](http://i.imgur.com/TA9E8CG.png)
+Once you start the game you the board will appear and your character will be at position 0,0 
+![](http://i.imgur.com/TA9E8CG.png)
 
 There are 3 treasures on the map. The first one is located here. 
 ![](http://i.imgur.com/j9XEtBM.png)
 
-Treasure 2 is located here. ![](http://i.imgur.com/NlbbtiM.png)
+Treasure 2 is located here. 
+![](http://i.imgur.com/NlbbtiM.png)
 
-Treasure 3 is located here. ![](http://i.imgur.com/P1P8uKm.png)
+Treasure 3 is located here. 
+![](http://i.imgur.com/P1P8uKm.png)
