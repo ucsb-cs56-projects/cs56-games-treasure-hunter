@@ -1,6 +1,12 @@
 cs56-games-treasure-hunter
 ==========================
 
+project history
+===============
+```
+ W14 | jcneally 5pm | migueld37, menaiskander | Treasure Hunter Game
+```
+
 The project creates an instance of the game which allows the user to control a player in search of multiple pieces of treasure in a map made up of grass and bush tiles. The game is fully functional and allows the user to explore the map even after finding the multiple pieces of treasure.
 
 -GameComponent.java contains most of the important implementations of the game. Any problems with the player movement, loading of map and player or the actual paintComponent method are found in that file.
