@@ -9,7 +9,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 /**
-   A component that draws the Player  by Alex Wood
+   A component that draws the Player by Alex Wood
    
    @author Alex Wood
    @version for CS56, W12, UCSB, 2/16/2012
@@ -30,8 +30,8 @@ public class Player {
 	try {
 	    sprites = new ArrayList<BufferedImage>();
 	    for(int i = 0; i < numSprites; i++)
-		sprites.add(ImageIO.read(getClass().getResource(GameGui.resourcesDir + name + "/" + name + i + ".png")));
-	    this.xTile = xTile;
+			sprites.add(ImageIO.read(getClass().getResource(GameGui.resourcesDir + name + "/" + name + i + ".png")));
+	   	this.xTile = xTile;
 	    this.yTile = yTile;
 	    this.currentSprite = currentSprite;
 	    this.moveTo(xTile*50,yTile*50);
@@ -39,19 +39,19 @@ public class Player {
     }
 
     public void setSprite(int sprite) {
-	currentSprite = sprite;
+		currentSprite = sprite;
     }
     public int getXPos() {return xPos;}
     public int getXTile() {return xTile;}
     public int getYPos() {return yPos;}
     public int getYTile() {return yTile;}
     public void setTiles(int xTile,int yTile) {
-	this.xTile = xTile;
-	this.yTile = yTile;
+		this.xTile = xTile;
+		this.yTile = yTile;
     }
     public void moveTo(int xPos, int yPos) {
-	this.xPos = xPos;
-	this.yPos = yPos;
+		this.xPos = xPos;
+		this.yPos = yPos;
     }
 
     public boolean isMovable() {return movable;}

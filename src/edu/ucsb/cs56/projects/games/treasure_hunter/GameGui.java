@@ -8,10 +8,7 @@ import javax.swing.AbstractAction;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Event;
-/** A viewer class to see a picture I drew with 
- *  just three simple Java graphics objects, namely
- *  Rectangle, Line2D.Double, Ellipse2D.Double
- *  
+/** 
  * @author Alex Wood
  * @version for UCSB CS56, W12, 02/16/2012
  */
@@ -30,7 +27,7 @@ public class GameGui
    public static void main(String[] args)
    {
 	if(debug) { System.out.println("Starting main");}
-       GameGui gui = new GameGui();
+    GameGui gui = new GameGui();
       
 	if(debug) { System.out.println("In main calling gui.go()");}
 	gui.go();
@@ -42,10 +39,10 @@ public class GameGui
       // Set the size to whatever size you like (width, height)
       // For projects you turn in, lets not get any bigger than 640,480
       
-      frame.setSize(608,480); // @@@ MODIFY THIS LINE IF YOU LIKE
+      frame.setSize(608,480);
 
       // Set your own title
-      frame.setTitle("Treasure Hunter"); // @@@ MODIFY THIS LINE
+      frame.setTitle("Treasure Hunter");
       
       // Always do this so that the red X (or red circle) works
       // to close the window. 
@@ -73,9 +70,9 @@ public class GameGui
       component.repaint();
    }
     class MoveAction extends AbstractAction {
-	int startingSprite = 0;
-	int x = 0;
-	int y = 0;
+		int startingSprite = 0;
+		int x = 0;
+		int y = 0;
 	
     public MoveAction(int x, int y) {
 		if(x == -1)
@@ -106,7 +103,7 @@ public class GameGui
 		}
 		player.setTiles(player.getXTile() + x, player.getYTile()+y);
 	    }
-	    	component.validate();
+	    component.validate();
 		component.repaint();
 	}
 

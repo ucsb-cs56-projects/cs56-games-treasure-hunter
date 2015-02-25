@@ -22,9 +22,9 @@ public class PlayerTest
    
    @Test public void testConstructor()
     {
-        Player player = new Player(1,4,16,4,"player");
+    Player player = new Player(1,4,16,4,"player");
 	Player treasure = new Player(2,5,1,0,"treasure");
-        assertEquals(1,player.getXTile());
+    assertEquals(1,player.getXTile());
 	assertEquals(4,player.getYTile());
 	assertEquals(4,player.getCurrentSprite());
 
