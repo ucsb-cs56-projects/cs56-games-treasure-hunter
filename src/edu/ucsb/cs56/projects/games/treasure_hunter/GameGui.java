@@ -90,18 +90,18 @@ public class GameGui
 		player.setSprite(startingSprite);
 	    component.checkMove(player.getXTile() + x, player.getYTile() + y);
 	    if(player.isMovable()) {
-		player.setMovable(false);
-		for(int i = 0; i < 50; i++) {
-		    player.moveTo(player.getXPos() + x,player.getYPos()+y);
-		    if(x !=0 || y!=0)
-			player.setSprite(startingSprite+i/10);
-		    if(player.getCurrentSprite() >= startingSprite + 4 && (x != 0 || y != 0))
-			player.setSprite(startingSprite);
-		    component.updatePlayer();
-		    try{ Thread.sleep(10); }
-		    catch(Exception ex) {}
-		}
-		player.setTiles(player.getXTile() + x, player.getYTile()+y);
+			player.setMovable(false);
+			for(int i = 0; i < 50; i++) {
+			    player.moveTo(player.getXPos() + x,player.getYPos()+y);
+		  		if(x !=0 || y!=0)
+					player.setSprite(startingSprite+i/10);
+		   	 	if(player.getCurrentSprite() >= startingSprite + 4 && (x != 0 || y != 0))
+					player.setSprite(startingSprite);
+		    	component.updatePlayer();
+		    	try{ Thread.sleep(10); }
+		    	catch(Exception ex) {}
+			}
+			player.setTiles(player.getXTile() + x, player.getYTile()+y);
 	    }
 	    component.validate();
 		component.repaint();
@@ -113,10 +113,37 @@ public class GameGui
 
     public void addBindings() {
 
-	component.registerKeyboardAction(new MoveAction(0,-1), KeyStroke.getKeyStroke(KeyEvent.VK_UP,0), JComponent.WHEN_FOCUSED);
-	component.registerKeyboardAction(new MoveAction(0,1), KeyStroke.getKeyStroke(KeyEvent.VK_DOWN,0), JComponent.WHEN_FOCUSED);
-	component.registerKeyboardAction(new MoveAction(-1,0), KeyStroke.getKeyStroke(KeyEvent.VK_LEFT,0), JComponent.WHEN_FOCUSED);
-	component.registerKeyboardAction(new MoveAction(1,0), KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT,0), JComponent.WHEN_FOCUSED);
-	component.registerKeyboardAction(new MoveAction(0,0), KeyStroke.getKeyStroke(KeyEvent.VK_SPACE,0), JComponent.WHEN_FOCUSED);
+		component.getInputMap().put(KeyStroke.getKeyStroke("DOWN"),
+ 		                           "down pressed");
+		component.getInputMap().put(KeyStroke.getKeyStroke("released DOWN"),
+ 		                           "down released");
+		component.getActionMap().put("down pressed",
+        		                     new MoveAction(0,1));
+		component.getActionMap().put("down released",
+		                             new MoveAction(0,1));
+		component.getInputMap().put(KeyStroke.getKeyStroke("UP"),
+ 		                           "up pressed");
+		component.getInputMap().put(KeyStroke.getKeyStroke("released UP"),
+ 		                           "up released");
+		component.getActionMap().put("up pressed",
+		                             new MoveAction(0,-1));
+		component.getActionMap().put("up released",
+		                             new MoveAction(0,-1));
+		component.getInputMap().put(KeyStroke.getKeyStroke("LEFT"),
+		                            "left pressed");
+		component.getInputMap().put(KeyStroke.getKeyStroke("released LEFT"),
+		                            "left released");
+		component.getActionMap().put("left pressed",
+		                             new MoveAction(-1,0));
+		component.getActionMap().put("left released",
+ 		                            new MoveAction(-1,0));
+		component.getInputMap().put(KeyStroke.getKeyStroke("RIGHT"),
+ 		                           "right pressed");
+		component.getInputMap().put(KeyStroke.getKeyStroke("released RIGHT"),
+		                            "right released");
+		component.getActionMap().put("right pressed",
+ 		                            new MoveAction(1,0));
+		component.getActionMap().put("right released",
+                             new MoveAction(1,0));
     }
 }

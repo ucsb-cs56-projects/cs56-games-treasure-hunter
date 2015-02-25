@@ -63,13 +63,9 @@ public class GameComponent extends JComponent
 	   g.drawImage(player.getCurrentImage(), player.getXPos(), player.getYPos(),null);
        Graphics2D g2 = (Graphics2D) g;
 		if(!message.equals("")) {
-			g2.setColor(Color.WHITE);
-			g2.fill(new Rectangle(100,0,250,100));
 			g2.setFont(new Font(null,Font.BOLD, 20));
-			g2.setColor(Color.BLACK);
-			g2.drawString(message, 110, 50);
-			
-
+			g2.setColor(Color.RED);
+			g2.drawString(message, 175, 50);
    }
 }
     public void updatePlayer() {
