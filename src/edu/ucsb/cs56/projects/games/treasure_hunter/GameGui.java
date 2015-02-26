@@ -6,7 +6,7 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 
 /**
- * Main class for treasure hunter game by Alex Wood, improved upon for CS56 lab07 by Shayan Sadigh
+ * Main class for treasure hunter game by Alex Wood, improved upon for CS56 lab06 by Shayan Sadigh
  *
  * @author Alex Wood
  * @version for UCSB CS56, W12, 02/16/2012

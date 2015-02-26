@@ -1,6 +1,6 @@
 cs56-games-treasure-hunter
 ==========================
-A GUI game called Treasure-Hunter.
+A GUI game called Treasure-Hunter. Improved upon for CS56 Lab06 by Shayan Sadigh.
 README file updated by Mena Iskander & Miguel Delgado, CS56, W14, Proj1
 
 project history
@@ -9,7 +9,7 @@ project history
  W14 | jcneally 5pm | migueld37, menaiskander | Treasure Hunter Game
 ```
 
-=======
+=================
 # File Explanation
 =================
 

@@ -9,7 +9,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 /**
- * A component that draws the Player by Alex Wood, improved upon for CS56 lab07 by Shayan Sadigh
+ * A component that draws the Player by Alex Wood, improved upon for CS56 lab06 by Shayan Sadigh
  *
  * @author Alex Wood
  * @version for CS56, W12, UCSB, 2/16/2012

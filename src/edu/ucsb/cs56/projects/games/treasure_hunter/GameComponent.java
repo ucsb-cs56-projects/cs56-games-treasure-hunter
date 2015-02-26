@@ -13,7 +13,7 @@ import java.io.*;
 import java.util.Scanner;
 
 /**
- * A component that draws a map by Alex Wood, improved upon for CS56 lab07 by Shayan Sadigh
+ * A component that draws a map by Alex Wood, improved upon for CS56 lab06 by Shayan Sadigh
  *
  * @author Alex Wood
  * @version for CS56, W12, UCSB, 2/16/2012
