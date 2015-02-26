@@ -58,9 +58,12 @@ public class GameComponent extends JComponent {
         g.drawImage(player.getCurrentImage(), player.getXPos(), player.getYPos(), null);
         Graphics2D g2 = (Graphics2D) g;
         if (!message.equals("")) {
+            Color transWhite = new Color(0, 0, 0, 128 );
+            g2.setColor(transWhite);
+            g2.fillRect(170, 25, 220, 30);
             g2.setFont(new Font(null, Font.BOLD, 20));
             g2.setColor(Color.RED);
-            g2.drawString(message, 175, 50);
+            g2.drawString(message, 177, 47);
         }
     }
 
@@ -72,8 +75,6 @@ public class GameComponent extends JComponent {
         tileTypes = new ArrayList<Character>();
         try {
             String dir = "/resources/";
-            String imagefile1 = "bush.png";
-            String imagefile2 = "grass.png";
             URL url = (getClass().getResource(dir + name));
 
             if (GameGui.debug) {
@@ -82,8 +83,8 @@ public class GameComponent extends JComponent {
             }
 
             Scanner scanner = new Scanner(getClass().getResourceAsStream(dir + name));
-            BufferedImage grassTile = ImageIO.read(getClass().getResource("/resources/grass.png"));
-            BufferedImage bushTile = ImageIO.read(getClass().getResource("/resources/bush.png"));
+            BufferedImage grassTile = ImageIO.read(getClass().getResource(dir + "grass.png"));
+            BufferedImage bushTile = ImageIO.read(getClass().getResource(dir + "bush.png"));
             tilesWidth = scanner.nextInt();
             tilesHeight = scanner.nextInt();
             String temp;
@@ -145,10 +146,6 @@ public class GameComponent extends JComponent {
 
     }
 
-//	public void winGame1(){
-//			message = "TREASURE 2 FOUND";
-
-    //		}
     public void loadPlayer(Player player, String name) {
         if (name.equals("player"))
             this.player = player;
