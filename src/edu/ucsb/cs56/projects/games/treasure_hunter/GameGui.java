@@ -119,35 +119,35 @@ public class GameGui {
 
         component.getInputMap().put(KeyStroke.getKeyStroke("DOWN"),
                 "down pressed");
-        component.getInputMap().put(KeyStroke.getKeyStroke("released DOWN"),
-                "down released");
+      //  component.getInputMap().put(KeyStroke.getKeyStroke("released DOWN"),
+      //          "down released");
         component.getActionMap().put("down pressed",
                 new MoveAction(0, 1));
-        component.getActionMap().put("down released",
-                new MoveAction(0, 1));
+       // component.getActionMap().put("down released",
+       //         new MoveAction(0, 1));
         component.getInputMap().put(KeyStroke.getKeyStroke("UP"),
                 "up pressed");
-        component.getInputMap().put(KeyStroke.getKeyStroke("released UP"),
-                "up released");
+        //component.getInputMap().put(KeyStroke.getKeyStroke("released UP"),
+        //        "up released");
         component.getActionMap().put("up pressed",
                 new MoveAction(0, -1));
-        component.getActionMap().put("up released",
-                new MoveAction(0, -1));
+        //component.getActionMap().put("up released",
+        //        new MoveAction(0, -1));
         component.getInputMap().put(KeyStroke.getKeyStroke("LEFT"),
                 "left pressed");
-        component.getInputMap().put(KeyStroke.getKeyStroke("released LEFT"),
-                "left released");
+        //component.getInputMap().put(KeyStroke.getKeyStroke("released LEFT"),
+        //        "left released");
         component.getActionMap().put("left pressed",
                 new MoveAction(-1, 0));
-        component.getActionMap().put("left released",
-                new MoveAction(-1, 0));
+        //component.getActionMap().put("left released",
+        //        new MoveAction(-1, 0));
         component.getInputMap().put(KeyStroke.getKeyStroke("RIGHT"),
                 "right pressed");
-        component.getInputMap().put(KeyStroke.getKeyStroke("released RIGHT"),
-                "right released");
+        //component.getInputMap().put(KeyStroke.getKeyStroke("released RIGHT"),
+        //        "right released");
         component.getActionMap().put("right pressed",
                 new MoveAction(1, 0));
-        component.getActionMap().put("right released",
-                new MoveAction(1, 0));
+        //component.getActionMap().put("right released",
+        //        new MoveAction(1, 0));
     }
 }
