@@ -60,10 +60,10 @@ public class GameComponent extends JComponent {
         if (!message.equals("")) {
             Color transBlack = new Color(0, 0, 0, 128 );
             g2.setColor(transBlack);
-            g2.fillRect(170, 25, 250, 30);
-            g2.setFont(new Font(null, Font.BOLD, 20));
+            g2.fillRect(185, 25, 220, 30);
+            g2.setFont(new Font("Arial", Font.BOLD, 20));
             g2.setColor(Color.RED);
-            g2.drawString(message, 177, 47);
+            g2.drawString(message, 192, 47);
         }
     }
 
