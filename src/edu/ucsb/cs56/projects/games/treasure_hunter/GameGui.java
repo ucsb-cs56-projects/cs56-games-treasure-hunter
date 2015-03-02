@@ -6,7 +6,7 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 
 /**
- * Main class for treasure hunter game by Alex Wood, improved upon for CS56 lab06 by Shayan Sadigh
+ * Main class for treasure hunter game by Alex Wood, edited for CS56 lab06/lab07 by Shayan Sadigh
  *
  * @author Alex Wood
  * @version for UCSB CS56, W12, 02/16/2012
@@ -18,6 +18,7 @@ public class GameGui {
     Player treasure1;
     Player treasure2;
     GameComponent component;
+    private boolean moving = false;
 
     public static boolean debug = false;
     public static final String resourcesDir = "/resources/";
@@ -104,6 +105,7 @@ public class GameGui {
                     try {
                         Thread.sleep(10);
                     } catch (Exception ex) {
+                        ex.printStackTrace();
                     }
                 }
                 player.setTiles(player.getXTile() + x, player.getYTile() + y);
@@ -116,38 +118,21 @@ public class GameGui {
 
 
     public void addBindings() {
-
-        component.getInputMap().put(KeyStroke.getKeyStroke("DOWN"),
-                "down pressed");
-      //  component.getInputMap().put(KeyStroke.getKeyStroke("released DOWN"),
-      //          "down released");
-        component.getActionMap().put("down pressed",
+        component.getInputMap().put(KeyStroke.getKeyStroke("released DOWN"),
+                "down released");
+        component.getActionMap().put("down released",
                 new MoveAction(0, 1));
-       // component.getActionMap().put("down released",
-       //         new MoveAction(0, 1));
-        component.getInputMap().put(KeyStroke.getKeyStroke("UP"),
-                "up pressed");
-        //component.getInputMap().put(KeyStroke.getKeyStroke("released UP"),
-        //        "up released");
-        component.getActionMap().put("up pressed",
+        component.getInputMap().put(KeyStroke.getKeyStroke("released UP"),
+                "up released");
+        component.getActionMap().put("up released",
                 new MoveAction(0, -1));
-        //component.getActionMap().put("up released",
-        //        new MoveAction(0, -1));
-        component.getInputMap().put(KeyStroke.getKeyStroke("LEFT"),
-                "left pressed");
-        //component.getInputMap().put(KeyStroke.getKeyStroke("released LEFT"),
-        //        "left released");
-        component.getActionMap().put("left pressed",
+        component.getInputMap().put(KeyStroke.getKeyStroke("released LEFT"),
+                "left released");
+        component.getActionMap().put("left released",
                 new MoveAction(-1, 0));
-        //component.getActionMap().put("left released",
-        //        new MoveAction(-1, 0));
-        component.getInputMap().put(KeyStroke.getKeyStroke("RIGHT"),
-                "right pressed");
-        //component.getInputMap().put(KeyStroke.getKeyStroke("released RIGHT"),
-        //        "right released");
-        component.getActionMap().put("right pressed",
+        component.getInputMap().put(KeyStroke.getKeyStroke("released RIGHT"),
+                "right released");
+        component.getActionMap().put("right released",
                 new MoveAction(1, 0));
-        //component.getActionMap().put("right released",
-        //        new MoveAction(1, 0));
     }
 }

@@ -13,7 +13,7 @@ import java.io.*;
 import java.util.Scanner;
 
 /**
- * A component that draws a map by Alex Wood, improved upon for CS56 lab06 by Shayan Sadigh
+ * A component that draws a map by Alex Wood, edited for CS56 lab06/lab07 by Shayan Sadigh
  *
  * @author Alex Wood
  * @version for CS56, W12, UCSB, 2/16/2012
@@ -38,7 +38,6 @@ public class GameComponent extends JComponent {
     private ArrayList<BufferedImage> tiles;
     private ArrayList<Character> tileTypes;
     static protected String message = "";
-    private BufferedImage messageBox;
     private int tilesWidth;
     private int tilesHeight;
     messageRunnable mThread = new messageRunnable();

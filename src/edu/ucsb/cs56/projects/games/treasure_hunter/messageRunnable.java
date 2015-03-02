@@ -1,7 +1,11 @@
 package edu.ucsb.cs56.projects.games.treasure_hunter;
 
 /**
- * Created by Shayan on 3/1/2015.
+ * This is the message thread GameComponent uses. Whenever the GameComponent.message string is not empty,
+ * the message will appear on screen. Created for CS56 Lab07, W15.
+ *
+ * @author Shayan Sadgh
+ * @version for CS56, W15, UCSB, 3/1/2015
  */
 public class messageRunnable implements Runnable{
 
@@ -13,7 +17,7 @@ public class messageRunnable implements Runnable{
         messageThread.start();
     }
     public void run() {
-        winGame(value);
+        foundTreasure(value);
         try{
             Thread.sleep(3500);
         }
@@ -22,7 +26,7 @@ public class messageRunnable implements Runnable{
         }
         GameComponent.message = "";
     }
-    public void winGame(int treasure_number) {
+    public void foundTreasure(int treasure_number) {
         switch (treasure_number) {
             case 1:
                 GameComponent.message = "TREASURE 1 FOUND!";
