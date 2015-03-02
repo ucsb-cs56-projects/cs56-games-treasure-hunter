@@ -8,8 +8,7 @@ project history
 ```
  W14 | jcneally 5pm | migueld37, menaiskander | Treasure Hunter Game
 ```
-
-=======
+=================
 # File Explanation
 =================
 
