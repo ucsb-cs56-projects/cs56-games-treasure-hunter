@@ -37,10 +37,11 @@ public class GameComponent extends JComponent {
     Player treasure2;
     private ArrayList<BufferedImage> tiles;
     private ArrayList<Character> tileTypes;
-    private String message = "";
+    static protected String message = "";
     private BufferedImage messageBox;
     private int tilesWidth;
     private int tilesHeight;
+    messageRunnable mThread = new messageRunnable();
 
 //    public GameComponent(){
 //	this.loadMap("map.txt");
@@ -123,27 +124,12 @@ public class GameComponent extends JComponent {
             player.setMovable(true);
         //if player finds treasure the string "Treasure Found is displayed"
         if (xTile == treasure.getXTile() && yTile == treasure.getYTile()) {
-            winGame(1);
+            mThread.startThread(1);
         } else if (xTile == treasure1.getXTile() && yTile == treasure1.getYTile()) {
-            winGame(2);
+            mThread.startThread(2);
         } else if (xTile == treasure2.getXTile() && yTile == treasure2.getYTile()) {
-            winGame(3);
+            mThread.startThread(3);
         }
-    }
-
-    public void winGame(int treasure_number) {
-        switch (treasure_number) {
-            case 1:
-                message = "TREASURE 1 FOUND!";
-                break;
-            case 2:
-                message = "TREASURE 2 FOUND!";
-                break;
-            case 3:
-                message = "TREASURE 3 FOUND!";
-                break;
-        }
-
     }
 
     public void loadPlayer(Player player, String name) {
