@@ -42,11 +42,6 @@ public class GameComponent extends JComponent {
     private int tilesHeight;
     messageRunnable mThread = new messageRunnable();
 
-//    public GameComponent(){
-//	this.loadMap("map.txt");
-
-//	}   
-
     public void paintComponent(Graphics g) {
         for (int i = 0; i < tilesHeight; i++) {
             for (int j = 0; j < tilesWidth; j++) {
@@ -54,7 +49,6 @@ public class GameComponent extends JComponent {
             }
         }
         g.drawImage(treasure.getCurrentImage(), treasure.getXPos(), treasure.getYPos(), null);
-        //  g.drawImage(treasure2.getCurrentImage(), treasure2.getXPos(), treasure2.getYPos(), null);
         g.drawImage(player.getCurrentImage(), player.getXPos(), player.getYPos(), null);
         Graphics2D g2 = (Graphics2D) g;
         if (!message.equals("")) {
