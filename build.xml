@@ -1,78 +1,79 @@
 <project default="compile">
-  <!-- build.xml for github.com/UCSB-CS56-Projects/cs56-games-treasure-hunter
-       original author: Alex Wood W12
-       name: Mena Iskander & Miguel Delgado W14 -->
+    <!-- build.xml for github.com/UCSB-CS56-Projects/cs56-games-treasure-hunter
+         original author: Alex Wood W12
+         name: Mena Iskander & Miguel Delgado W14 -->
 
-  <property environment="env"/> <!-- load the environment variables --> 
-  <property name="webRoot" value="${env.HOME}/public_html/cs56" />
-  <property name="webBaseURL" value="http://www.cs.ucsb.edu/~${env.USER}/cs56/" />
-  <property name="projectName" value="treasure-hunter" /> 
-  <property name="javadocDest" value="${webRoot}/${projectName}/javadoc" /> 
-  <property name="javadocURL" value="${webBaseURL}/${projectName}/javadoc" /> 
-    <property name="jwsDest" value="${webRoot}/${projectName}/jws" /> 
-    <property name="jwsURL" value="${webBaseUrl}/${projectName}/jws" />
-  <property name="mainClass" value="edu.ucsb.cs56.projects.games.treasure_hunter.GameGui"/>
-
-  
-	<target name="compile" description="compile my code">
-    <mkdir dir ="build" />
-    <javac debug="true" debuglevel="lines,source" srcdir="src" destdir="build" includeantruntime="false" >
-    <classpath>                                                                   
-         <pathelement location="build"/>                              
-         <pathelement location="lib/junit-4.8.2.jar"/>            
-     </classpath>
-    </javac>
-	<copy todir="build/resources">
-	  <fileset dir="src/resources" includes="*.*"/>
-	</copy>
-  </target>
+    <property environment="env"/>
+    <!-- load the environment variables -->
+    <property name="webRoot" value="${env.HOME}/public_html/cs56"/>
+    <property name="webBaseURL" value="http://www.cs.ucsb.edu/~${env.USER}/cs56/"/>
+    <property name="projectName" value="treasure-hunter"/>
+    <property name="javadocDest" value="${webRoot}/${projectName}/javadoc"/>
+    <property name="javadocURL" value="${webBaseURL}/${projectName}/javadoc"/>
+    <property name="jwsDest" value="${webRoot}/${projectName}/jws"/>
+    <property name="jwsURL" value="${webBaseUrl}/${projectName}/jws"/>
+    <property name="mainClass" value="edu.ucsb.cs56.projects.games.treasure_hunter.GameGui"/>
 
 
-  <target name="run" depends="compile" description="Run treasure hunter game">
-    <java classname="${mainClass}" classpath="build" fork="true" />
-  </target>
+    <target name="compile" description="compile my code">
+        <mkdir dir="build"/>
+        <javac debug="true" debuglevel="lines,source" srcdir="src" destdir="build" includeantruntime="false">
+            <classpath>
+                <pathelement location="build"/>
+                <pathelement location="lib/junit-4.8.2.jar"/>
+            </classpath>
+        </javac>
+        <copy todir="build/resources">
+            <fileset dir="src/resources" includes="**"/>
+        </copy>
+    </target>
 
 
-  <target name="clean" description="delete unnecessary files and directories">
-    <delete dir="build" quiet="true" />  
-    <delete dir="javadoc" quiet="true" />    
-  </target>
+    <target name="run" depends="compile" description="Run treasure hunter game">
+        <java classname="${mainClass}" classpath="build" fork="true"/>
+    </target>
 
 
-  <target name="javadoc" depends="compile">                                                                                  
-   <delete dir="javadoc" quiet="true" />                                                          
-   <javadoc  destdir="javadoc" author="true" version="true" use="true" >                          
-      <fileset dir="src" includes="**/*.java"/>                                                     
-      <classpath>                                                                                 
-          <pathelement location="lib/junit-4.8.2.jar"/>      
-     </classpath>                                                                                 
-   </javadoc>                                                                                                          
-   <!-- delete the old javadoc -->                                                                
-   
-   <!-- copy everything you just made to the javadoc destination, and then make it readable -->   
-   <copy todir="${javadocDest}" >                                                                 
-     <fileset dir="javadoc"/>                                                                     
-   </copy>                                                                                                                                                          
-   <chmod dir="${javadocDest}" perm="755"  type="dir" includes="**" />                            
-   <chmod dir="${javadocDest}" perm="755"  type="file" includes="**/*" />                         
-   <echo>Javadoc deployed to ${javadocURL}</echo>                                                                      
- </target>  
+    <target name="clean" description="delete unnecessary files and directories">
+        <delete dir="build" quiet="true"/>
+        <delete dir="javadoc" quiet="true"/>
+    </target>
 
 
- <target name="test" depends="compile">
-    <junit haltonerror="no" haltonfailure="no">
-       <classpath>
-         <pathelement location="/cs/faculty/pconrad/public_html/cs56/lib/junit-4.8.2.jar"/>
-         <pathelement location="build"/>
-       </classpath>
-       <batchtest fork="yes">
-          <fileset dir="src">
-            <!-- this will pick up every class with a name ending in Test -->
-            <include name="**/*Test.java"/>
-          </fileset>
-       </batchtest>
-        <formatter type="plain" usefile="false" /> 
-    </junit>
-  </target>
+    <target name="javadoc" depends="compile">
+        <delete dir="javadoc" quiet="true"/>
+        <javadoc destdir="javadoc" author="true" version="true" use="true">
+            <fileset dir="src" includes="**/*.java"/>
+            <classpath>
+                <pathelement location="lib/junit-4.8.2.jar"/>
+            </classpath>
+        </javadoc>
+        <!-- delete the old javadoc -->
+
+        <!-- copy everything you just made to the javadoc destination, and then make it readable -->
+        <copy todir="${javadocDest}">
+            <fileset dir="javadoc"/>
+        </copy>
+        <chmod dir="${javadocDest}" perm="755" type="dir" includes="**"/>
+        <chmod dir="${javadocDest}" perm="755" type="file" includes="**/*"/>
+        <echo>Javadoc deployed to ${javadocURL}</echo>
+    </target>
+
+
+    <target name="test" depends="compile">
+        <junit haltonerror="no" haltonfailure="no">
+            <classpath>
+                <pathelement location="/cs/faculty/pconrad/public_html/cs56/lib/junit-4.8.2.jar"/>
+                <pathelement location="build"/>
+            </classpath>
+            <batchtest fork="yes">
+                <fileset dir="src">
+                    <!-- this will pick up every class with a name ending in Test -->
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+            <formatter type="plain" usefile="false"/>
+        </junit>
+    </target>
 
 </project>

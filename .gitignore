@@ -1,0 +1,5 @@
+*~ # emacs back up files
+.idea/
+*.iml
+*.class
+build/
