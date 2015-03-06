@@ -93,6 +93,7 @@ public class GameComponent extends JComponent {
                     tileTypes.add('B');
                 }
             }
+            scanner.close();
 
         } catch (IOException e) {
             e.printStackTrace();
