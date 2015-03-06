@@ -24,7 +24,7 @@
             </classpath>
         </javac>
         <copy todir="build/resources">
-            <fileset dir="src/resources" includes="*.*"/>
+            <fileset dir="src/resources" includes="**"/>
         </copy>
     </target>
 
