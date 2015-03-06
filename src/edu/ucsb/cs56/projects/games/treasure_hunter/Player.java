@@ -35,6 +35,7 @@ public class Player {
             this.currentSprite = currentSprite;
             this.moveTo(xTile * 50, yTile * 50);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
