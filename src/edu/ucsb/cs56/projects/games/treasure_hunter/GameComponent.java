@@ -68,17 +68,16 @@ public class GameComponent extends JComponent {
     public void loadMap(String name) {
         tileTypes = new ArrayList<Character>();
         try {
-            String dir = "/resources/";
-            URL url = (getClass().getResource(dir + name));
+            URL url = (getClass().getResource(GameGui.resourcesDir + name));
 
             if (GameGui.debug) {
-                System.out.println("dir + name = " + (dir + name));
+                System.out.println("dir + name = " + (GameGui.resourcesDir + name));
                 System.out.println("url = " + url);
             }
 
-            Scanner scanner = new Scanner(getClass().getResourceAsStream(dir + name));
-            BufferedImage grassTile = ImageIO.read(getClass().getResource(dir + "grass.png"));
-            BufferedImage bushTile = ImageIO.read(getClass().getResource(dir + "bush.png"));
+            Scanner scanner = new Scanner(getClass().getResourceAsStream(GameGui.resourcesDir + name));
+            BufferedImage grassTile = ImageIO.read(getClass().getResource(GameGui.resourcesDir + "grass.png"));
+            BufferedImage bushTile = ImageIO.read(getClass().getResource(GameGui.resourcesDir + "bush.png"));
             tilesWidth = scanner.nextInt();
             tilesHeight = scanner.nextInt();
             String temp;
