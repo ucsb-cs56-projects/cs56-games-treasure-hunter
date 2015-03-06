@@ -3,10 +3,6 @@ package edu.ucsb.cs56.projects.games.treasure_hunter;
 import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-import java.io.File;
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.Toolkit;
 
 /**
  * A component that draws the Player by Alex Wood, edited for CS56 lab06/lab07 by Shayan Sadigh
