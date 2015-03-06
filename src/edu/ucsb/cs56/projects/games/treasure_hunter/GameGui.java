@@ -18,7 +18,6 @@ public class GameGui {
     Player treasure1;
     Player treasure2;
     GameComponent component;
-    private boolean moving = false;
 
     public static boolean debug = false;
     public static final String resourcesDir = "/resources/";
