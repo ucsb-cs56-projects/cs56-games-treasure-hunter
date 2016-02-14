@@ -63,7 +63,7 @@ public class GameComponent extends JComponent
 	   g.drawImage(player.getCurrentImage(), player.getXPos(), player.getYPos(),null);
        Graphics2D g2 = (Graphics2D) g;
 		if(!message.equals("")) {
-			g2.setColor(Color.WHITE);
+		    g2.setColor(new Color(1f,0f,0f,.5f));
 			g2.fill(new Rectangle(100,0,250,100));
 			g2.setFont(new Font(null,Font.BOLD, 20));
 			g2.setColor(Color.BLACK);
@@ -75,6 +75,8 @@ public class GameComponent extends JComponent
     public void updatePlayer() {
 	paintImmediately(player.getXPos()-10, player.getYPos()-10,100,100); 
     }
+
+    
 
     public void loadMap(String name){
 	tiletypes = new ArrayList<Character>();
@@ -130,12 +132,19 @@ public class GameComponent extends JComponent
 		//if player finds treasure the string "Treasure Found is displayed"
 		if(xTile == treasure.getXTile() && yTile == treasure.getYTile()) {
 			winGame(1);
+			//display treasureFound image
+			//	displayTresureFoundImage();
+			
 		}
 		else if(xTile == treasure1.getXTile() && yTile == treasure1.getYTile()) {
 			winGame(2);
+			//display treasureFound image
+			//	displayTresureFoundImage();
 	}
 		else if(xTile == treasure2.getXTile() && yTile == treasure2.getYTile()) {
 			winGame(3);
+			//display treasureFound image
+			//	displayTresureFoundImage();
 	}
     }
 
@@ -143,17 +152,30 @@ public class GameComponent extends JComponent
 		switch(treasure_number){
 			case 1:	
 				message = "TREASURE 1 FOUND!";
+				
+				
 				break;
 			case 2: 	
 				message = "TREASURE 2 FOUND!";
+				
+
 				break;
 			case 3:
 				message = "TREASURE 3 FOUND!";
+				
 				break;
+		       
 			}
 		
 	}
 
+    // public void displayTreasureFoundImage(){
+    //	BufferedImage treasureFoundTile = ImageIO.read(getClass().getResource("/resources/treasureFound.png"));
+	//some method that takes in an object and coordinates
+	
+
+    //    }
+    
 //	public void winGame1(){
 //			message = "TREASURE 2 FOUND";
 	
