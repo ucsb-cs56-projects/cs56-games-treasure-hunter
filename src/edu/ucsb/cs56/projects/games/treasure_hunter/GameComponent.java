@@ -68,10 +68,14 @@ public class GameComponent extends JComponent
 			g2.setFont(new Font(null,Font.BOLD, 20));
 			g2.setColor(Color.BLACK);
 			g2.drawString(message, 110, 50);
+			//Thread.sleep(2000);
+			// message.equals("");
 			
+		}
+		
 
    }
-}
+
     public void updatePlayer() {
 	paintImmediately(player.getXPos()-10, player.getYPos()-10,100,100); 
     }
@@ -132,54 +136,21 @@ public class GameComponent extends JComponent
 		//if player finds treasure the string "Treasure Found is displayed"
 		if(xTile == treasure.getXTile() && yTile == treasure.getYTile()) {
 			winGame(1);
-			//display treasureFound image
-			//	displayTresureFoundImage();
-			
 		}
 		else if(xTile == treasure1.getXTile() && yTile == treasure1.getYTile()) {
 			winGame(2);
-			//display treasureFound image
-			//	displayTresureFoundImage();
-	}
+			
+		}
 		else if(xTile == treasure2.getXTile() && yTile == treasure2.getYTile()) {
-			winGame(3);
-			//display treasureFound image
-			//	displayTresureFoundImage();
-	}
+			winGame(3);	
+		}
     }
 
 	public void winGame(int treasure_number) {
-		switch(treasure_number){
-			case 1:	
-				message = "TREASURE 1 FOUND!";
-				
-				
-				break;
-			case 2: 	
-				message = "TREASURE 2 FOUND!";
-				
+	    message = "TREASURE " + treasure_number + " FOUND!";
 
-				break;
-			case 3:
-				message = "TREASURE 3 FOUND!";
-				
-				break;
-		       
-			}
-		
 	}
-
-    // public void displayTreasureFoundImage(){
-    //	BufferedImage treasureFoundTile = ImageIO.read(getClass().getResource("/resources/treasureFound.png"));
-	//some method that takes in an object and coordinates
 	
-
-    //    }
-    
-//	public void winGame1(){
-//			message = "TREASURE 2 FOUND";
-	
-//		}
     public void loadPlayer(Player player, String name) {
 	if( name.equals("player"))
 	    this.player = player;

@@ -2,18 +2,19 @@ package edu.ucsb.cs56.projects.games.treasure_hunter;
 
 import javax.swing.JFrame;
 import javax.swing.JComponent;
-import javax.swing.InputMap;
+//import javax.swing.InputMap;
 import javax.swing.KeyStroke;
 import javax.swing.AbstractAction;
-import java.awt.event.KeyEvent;
+//import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
-import java.awt.Event;
-import java.lang.Math;
+//import java.awt.Event;
+//import java.lang.Math;
 
 /** 
  *  
- * @author Alex Wood
- * @version for UCSB CS56, W12, 02/16/2012
+ * @author Alex Wood (UCSB CS56. W12. 02/16/2012)
+ * @author Danielle Dodd and George Lieu
+ * @version for UCSB CS56, W16, 02/18/2016
  */
 
 public class GameGui
@@ -39,20 +40,14 @@ public class GameGui
     public void go() {
 	JFrame frame = new JFrame();
 	
-	// Set the size to whatever size you like (width, height)
-	// For projects you turn in, lets not get any bigger than 640,480
+	// Set the name and frame size (no bigger than 640,480) 
+	frame.setSize(608,480);
+	frame.setTitle("Treasure Hunter"); 
 	
-	frame.setSize(608,480); // @@@ MODIFY THIS LINE IF YOU LIKE
-	
-	// Set your own title
-	frame.setTitle("Treasure Hunter"); // @@@ MODIFY THIS LINE
-	
-	// Always do this so that the red X (or red circle) works
-	// to close the window. 
-	
+	// Allows for game window to be closed
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
-	// Instantiate your drawing as a "component"
+	// Randomly places 3 treasures on game map
 	player = new Player(0,0,16,8,"player");
 
 	int treasure1X = (int)(Math.random()*12);
@@ -75,8 +70,7 @@ public class GameGui
 	    treasure3Y = (int)(Math.random()*9);
 	}
 	
-	
-	
+	// creates game components (player + treasures) 
 	treasure = new Player(treasure1X,treasure1Y,1,0,"treasure");
 	treasure1 = new Player(treasure2X,treasure2Y,1,0,"treasure");
 	treasure2 = new Player(treasure3X,treasure3Y,1,0,"treasure"); 
@@ -87,9 +81,8 @@ public class GameGui
 	component.loadPlayer(treasure,"treasure");
 	component.loadMap("map.txt");
 	addBindings();
-	// Always add your component to the frame 
-	// and then make the window visible
 	
+	// adds game components and makes the window visible 
 	frame.add(component);
 	frame.setVisible(true);
 	component.validate();
@@ -140,7 +133,7 @@ public class GameGui
     
     
     public void addBindings() {
-	//http://stackoverflow.com/questions/11171021/java-use-keystroke-with-arrow-key
+        // https://docs.oracle.com/javase/7/docs/api/javax/swing/KeyStroke.html
 	component.registerKeyboardAction(new MoveAction(0,1), KeyStroke.getKeyStroke("DOWN"), JComponent.WHEN_FOCUSED);
 	component.registerKeyboardAction(new MoveAction(0,-1), KeyStroke.getKeyStroke("UP"), JComponent.WHEN_FOCUSED);
 	component.registerKeyboardAction(new MoveAction(-1,0), KeyStroke.getKeyStroke("LEFT"), JComponent.WHEN_FOCUSED);
