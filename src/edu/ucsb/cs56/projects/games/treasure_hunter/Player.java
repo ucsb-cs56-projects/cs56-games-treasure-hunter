@@ -3,10 +3,6 @@ package edu.ucsb.cs56.projects.games.treasure_hunter;
 import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-//import java.io.File;
-//import java.awt.Color;
-//import java.awt.Image;
-//import java.awt.Toolkit;
 
 /**
    A component that draws the Player  by Alex Wood
@@ -36,7 +32,6 @@ public class Player {
 	    for(int i = 0; i < numSprites; i++)
 	    	sprites.add(ImageIO.read(getClass().getResource(GameGui.resourcesDir + name
 								+ "/" + name + i + ".png")));
-	    
 	    
 	    this.xTile = xTile;
 	    this.yTile = yTile;

@@ -3,7 +3,6 @@ package edu.ucsb.cs56.projects.games.treasure_hunter;
 import java.net.URL;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import javax.swing.JPanel;
 import javax.swing.JComponent;
 import java.awt.Font;
 import java.awt.Rectangle;
@@ -13,87 +12,86 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.*;
 import java.util.Scanner;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
+
 /**
-   A component that draws a map by Alex Wood
+   A component that draws the map for the treasure hunter game by Alex Wood
+   Edited by Danielle Dodd and George Lieu
    
-   @author Alex Wood
-   @version for CS56, W12, UCSB, 2/16/2012
+   @author Alex Wood (for CS56, W12, UCSB, 2/16/2012)
+   @author Danielle Dodd and George Lieu
+   @version for CS56, W16, UCSB, 2/18/2016 
    
 */
 
 
 public class GameComponent extends JComponent
 {  
-
-    /** The paintComponent method is always required if you want
-     * any graphics to appear in your JComponent.    
-     * 
-     * There is a paintComponent
-     * method that is created for you in the JComponent class, but it
-     * doesn't do what we want, so we have to "override" that method with
-     * our own method.  
-     */
+    
+    
     Player player;
     Player treasure;
     Player treasure1;
     Player treasure2;
     private ArrayList<BufferedImage> tiles;
     private ArrayList<Character> tiletypes;
-	private String message = "";
-	private BufferedImage messageBox;
+    private String message = "";
+    private String treasureFound ="Not yet";
     private int tilesWidth;
     private int tilesHeight;
     
-//    public GameComponent(){
-//	this.loadMap("map.txt");
-		
-//	}   
 
+    /*
+      paintComponent: It draws all of the tiles on the map. Also loads the player sprite. 
+      When player find the treasure, the message variable value changes and the "TREASURE # FOUND" message box is drawn onto the screen. 
+      
+    */
     public void paintComponent(Graphics g)   
-  {  		
-	for(int i = 0; i < tilesHeight; i++) {
-	       for(int j = 0; j< tilesWidth; j++) {
-		   g.drawImage(tiles.get(tilesWidth*i + j), j*50, i*50, null);
-	       }
-	    }
-	   g.drawImage(treasure.getCurrentImage(), treasure.getXPos(), treasure.getYPos(),null);
-	 //  g.drawImage(treasure2.getCurrentImage(), treasure2.getXPos(), treasure2.getYPos(), null);
-	   g.drawImage(player.getCurrentImage(), player.getXPos(), player.getYPos(),null);
-       Graphics2D g2 = (Graphics2D) g;
-		if(!message.equals("")) {
-		    g2.setColor(new Color(1f,0f,0f,.5f));
-			g2.fill(new Rectangle(100,0,250,100));
-			g2.setFont(new Font(null,Font.BOLD, 20));
-			g2.setColor(Color.BLACK);
-			g2.drawString(message, 110, 50);
-			//Thread.sleep(2000);
-			// message.equals("");
-			
-		}
-		
+    {
 
-   }
+	for(int i = 0; i < tilesHeight; i++) {
+	   for(int j = 0; j< tilesWidth; j++) {
+		g.drawImage(tiles.get(tilesWidth*i + j), j*50, i*50, null);
+	    }
+	}
+	//g.drawImage(treasure.getCurrentImage(), treasure.getXPos(), treasure.getYPos(),null);
+	//g.drawImage(treasure1.getCurrentImage(), treasure1.getXPos(), treasure1.getYPos(), null);
+	//g.drawImage(treasure2.getCurrentImage(), treasure2.getXPos(), treasure2.getYPos(), null);
+	g.drawImage(player.getCurrentImage(), player.getXPos(), player.getYPos(),null);
+	Graphics2D g2 = (Graphics2D) g;
+	if(!message.equals("")) {
+	    g2.setColor(new Color(1f,0f,0f,.5f));
+	    g2.fill(new Rectangle(100,0,250,100));
+	    g2.setFont(new Font(null,Font.BOLD, 20));
+	    g2.setColor(Color.BLACK);
+	    g2.drawString(message, 110, 50);
+	}
+	
+    }
+
+    /* Draws the player sprite onto a new tile */
 
     public void updatePlayer() {
 	paintImmediately(player.getXPos()-10, player.getYPos()-10,100,100); 
     }
 
-    
-
+    /* 
+       loadMap first reads in the png files of the appropriate tile. 
+       It scans the text file map.txt and loads the appropriate png image into the instance variable tiles. 
+       Tiles is later used  by paintComponent to actually make the tiles appear. 
+     */
+        
     public void loadMap(String name){
 	tiletypes = new ArrayList<Character>();
 	try {
-	   
+	    
             String dir = "/resources/";
 	    String imagefile1 = "bush.png";
 	    String imagefile2 = "grass.png"; 
 	    URL url = (getClass().getResource(dir+name));	    
-
-	  if(GameGui.debug){  	
-	System.out.println("dir + name = " + (dir + name));
-	System.out.println("url = " + url);  }
+	    
+	    if(GameGui.debug){  	
+		System.out.println("dir + name = " + (dir + name));
+		System.out.println("url = " + url);  }
 	    Scanner scanner = new Scanner(getClass().getResourceAsStream(dir+ name));
 	    
 	    BufferedImage grassTile = ImageIO.read(getClass().getResource("/resources/grass.png"));
@@ -103,61 +101,68 @@ public class GameComponent extends JComponent
 	    String temp;
 	    tiles = new ArrayList<BufferedImage>();
 	    while (scanner.hasNext()) {
-			temp = scanner.nextLine();
-			if(temp.equals(("G"))) {
-				tiles.add(grassTile);
-				tiletypes.add('G');
-			}
-			if(temp.equals(("B"))) {
-				tiles.add(bushTile);
-				tiletypes.add('B');
-			}
+		temp = scanner.nextLine();
+		if(temp.equals(("G"))) {
+		    tiles.add(grassTile);
+		    tiletypes.add('G');
+		}
+		if(temp.equals(("B"))) {
+		    tiles.add(bushTile);
+		    tiletypes.add('B');
+		}
 	    }
 	    
 	} catch (IOException e) {
-		e.printStackTrace();}
-	    
-    }
-    	 
-	public void checkMove(int xTile, int yTile) {
-		//limits where the player can move (ie. can move out of the box)
-		if(xTile < 0 || xTile > 11 || yTile < 0 || yTile > 8)
-			player.setMovable(false);
-		//allows player to move after finding treasure
-		else if(!message.equals(""))
-			player.setMovable(true);
-		//allows player to move into bushes
-		else if(tiletypes.get(yTile*tilesWidth + xTile) == 'B')
-			player.setMovable(true);
-		else if(player.getXPos() != player.getXTile() * 50 || player.getYPos() != player.getYTile() * 50)
-			player.setMovable(false);
-		else
-			player.setMovable(true);
-		//if player finds treasure the string "Treasure Found is displayed"
-		if(xTile == treasure.getXTile() && yTile == treasure.getYTile()) {
-			winGame(1);
-		}
-		else if(xTile == treasure1.getXTile() && yTile == treasure1.getYTile()) {
-			winGame(2);
-			
-		}
-		else if(xTile == treasure2.getXTile() && yTile == treasure2.getYTile()) {
-			winGame(3);	
-		}
-    }
-
-	public void winGame(int treasure_number) {
-	    message = "TREASURE " + treasure_number + " FOUND!";
-
-	}
+	    e.printStackTrace();}
 	
+    }
+    
+    /* 
+       Ensures that the player does not go outside the bounds of the map (0-11 by 0-9). 
+       If the player is standing on the same tile as a treasure, then the message variable will change which makes the "TREASURE # FOUND" message box appear 
+    */
+    public void checkMove(int xTile, int yTile) {
+	//limits where the player can move (ie. can move out of the box)
+	if(xTile < 0 || xTile > 11 || yTile < 0 || yTile > 8)
+	    player.setMovable(false);
+	//allows player to move after finding treasure
+	else if(!message.equals(""))
+	    player.setMovable(true);
+	//allows player to move into bushes
+	else if(tiletypes.get(yTile*tilesWidth + xTile) == 'B')
+	    player.setMovable(true);
+	else if(player.getXPos() != player.getXTile() * 50 || player.getYPos() != player.getYTile() * 50)
+	    player.setMovable(false);
+	else
+	    player.setMovable(true);
+	//if player finds treasure the string "Treasure Found is displayed"
+	if(xTile == treasure.getXTile() && yTile == treasure.getYTile()) {
+	    winGame(1);
+	
+	}
+	else if(xTile == treasure1.getXTile() && yTile == treasure1.getYTile()) {
+	    winGame(2);
+		}
+	else if(xTile == treasure2.getXTile() && yTile == treasure2.getYTile()) {
+	    winGame(3);	
+	}
+    }
+    /* changes the message instance variable
+     */
+    public void winGame(int treasure_number) {
+	message = "TREASURE " + treasure_number + " FOUND!";
+       
+    }
+    /* loadPlayer is being used by the go() method in GameGui.java. 
+       It initializes the 3 treasures and the player sprite. 
+     */
     public void loadPlayer(Player player, String name) {
 	if( name.equals("player"))
 	    this.player = player;
-	if( name.equals("treasure"))
-	    treasure = player;
+        if( name.equals("treasure"))
+            treasure = player;
 	if( name.equals("treasure1"))
-	    treasure1 = player;
+            treasure1 = player;
 	if( name.equals("treasure2"))
 	    treasure2 = player;
     }

@@ -2,13 +2,10 @@ package edu.ucsb.cs56.projects.games.treasure_hunter;
 
 import javax.swing.JFrame;
 import javax.swing.JComponent;
-//import javax.swing.InputMap;
 import javax.swing.KeyStroke;
 import javax.swing.AbstractAction;
-//import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
-//import java.awt.Event;
-//import java.lang.Math;
+
 
 /** 
  *  
@@ -40,7 +37,7 @@ public class GameGui
     public void go() {
 	JFrame frame = new JFrame();
 	
-	// Set the name and frame size (no bigger than 640,480) 
+	// Set the name and frame size 
 	frame.setSize(608,480);
 	frame.setTitle("Treasure Hunter"); 
 	
@@ -95,23 +92,27 @@ public class GameGui
 	int x = 0;
 	int y = 0;
 	
+	/*
+	  The MoveAction method changes the player png file so that it appears he turns in the direction the user wants him to walk in. 
+	 */
 	public MoveAction(int x, int y) {
 	    if(x == -1)
-		startingSprite = 4;
+	    	startingSprite = 4;
 	    if(x == 1)
-		startingSprite = 8;
+	    	startingSprite = 8;
 	    if(y == -1)
-		startingSprite = 12;
+	    	startingSprite = 12;
 	    if(y == 1)
-		startingSprite = 0;
+	    	startingSprite = 0;
 	    this.x = x;
 	    this.y = y;
 	}
+	
 	public void actionPerformed(ActionEvent e) {
 	    player.setSprite(startingSprite);
 	    component.checkMove(player.getXTile() + x, player.getYTile() + y);
 	    if(player.isMovable()) {
-		player.setMovable(false);
+		//player.setMovable(false);
 		for(int i = 0; i < 50; i++) {
 		    player.moveTo(player.getXPos() + x,player.getYPos()+y);
 		    if(x !=0 || y!=0)
@@ -119,7 +120,7 @@ public class GameGui
 		    if(player.getCurrentSprite() >= startingSprite + 4 && (x != 0 || y != 0))
 			player.setSprite(startingSprite);
 		    component.updatePlayer();
-		    try{ Thread.sleep(1); }
+		    try{ Thread.sleep(5); }
 		    catch(Exception ex) {}
 		}
 		player.setTiles(player.getXTile() + x, player.getYTile()+y);
@@ -130,7 +131,10 @@ public class GameGui
 	
     }
     
-    
+    /*
+      addBindings takes in the user's keyboard input.
+
+     */
     
     public void addBindings() {
         // https://docs.oracle.com/javase/7/docs/api/javax/swing/KeyStroke.html
@@ -138,6 +142,5 @@ public class GameGui
 	component.registerKeyboardAction(new MoveAction(0,-1), KeyStroke.getKeyStroke("UP"), JComponent.WHEN_FOCUSED);
 	component.registerKeyboardAction(new MoveAction(-1,0), KeyStroke.getKeyStroke("LEFT"), JComponent.WHEN_FOCUSED);
 	component.registerKeyboardAction(new MoveAction(1,0), KeyStroke.getKeyStroke("RIGHT"), JComponent.WHEN_FOCUSED);
-	
     }
 }
