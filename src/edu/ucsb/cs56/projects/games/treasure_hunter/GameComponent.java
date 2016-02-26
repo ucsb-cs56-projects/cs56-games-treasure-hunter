@@ -34,11 +34,13 @@ public class GameComponent extends JComponent
     Player treasure2;
     private ArrayList<BufferedImage> tiles;
     private ArrayList<Character> tiletypes;
-    private String message = "";
-    private String treasureFound ="Not yet";
+    public String message = "";
+    private String t ="";
+    private String t1 ="";
+    private String t2 ="";
     private int tilesWidth;
     private int tilesHeight;
-    
+    //private messageThread mt;
 
     /*
       paintComponent: It draws all of the tiles on the map. Also loads the player sprite. 
@@ -53,9 +55,13 @@ public class GameComponent extends JComponent
 		g.drawImage(tiles.get(tilesWidth*i + j), j*50, i*50, null);
 	    }
 	}
-	//g.drawImage(treasure.getCurrentImage(), treasure.getXPos(), treasure.getYPos(),null);
-	//g.drawImage(treasure1.getCurrentImage(), treasure1.getXPos(), treasure1.getYPos(), null);
-	//g.drawImage(treasure2.getCurrentImage(), treasure2.getXPos(), treasure2.getYPos(), null);
+
+	if(!t.equals(""))
+	   g.drawImage(treasure.getCurrentImage(), treasure.getXPos(), treasure.getYPos(),null);
+	if(!t1.equals(""))
+	    g.drawImage(treasure1.getCurrentImage(), treasure1.getXPos(), treasure1.getYPos(), null);
+	if(!t2.equals(""))    
+	    g.drawImage(treasure2.getCurrentImage(), treasure2.getXPos(), treasure2.getYPos(), null);
 	g.drawImage(player.getCurrentImage(), player.getXPos(), player.getYPos(),null);
 	Graphics2D g2 = (Graphics2D) g;
 	if(!message.equals("")) {
@@ -138,20 +144,26 @@ public class GameComponent extends JComponent
 	//if player finds treasure the string "Treasure Found is displayed"
 	if(xTile == treasure.getXTile() && yTile == treasure.getYTile()) {
 	    winGame(1);
-	
+	    t = "found";
+	    //mt.setMessage(1);
 	}
 	else if(xTile == treasure1.getXTile() && yTile == treasure1.getYTile()) {
 	    winGame(2);
-		}
+	    t1 = "found";
+	    //mt.setMessage(2);
+
+	}
 	else if(xTile == treasure2.getXTile() && yTile == treasure2.getYTile()) {
-	    winGame(3);	
+	    winGame(3);
+	    t2= "found";
+	    //mt.setMessage(3);
 	}
     }
     /* changes the message instance variable
      */
     public void winGame(int treasure_number) {
 	message = "TREASURE " + treasure_number + " FOUND!";
-       
+	new Thread(new messageThread(this)).start();
     }
     /* loadPlayer is being used by the go() method in GameGui.java. 
        It initializes the 3 treasures and the player sprite. 
