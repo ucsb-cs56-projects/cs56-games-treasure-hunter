@@ -2,11 +2,13 @@ cs56-games-treasure-hunter
 ==========================
 A GUI game called Treasure-Hunter.
 README file updated by Mena Iskander & Miguel Delgado, CS56, W14, Proj1
+README file updated in 2016 by Danielle Dodd and George Lieu, CS56, W16, Lab09
 
-project history
+Project History
 ===============
 ```
  W14 | jcneally 5pm | migueld37, menaiskander | Treasure Hunter Game
+ W16 | vincenicoara 6pm | danielledodd, georgelieu | Treasure Hunter Game
 ```
 
 =======
@@ -24,6 +26,10 @@ The project creates an instance of the game which allows the user to control a p
 
 -Player.java contains the code for the actual implementation of the player. Any problem occurring with the player moving in the wrong direction or not being created, a look should be taken at this file.
 
+-PlayerTest.java contains JUnit tests for the Player class. You can run it using ant test
+
+-MessageThread.java contains a thread class that allows the "treasure found" message to disappear after 5 seconds. 
+
 # Running the Game
 ==================
 
@@ -31,15 +37,7 @@ In order to run the game you must do the following:
 1. type "ant run"  
 
 Once you start the game you the board will appear and your character will be at position 0,0 
-![](http://i.imgur.com/TA9E8CG.png)
+![](http://i.imgur.com/qor9ibq.png)
 
-There are 3 treasures on the map. The first one is located here. 
-![](http://i.imgur.com/j9XEtBM.png)
-
-Treasure 2 is located here. 
-
-![](http://i.imgur.com/NlbbtiM.png)
-
-Treasure 3 is located here. 
-
-![](http://i.imgur.com/P1P8uKm.png)
+There are 3 treasures randomly placed on the map. This is the result of finding one. 
+![](http://i.imgur.com/9TiBmmL.png)
