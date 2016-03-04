@@ -26,18 +26,6 @@ import java.util.Scanner;
 
 public class GameComponent extends JComponent
 {  
-    setMessage(1);
-	    t = "found";
-	}
-	else if(xTile == treasure1.getXTile() && yTile == treasure1.getYTile()) {
-	    setMessage(2);
-	    t1 = "found";
-	    
-	}
-	else if(xTile == treasure2.getXTile() && yTile == treasure2.getYTile()) {
-	    setMessage(3);
-	    t2= "found";
-    
     Player player;
     Player treasure;
     Player treasure1;
