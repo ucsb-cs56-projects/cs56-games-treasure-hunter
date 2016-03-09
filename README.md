@@ -43,3 +43,7 @@ Once you start the game you the board will appear and your character will be at 
 
 There are 3 treasures randomly placed on the map. This is the result of finding one. 
 ![](http://i.imgur.com/9TiBmmL.png)
+
+# W16 Final Remarks
+===============
+The treasure hunter game is a simple game with a GUI where the user controls a player sprite to look for 3 randomly placed treasures. There are 3 main files you will most likely be working with: GameComponent.java, GameGui.java, and Player.java. If you decide to edit the message thread then you can look into the MessageThread.java to make these changes. Refer to the developer notes in the README for further information. It would be a good idea to look into the issue of player movement lagtime, as it detracts from the game play. A bug that you can look into is the duration of the message box as it is inconsistent. For refactoring code, you could consider the (1) randomly placed treasure segment and (2) the treasures appearance after finding them. 
