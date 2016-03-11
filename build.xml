@@ -14,7 +14,7 @@
   <property name="mainClass" value="edu.ucsb.cs56.projects.games.treasure_hunter.GameGui"/>
 
   
-	<target name="compile" description="compile my code">
+  <target name="compile" description="Compile my code">
     <mkdir dir ="build" />
     <javac debug="true" debuglevel="lines,source" srcdir="src" destdir="build" includeantruntime="false" >
     <classpath>                                                                   
@@ -22,9 +22,9 @@
          <pathelement location="lib/junit-4.8.2.jar"/>            
      </classpath>
     </javac>
-	<copy todir="build/resources">
-	  <fileset dir="src/resources" includes="*.*"/>
-	</copy>
+    <copy todir="build/resources">
+      <fileset dir="src/resources" includes="**"/>
+    </copy>
   </target>
 
 
@@ -33,13 +33,13 @@
   </target>
 
 
-  <target name="clean" description="delete unnecessary files and directories">
+  <target name="clean" description="Delete unnecessary files and directories">
     <delete dir="build" quiet="true" />  
     <delete dir="javadoc" quiet="true" />    
   </target>
 
 
-  <target name="javadoc" depends="compile">                                                                                  
+  <target name="javadoc" depends="compile" description="Generate the javadoc">                                                                
    <delete dir="javadoc" quiet="true" />                                                          
    <javadoc  destdir="javadoc" author="true" version="true" use="true" >                          
       <fileset dir="src" includes="**/*.java"/>                                                     
@@ -59,7 +59,7 @@
  </target>  
 
 
- <target name="test" depends="compile">
+ <target name="test" depends="compile" description="Run the Player tests">
     <junit haltonerror="no" haltonfailure="no">
        <classpath>
          <pathelement location="/cs/faculty/pconrad/public_html/cs56/lib/junit-4.8.2.jar"/>
