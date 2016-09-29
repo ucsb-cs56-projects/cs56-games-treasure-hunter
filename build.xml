@@ -3,16 +3,8 @@
        original author: Alex Wood W12
        name: Mena Iskander & Miguel Delgado W14 -->
 
-  <property environment="env"/> <!-- load the environment variables --> 
-  <property name="webRoot" value="${env.HOME}/public_html/cs56" />
-  <property name="webBaseURL" value="http://www.cs.ucsb.edu/~${env.USER}/cs56/" />
-  <property name="projectName" value="treasure-hunter" /> 
-  <property name="javadocDest" value="${webRoot}/${projectName}/javadoc" /> 
-  <property name="javadocURL" value="${webBaseURL}/${projectName}/javadoc" /> 
-    <property name="jwsDest" value="${webRoot}/${projectName}/jws" /> 
-    <property name="jwsURL" value="${webBaseUrl}/${projectName}/jws" />
+  <property environment="env"/> <!-- load the environment variables -->
   <property name="mainClass" value="edu.ucsb.cs56.projects.games.treasure_hunter.GameGui"/>
-
   
   <target name="compile" description="Compile my code">
     <mkdir dir ="build" />
@@ -46,23 +38,14 @@
       <classpath>                                                                                 
           <pathelement location="lib/junit-4.8.2.jar"/>      
      </classpath>                                                                                 
-   </javadoc>                                                                                                          
-   <!-- delete the old javadoc -->                                                                
-   
-   <!-- copy everything you just made to the javadoc destination, and then make it readable -->   
-   <copy todir="${javadocDest}" >                                                                 
-     <fileset dir="javadoc"/>                                                                     
-   </copy>                                                                                                                                                          
-   <chmod dir="${javadocDest}" perm="755"  type="dir" includes="**" />                            
-   <chmod dir="${javadocDest}" perm="755"  type="file" includes="**/*" />                         
-   <echo>Javadoc deployed to ${javadocURL}</echo>                                                                      
+   </javadoc>                                                                             <echo> javadoc created needs to be added and pushed to github </echo>                                 
  </target>  
 
 
  <target name="test" depends="compile" description="Run the Player tests">
     <junit haltonerror="no" haltonfailure="no">
        <classpath>
-         <pathelement location="/cs/faculty/pconrad/public_html/cs56/lib/junit-4.8.2.jar"/>
+         <pathelement location="lib/junit-4.8.2.jar"/>
          <pathelement location="build"/>
        </classpath>
        <batchtest fork="yes">
