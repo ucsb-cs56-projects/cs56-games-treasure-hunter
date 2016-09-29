@@ -32,6 +32,8 @@ The project creates an instance of the game which allows the user to control a p
 
 -MessageThread.java contains a thread class that allows the "treasure found" message to disappear after 5 seconds. 
 
+javadocs located here: http://ucsb-cs56-projects.github.io/cs56-games-treasure-hunter/javadoc/
+
 # Running the Game
 ==================
 
