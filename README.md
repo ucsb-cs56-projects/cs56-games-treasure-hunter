@@ -22,9 +22,9 @@ The project creates an instance of the game which allows the user to control a p
 # Developer Notes
 ================
 
--GameComponent.java contains most of the important implementations of the game. Any problems with the player movement, loading of map and player or the actual paintComponent method are found in that file.
+* GameComponent.java contains most of the important implementations of the game. Any problems with the player movement, loading of map and player or the actual paintComponent method are found in that file.
 
--GameGui.java contains the code for the creation of the GUI and different instances of treasure and player.
+* GameGui.java contains the code for the creation of the GUI and different instances of treasure and player.
 
 * Player.java contains the code for the actual implementation of the player. Any problem occurring with the player moving in the wrong direction or not being created, a look should be taken at this file.
 
