@@ -28,9 +28,9 @@ The project creates an instance of the game which allows the user to control a p
 
 * Player.java contains the code for the actual implementation of the player. Any problem occurring with the player moving in the wrong direction or not being created, a look should be taken at this file.
 
--PlayerTest.java contains JUnit tests for the Player class. You can run it using ant test
+* PlayerTest.java contains JUnit tests for the Player class. You can run it using ant test
 
--MessageThread.java contains a thread class that allows the "treasure found" message to disappear after 5 seconds. 
+* MessageThread.java contains a thread class that allows the "treasure found" message to disappear after 5 seconds. 
 
 # Running the Game
 ==================
