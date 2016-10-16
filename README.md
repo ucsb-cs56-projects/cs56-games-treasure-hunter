@@ -26,7 +26,7 @@ The project creates an instance of the game which allows the user to control a p
 
 -GameGui.java contains the code for the creation of the GUI and different instances of treasure and player.
 
--Player.java contains the code for the actual implementation of the player. Any problem occurring with the player moving in the wrong direction or not being created, a look should be taken at this file.
+* Player.java contains the code for the actual implementation of the player. Any problem occurring with the player moving in the wrong direction or not being created, a look should be taken at this file.
 
 -PlayerTest.java contains JUnit tests for the Player class. You can run it using ant test
 
