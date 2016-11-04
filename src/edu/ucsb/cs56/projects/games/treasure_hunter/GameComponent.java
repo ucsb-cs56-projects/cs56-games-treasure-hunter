@@ -38,7 +38,7 @@ public class GameComponent extends JComponent
     private String t2 ="";
     private int tilesWidth;
     private int tilesHeight;
-    
+	private int foundTreasureNum = 0;  
 
     /*
       paintComponent: It draws all of the tiles on the map. Also loads the player sprite. 
@@ -92,10 +92,11 @@ public class GameComponent extends JComponent
 	    String imagefile1 = "bush.png";
 	    String imagefile2 = "grass.png"; 
 	    URL url = (getClass().getResource(dir+name));	    
-	    
+
 	    if(GameGui.debug){  	
 		System.out.println("dir + name = " + (dir + name));
 		System.out.println("url = " + url);  }
+		
 	    Scanner scanner = new Scanner(getClass().getResourceAsStream(dir+ name));
 	    
 	    BufferedImage grassTile = ImageIO.read(getClass().getResource("/resources/grass.png"));
@@ -140,18 +141,35 @@ public class GameComponent extends JComponent
 	else
 	    player.setMovable(true);
 	//if player finds treasure the string "Treasure Found is displayed"
+	//if player finds three treasure than the string "YOU WIN! Would you want to play again?"
+	
 	if(xTile == treasure.getXTile() && yTile == treasure.getYTile()) {
 	    setMessage(1);
 	    t = "found";
+		foundTreasureNum++;
+		if(GameGui.debug){  	
+		System.out.println("foundTreasureNum++");
+		}
 	}
 	else if(xTile == treasure1.getXTile() && yTile == treasure1.getYTile()) {
 	    setMessage(2);
 	    t1 = "found";
-	    
+	    foundTreasureNum++;
+		if(GameGui.debug){  	
+		System.out.println("foundTreasureNum++");
+		}
 	}
 	else if(xTile == treasure2.getXTile() && yTile == treasure2.getYTile()) {
 	    setMessage(3);
 	    t2= "found";
+		foundTreasureNum++;
+		if(GameGui.debug){  	
+		System.out.println("foundTreasureNum++");
+		}
+	}
+	
+	if(foundTreasureNum >= 3){
+		setMessageFinal(true);
 	}
     }
     /* changes the message instance variable
@@ -160,18 +178,31 @@ public class GameComponent extends JComponent
 	message = "TREASURE " + treasure_number + " FOUND!";
 	new Thread(new MessageThread(this)).start();
     }
+    /* changes the message with final
+     */	
+	 public void setMessageFinal(boolean answer){
+		 if (answer){
+			 message = "YOU WIN!";
+			 new Thread(new MessageThread(this)).start();
+			 //TODO: fix the problem of the time a message box appear
+			 //TODO: find a way to pause the game
+			 message = "PLAY AGAIN?";
+			 new Thread(new MessageThread(this)).start();
+		 }
+	 }
+	
     /* loadPlayer is being used by the go() method in GameGui.java. 
        It initializes the 3 treasures and the player sprite. 
      */
     public void loadPlayer(Player player, String name) {
 	if( name.equals("player"))
 	    this.player = player;
-        if( name.equals("treasure"))
-            treasure = player;
+    if( name.equals("treasure"))
+        this.treasure = player;
 	if( name.equals("treasure1"))
-            treasure1 = player;
+        this.treasure1 = player;
 	if( name.equals("treasure2"))
-	    treasure2 = player;
+		this.treasure2 = player;
     }
     
 }

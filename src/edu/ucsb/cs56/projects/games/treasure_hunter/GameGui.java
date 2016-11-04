@@ -22,7 +22,7 @@ public class GameGui
     Player treasure2;
     GameComponent component;
     
-    public static boolean debug = false; 
+    public static boolean debug = true; 
     public static final String resourcesDir = "/resources/";
     
     public static void main(String[] args)
