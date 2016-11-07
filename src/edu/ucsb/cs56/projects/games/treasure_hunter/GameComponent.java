@@ -143,7 +143,7 @@ public class GameComponent extends JComponent
 	//if player finds treasure the string "Treasure Found is displayed"
 	//if player finds three treasure than the string "YOU WIN! Would you want to play again?"
 	
-	if(xTile == treasure.getXTile() && yTile == treasure.getYTile()) {
+	if(xTile == treasure.getXTile() && yTile == treasure.getYTile() && t != "found" ) {
 	    setMessage(1);
 	    t = "found";
 		foundTreasureNum++;
@@ -151,7 +151,7 @@ public class GameComponent extends JComponent
 		System.out.println("foundTreasureNum++");
 		}
 	}
-	else if(xTile == treasure1.getXTile() && yTile == treasure1.getYTile()) {
+	else if(xTile == treasure1.getXTile() && yTile == treasure1.getYTile() && t1 != "found" ) {
 	    setMessage(2);
 	    t1 = "found";
 	    foundTreasureNum++;
@@ -159,7 +159,7 @@ public class GameComponent extends JComponent
 		System.out.println("foundTreasureNum++");
 		}
 	}
-	else if(xTile == treasure2.getXTile() && yTile == treasure2.getYTile()) {
+	else if(xTile == treasure2.getXTile() && yTile == treasure2.getYTile() && t2 != "found" ) {
 	    setMessage(3);
 	    t2= "found";
 		foundTreasureNum++;
@@ -168,7 +168,7 @@ public class GameComponent extends JComponent
 		}
 	}
 	
-	if(foundTreasureNum >= 3){
+	if(foundTreasureNum == 3){
 		setMessageFinal(true);
 	}
     }
