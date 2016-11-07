@@ -182,12 +182,10 @@ public class GameComponent extends JComponent
      */	
 	 public void setMessageFinal(boolean answer){
 		 if (answer){
-			 message = "YOU WIN!";
+			 message = "YOU WIN! Again~";
 			 new Thread(new MessageThread(this)).start();
 			 //TODO: fix the problem of the time a message box appear
 			 //TODO: find a way to pause the game
-			 message = "PLAY AGAIN?";
-			 new Thread(new MessageThread(this)).start();
 		 }
 	 }
 	
