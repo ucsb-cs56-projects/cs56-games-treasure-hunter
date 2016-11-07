@@ -91,6 +91,7 @@ public class GameComponent extends JComponent
             String dir = "/resources/";
 	    String imagefile1 = "bush.png";
 	    String imagefile2 = "grass.png"; 
+		String imagefile3 = "stone.PNG";
 	    URL url = (getClass().getResource(dir+name));	    
 
 	    if(GameGui.debug){  	
@@ -101,6 +102,7 @@ public class GameComponent extends JComponent
 	    
 	    BufferedImage grassTile = ImageIO.read(getClass().getResource("/resources/grass.png"));
 	    BufferedImage bushTile = ImageIO.read(getClass().getResource("/resources/bush.png"));
+		BufferedImage stoneTile = ImageIO.read(getClass().getResource("/resources/stone.PNG"));
 	    tilesWidth = scanner.nextInt();
 	    tilesHeight = scanner.nextInt();
 	    String temp;
@@ -115,6 +117,10 @@ public class GameComponent extends JComponent
 		    tiles.add(bushTile);
 		    tiletypes.add('B');
 		}
+		if(temp.equals(("S"))) {
+		    tiles.add(stoneTile);
+		    tiletypes.add('S');
+		}		
 	    }
 	    
 	} catch (IOException e) {
@@ -136,6 +142,9 @@ public class GameComponent extends JComponent
 	//allows player to move into bushes
 	else if(tiletypes.get(yTile*tilesWidth + xTile) == 'B')
 	    player.setMovable(true);
+	//prevent player from move into stones
+	else if(tiletypes.get(yTile*tilesWidth + xTile) == 'S')
+	    player.setMovable(false);	
 	else if(player.getXPos() != player.getXTile() * 50 || player.getYPos() != player.getYTile() * 50)
 	    player.setMovable(false);
 	else

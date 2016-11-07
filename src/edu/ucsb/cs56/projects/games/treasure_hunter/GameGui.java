@@ -47,7 +47,7 @@ public class GameGui
 	// Randomly places 3 treasures on game map
 	player = new Player(0,0,16,8,"player");
 
-	int treasure1X = (int)(Math.random()*12);
+ 	int treasure1X = (int)(Math.random()*12);
 	int treasure1Y = (int)(Math.random()*9);
 	
 	int treasure2X = (int)(Math.random()*12);
@@ -65,7 +65,30 @@ public class GameGui
 	      || (treasure2X == treasure3X && treasure2Y == treasure3Y)){
 	    treasure3X = (int)(Math.random()*12);
 	    treasure3Y = (int)(Math.random()*9);
+	} 
+	
+	while((treasure1X == 0 && treasure1Y == 6)||(treasure1X == 1 && treasure1Y == 6)||(treasure1X == 3 && treasure1Y == 8)
+		||(treasure1X == 4 && treasure1Y == 8)||(treasure1X == 5 && treasure1Y == 8)||(treasure1X == 8 && treasure1Y == 1)
+		||(treasure1X == 8 && treasure1Y == 6)||(treasure1X == 9 && treasure1Y == 6)||(treasure1X == 10 && treasure1Y == 2)
+		||(treasure1X == 11 && treasure1Y == 3)||(treasure1X == 11 && treasure1Y == 5)||(treasure1X == 11 && treasure1Y == 6)){
+	    treasure1X = (int)(Math.random()*12);
+	    treasure1Y = (int)(Math.random()*9);
+	} 
+	while((treasure2X == 0 && treasure2Y == 6)||(treasure2X == 1 && treasure2Y == 6)||(treasure2X == 3 && treasure2Y == 8)
+		||(treasure2X == 4 && treasure2Y == 8)||(treasure2X == 5 && treasure2Y == 8)||(treasure2X == 8 && treasure2Y == 1)
+		||(treasure2X == 8 && treasure2Y == 6)||(treasure2X == 9 && treasure2Y == 6)||(treasure2X == 10 && treasure2Y == 2)
+		||(treasure2X == 11 && treasure2Y == 3)||(treasure2X == 11 && treasure2Y == 5)||(treasure2X == 11 && treasure2Y == 6)){
+	    treasure2X = (int)(Math.random()*12);
+	    treasure2Y = (int)(Math.random()*9);
 	}
+	while((treasure3X == 0 && treasure3Y == 6)||(treasure3X == 1 && treasure3Y == 6)||(treasure3X == 3 && treasure3Y == 8)
+		||(treasure3X == 4 && treasure3Y == 8)||(treasure3X == 5 && treasure3Y == 8)||(treasure3X == 8 && treasure3Y == 1)
+		||(treasure3X == 8 && treasure3Y == 6)||(treasure3X == 9 && treasure3Y == 6)||(treasure3X == 10 && treasure3Y == 2)
+		||(treasure3X == 11 && treasure3Y == 3)||(treasure3X == 11 && treasure3Y == 5)||(treasure3X == 11 && treasure3Y == 6)){
+	    treasure3X = (int)(Math.random()*12);
+	    treasure3Y = (int)(Math.random()*9);
+	}	
+
 	
 	// creates game components (player + treasures) 
 	treasure = new Player(treasure1X,treasure1Y,1,0,"treasure");
