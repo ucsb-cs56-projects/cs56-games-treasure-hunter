@@ -73,6 +73,7 @@ public class GameGui
 	    treasure1X = (int)(Math.random()*12);
 	    treasure1Y = (int)(Math.random()*9);
 	}
+  treasure1.setTiles( treasure1X, treasure1Y );
 	while((treasure2X == 0 && treasure2Y == 6)||(treasure2X == 1 && treasure2Y == 6)||(treasure2X == 3 && treasure2Y == 8)
 		||(treasure2X == 4 && treasure2Y == 8)||(treasure2X == 5 && treasure2Y == 8)||(treasure2X == 8 && treasure2Y == 1)
 		||(treasure2X == 8 && treasure2Y == 6)||(treasure2X == 9 && treasure2Y == 6)||(treasure2X == 10 && treasure2Y == 2)
@@ -80,19 +81,18 @@ public class GameGui
 	    treasure2X = (int)(Math.random()*12);
 	    treasure2Y = (int)(Math.random()*9);
 	}
-	while((treasure3X == 0 && treasure3Y == 6)||(treasure3X == 1 && treasure3Y == 6)||(treasure3X == 3 && treasure3Y == 8)
+  treasure2.setTiles( treasure2X, treasure2Y );
+
+  while((treasure3X == 0 && treasure3Y == 6)||(treasure3X == 1 && treasure3Y == 6)||(treasure3X == 3 && treasure3Y == 8)
 		||(treasure3X == 4 && treasure3Y == 8)||(treasure3X == 5 && treasure3Y == 8)||(treasure3X == 8 && treasure3Y == 1)
 		||(treasure3X == 8 && treasure3Y == 6)||(treasure3X == 9 && treasure3Y == 6)||(treasure3X == 10 && treasure3Y == 2)
 		||(treasure3X == 11 && treasure3Y == 3)||(treasure3X == 11 && treasure3Y == 5)||(treasure3X == 11 && treasure3Y == 6)){
 	    treasure3X = (int)(Math.random()*12);
 	    treasure3Y = (int)(Math.random()*9);
 	}
-
-
+  treasure3.setTiles( treasure3X, treasure3Y );
+  
 	// creates game components (player + treasures)
-	treasure1 = new Treasure("treasure1");
-	treasure2 = new Treasure("treasure2");
-	treasure3 = new Treasure("treasure3");
 	component = new GameComponent();
 	component.loadPlayer(player,"player");
 	component.loadTreasure(treasure1, "treasure1");

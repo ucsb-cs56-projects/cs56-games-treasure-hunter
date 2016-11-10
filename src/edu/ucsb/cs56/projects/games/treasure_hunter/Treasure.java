@@ -41,5 +41,5 @@ public class Treasure {
 	    this.xTile = xTile;
 	    this.yTile = yTile;
     }
-    public BufferedImage getCurrentImage() { return sprites.get(currentSprite); }
+    public BufferedImage getCurrentImage() { return sprites.get(0); }
 }

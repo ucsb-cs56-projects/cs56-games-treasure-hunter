@@ -91,7 +91,7 @@ public class GameComponent extends JComponent
             String dir = "/resources/";
 	    String imagefile1 = "bush.png";
 	    String imagefile2 = "grass.png";
-		String imagefile3 = "stone.PNG";
+		  String imagefile3 = "stone.PNG";
 	    URL url = (getClass().getResource(dir+name));
 
 	    if(GameGui.debug){
@@ -102,7 +102,7 @@ public class GameComponent extends JComponent
 
 	    BufferedImage grassTile = ImageIO.read(getClass().getResource("/resources/grass.png"));
 	    BufferedImage bushTile = ImageIO.read(getClass().getResource("/resources/bush.png"));
-		BufferedImage stoneTile = ImageIO.read(getClass().getResource("/resources/stone.PNG"));
+		  BufferedImage stoneTile = ImageIO.read(getClass().getResource("/resources/stone.PNG"));
 	    tilesWidth = scanner.nextInt();
 	    tilesHeight = scanner.nextInt();
 	    String temp;
@@ -150,7 +150,7 @@ public class GameComponent extends JComponent
 	else
 	    player.setMovable(true);
 	//if player finds treasure the string "Treasure Found is displayed"
-	//if player finds three treasure than the string "YOU WIN! Would you want to play again?"
+	//if player finds three treasure then print the string "YOU WIN!"
 
 	if(xTile == treasure.getXTile() && yTile == treasure.getYTile() && t != "found" ) {
 	    setMessage(1);
@@ -191,7 +191,7 @@ public class GameComponent extends JComponent
      */
 	 public void setMessageFinal(boolean answer){
 		 if (answer){
-			 message = "YOU WIN! Again~";
+			 message = "YOU WIN!";
 			 new Thread(new MessageThread(this)).start();
 			 //TODO: fix the problem of the time a message box appear
 			 //TODO: find a way to pause the game
