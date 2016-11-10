@@ -27,9 +27,9 @@ import java.util.Scanner;
 public class GameComponent extends JComponent
 {
     Player player;
-    Treasure treasure;
-    Treasure treasure1;
-    Treasure treasure2;
+    Player treasure;
+    Player treasure1;
+    Player treasure2;
     private ArrayList<BufferedImage> tiles;
     private ArrayList<Character> tiletypes;
     public String message = "";
@@ -38,7 +38,7 @@ public class GameComponent extends JComponent
     private String t2 ="";
     private int tilesWidth;
     private int tilesHeight;
-	  private int foundTreasureNum = 0;
+	private int foundTreasureNum = 0;
 
     /*
       paintComponent: It draws all of the tiles on the map. Also loads the player sprite.
@@ -55,11 +55,11 @@ public class GameComponent extends JComponent
 	}
 
 	if(!t.equals(""))
-	   g.drawImage(treasure.getCurrentImage(), treasure.getXTile(), treasure.getYTile(),null);
+	   g.drawImage(treasure.getCurrentImage(), treasure.getXPos(), treasure.getYPos(),null);
 	if(!t1.equals(""))
-	    g.drawImage(treasure1.getCurrentImage(), treasure1.getXTile(), treasure1.getYTile(), null);
+	    g.drawImage(treasure1.getCurrentImage(), treasure1.getXPos(), treasure1.getYPos(), null);
 	if(!t2.equals(""))
-	    g.drawImage(treasure2.getCurrentImage(), treasure2.getXTile(), treasure2.getYTile(), null);
+	    g.drawImage(treasure2.getCurrentImage(), treasure2.getXPos(), treasure2.getYPos(), null);
 	g.drawImage(player.getCurrentImage(), player.getXPos(), player.getYPos(),null);
 	Graphics2D g2 = (Graphics2D) g;
 	if(!message.equals("")) {
@@ -91,7 +91,7 @@ public class GameComponent extends JComponent
             String dir = "/resources/";
 	    String imagefile1 = "bush.png";
 	    String imagefile2 = "grass.png";
-		  String imagefile3 = "stone.PNG";
+		String imagefile3 = "stone.PNG";
 	    URL url = (getClass().getResource(dir+name));
 
 	    if(GameGui.debug){
@@ -102,7 +102,7 @@ public class GameComponent extends JComponent
 
 	    BufferedImage grassTile = ImageIO.read(getClass().getResource("/resources/grass.png"));
 	    BufferedImage bushTile = ImageIO.read(getClass().getResource("/resources/bush.png"));
-		  BufferedImage stoneTile = ImageIO.read(getClass().getResource("/resources/stone.PNG"));
+		BufferedImage stoneTile = ImageIO.read(getClass().getResource("/resources/stone.PNG"));
 	    tilesWidth = scanner.nextInt();
 	    tilesHeight = scanner.nextInt();
 	    String temp;
@@ -150,7 +150,7 @@ public class GameComponent extends JComponent
 	else
 	    player.setMovable(true);
 	//if player finds treasure the string "Treasure Found is displayed"
-	//if player finds three treasure then print the string "YOU WIN!"
+	//if player finds three treasure than the string "YOU WIN! Would you want to play again?"
 
 	if(xTile == treasure.getXTile() && yTile == treasure.getYTile() && t != "found" ) {
 	    setMessage(1);
@@ -201,18 +201,15 @@ public class GameComponent extends JComponent
     /* loadPlayer is being used by the go() method in GameGui.java.
        It initializes the 3 treasures and the player sprite.
      */
-    public void loadPlayer(Player player, String name){
-	     if( name.equals("player"))
-	         this.player = player;
-    }
-
-    public void loadTreasure(Treasure treasure, String name){
-          if( name.equals("treasure1"))
-            this.treasure = treasure;
-          if( name.equals("treasure2"))
-            this.treasure1 = treasure;
-          if( name.equals("treasure3"))
-            this.treasure2 = treasure;
+    public void loadPlayer(Player player, String name) {
+	if( name.equals("player"))
+	    this.player = player;
+    if( name.equals("treasure"))
+        this.treasure = player;
+	if( name.equals("treasure1"))
+        this.treasure1 = player;
+	if( name.equals("treasure2"))
+		this.treasure2 = player;
     }
 
 }
