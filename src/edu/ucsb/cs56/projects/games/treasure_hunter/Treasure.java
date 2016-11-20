@@ -52,13 +52,14 @@ public class Treasure {
       return (xTileBit << 16) | yTileBit;
     }
 
+    public BufferedImage getImage() { return image; }
     public int getX() { return xTile; }
     public int getY() { return yTile; }
     public String getName() { return name; }
     public boolean getFound() { return found; }
+    public void setFoundTrue() { found = true; }
     public void resetXY() {
 	     this.xTile = (int)(Math.random()*12);
 	     this.yTile = (int)(Math.random()*9);
     }
-    public BufferedImage getCurrentImage() { return sprites.get(currentSprite); }
 }

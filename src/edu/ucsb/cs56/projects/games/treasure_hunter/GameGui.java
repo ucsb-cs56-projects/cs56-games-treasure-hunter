@@ -55,7 +55,7 @@ public class GameGui{
 
   System.out.println( this.toString() + " is calling placeTheTreasures!!");
   this.placeTheTreasures(4);
-
+  component.loadTreasure( theTreasures );
 
   Player [] treasures = placeTreasures(3);
   component.loadPlayer( treasures[0], "treasure" );
