@@ -30,12 +30,18 @@ public class GameComponent extends JComponent
     Player treasure;
     Player treasure1;
     Player treasure2;
+
+    ArrayList<Treasure> theTreasures = new ArrayList<Treasure>();
+
     private ArrayList<BufferedImage> tiles;
     private ArrayList<Character> tiletypes;
     public String message = "";
     private String t ="";
     private String t1 ="";
     private String t2 ="";
+
+    private String t0 = "";
+
     private int tilesWidth;
     private int tilesHeight;
 	private int foundTreasureNum = 0;
@@ -55,12 +61,18 @@ public class GameComponent extends JComponent
 	}
 
 	if(!t.equals(""))
-	   g.drawImage(treasure.getCurrentImage(), treasure.getXPos(), treasure.getYPos(),null);
+	   g.drawImage(treasure.getCurrentImage(), treasure.getXPos(), treasure.getYPos(), null);
 	if(!t1.equals(""))
 	    g.drawImage(treasure1.getCurrentImage(), treasure1.getXPos(), treasure1.getYPos(), null);
 	if(!t2.equals(""))
 	    g.drawImage(treasure2.getCurrentImage(), treasure2.getXPos(), treasure2.getYPos(), null);
-	g.drawImage(player.getCurrentImage(), player.getXPos(), player.getYPos(),null);
+	g.drawImage(player.getCurrentImage(), player.getXPos(), player.getYPos(), null);
+
+  if(!t0.equals("")) {
+
+      g.drawImage(treasure.getCurrentImage(), treasure.getXPos(), treasure.getYPos(),null);
+  }
+
 	Graphics2D g2 = (Graphics2D) g;
 	if(!message.equals("")) {
 	    g2.setColor(new Color(1f,0f,0f,.5f));
@@ -211,5 +223,10 @@ public class GameComponent extends JComponent
 	if( name.equals("treasure2"))
 		this.treasure2 = player;
     }
+
+    public void loadTreasure(ArrayList<Treasure>  theTreasures) {
+	    this.theTreasures = theTreasures;
+    }
+
 
 }

@@ -5,6 +5,7 @@ import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 
 /**
@@ -14,12 +15,14 @@ import java.awt.event.ActionEvent;
  * @version for UCSB CS56, W16, 02/18/2016
  */
 
+// all instances of Player as a treasure should be Treasure as a treasure
 public class GameGui{
 
     Player player;
     Player treasure;
     Player treasure1;
     Player treasure2;
+    ArrayList<Treasure> theTreasures = new ArrayList<Treasure>();
     GameComponent component;
 
     public static boolean debug = true;
@@ -27,11 +30,11 @@ public class GameGui{
 
     public static void main(String[] args)
     {
-	if(debug) { System.out.println("Starting main");}
-	GameGui gui = new GameGui();
+	    if(debug) { System.out.println("Starting main");}
+	    GameGui gui = new GameGui();
 
-	if(debug) { System.out.println("In main calling gui.go()");}
-	gui.go();
+	    if(debug) { System.out.println("In main calling gui.go()");}
+	    gui.go();
     }
 
     public void go() {
@@ -45,14 +48,20 @@ public class GameGui{
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	// Randomly places 3 treasures on game map
+  component = new GameComponent();
+
 	player = new Player(0,0,16,8,"player");
-	component = new GameComponent();
 	component.loadPlayer(player,"player");
+
+  System.out.println( this.toString() + " is calling placeTheTreasures!!");
+  this.placeTheTreasures(4);
+
 
   Player [] treasures = placeTreasures(3);
   component.loadPlayer( treasures[0], "treasure" );
   component.loadPlayer( treasures[1], "treasure1" );
   component.loadPlayer( treasures[2], "treasure2" );
+
   component.loadMap("map.txt");
   addBindings();
 
@@ -121,7 +130,6 @@ public class GameGui{
     }
 
     public static Player[] placeTreasures( int howMany ){
-
         int treasure1X = (int)(Math.random()*12);
       	int treasure1Y = (int)(Math.random()*9);
 
@@ -140,12 +148,12 @@ public class GameGui{
       	    treasure3X = (int)(Math.random()*12);
       	    treasure3Y = (int)(Math.random()*9);
       	}
-
+        // prevents placement of treasures underneath stones //
       	while((treasure1X == 0 && treasure1Y == 6)||(treasure1X == 1 && treasure1Y == 6)||(treasure1X == 3 && treasure1Y == 8)
       		||(treasure1X == 4 && treasure1Y == 8)||(treasure1X == 5 && treasure1Y == 8)||(treasure1X == 8 && treasure1Y == 1)
       		||(treasure1X == 8 && treasure1Y == 6)||(treasure1X == 9 && treasure1Y == 6)||(treasure1X == 10 && treasure1Y == 2)
       		||(treasure1X == 11 && treasure1Y == 3)||(treasure1X == 11 && treasure1Y == 5)||(treasure1X == 11 && treasure1Y == 6)){
-      	    treasure1X = (int)(Math.random()*12);
+            treasure1X = (int)(Math.random()*12);
       	    treasure1Y = (int)(Math.random()*9);
       	}
       	while((treasure2X == 0 && treasure2Y == 6)||(treasure2X == 1 && treasure2Y == 6)||(treasure2X == 3 && treasure2Y == 8)
@@ -162,10 +170,45 @@ public class GameGui{
       	    treasure3X = (int)(Math.random()*12);
       	    treasure3Y = (int)(Math.random()*9);
       	}
+        ////////////////////////////////////////////////////////////////////////
         Player[] treasures = new Player[]{ new Player(treasure1X,treasure1Y,1,0,"treasure"),
                                            new Player(treasure2X,treasure2Y,1,0,"treasure"),
                                            new Player(treasure3X,treasure3Y,1,0,"treasure")
                                          };
         return treasures;
     }
+
+    public void placeTheTreasures( int howMany ){
+        if ( howMany == 0 ) System.out.println("make at least one treasure!");
+        Treasure first = new Treasure("treasure0");
+        if ( first != null ) System.out.println("first treasure is not null!");
+        theTreasures.add( first );
+
+        for (int i = 1; i < howMany; i++){
+          Treasure tempTreasure = new Treasure("treasure" + i);
+          while (theTreasures.contains( tempTreasure )) {
+            tempTreasure.resetXY();
+          }
+          theTreasures.add( tempTreasure );
+          // use resetXY so we don't keep creating new objects on the heap
+        }
+
+        // prevents placement of treasures underneath stones //
+        for ( int i = 0; i < theTreasures.size(); ++i){
+          while((theTreasures.get(i).getX() == 0 && theTreasures.get(i).getY() == 6)
+            ||(theTreasures.get(i).getX() == 1 && theTreasures.get(i).getY() == 6)
+            ||(theTreasures.get(i).getX() == 3 && theTreasures.get(i).getY() == 8)
+      		  ||(theTreasures.get(i).getX() == 4 && theTreasures.get(i).getY() == 8)
+            ||(theTreasures.get(i).getX() == 5 && theTreasures.get(i).getY() == 8)
+            ||(theTreasures.get(i).getX() == 8 && theTreasures.get(i).getY() == 1)
+      		  ||(theTreasures.get(i).getX() == 8 && theTreasures.get(i).getY() == 6)
+            ||(theTreasures.get(i).getX() == 9 && theTreasures.get(i).getY() == 6)
+            ||(theTreasures.get(i).getX() == 10 && theTreasures.get(i).getY() == 2)
+      		  ||(theTreasures.get(i).getX() == 11 && theTreasures.get(i).getY() == 3)
+            ||(theTreasures.get(i).getX() == 11 && theTreasures.get(i).getY() == 5)
+            ||(theTreasures.get(i).getX() == 11 && theTreasures.get(i).getY() == 6)){
+              theTreasures.get(i).resetXY();
+      	  }
+        }
+      }
 }
