@@ -55,8 +55,6 @@ public class GameComponent extends JComponent
 		     g.drawImage(tiles.get(tilesWidth*i + j), j*50, i*50, null);
 	    }
 	}
-  // draw the actual player
-  g.drawImage(player.getCurrentImage(), player.getXPos(), player.getYPos(), null);
 
   // drawing old Player objects as treasures
 	if(!t.equals(""))
@@ -69,7 +67,8 @@ public class GameComponent extends JComponent
 ////////////////////ACTUAL TREASURES////////////////////////////////
   for (int i = 0; i < theTreasures.size(); ++i){
       if(theTreasures.get(i).getFound()) {
-
+          System.out.println("Drawing Treasure object " + i + "\n" +
+                              "x = " + theTreasures.get(i).getX() + " y = " + theTreasures.get(i).getY());
           g.drawImage(theTreasures.get(i).getImage(),
                       theTreasures.get(i).getX(),
                       theTreasures.get(i).getY(),
@@ -77,6 +76,9 @@ public class GameComponent extends JComponent
       }
   }
 ////////////////////////////////////////////////////////////////////
+
+  // draw the actual player
+  g.drawImage(player.getCurrentImage(), player.getXPos(), player.getYPos(), null);
 
 	Graphics2D g2 = (Graphics2D) g;
 	if(!message.equals("")) {
@@ -209,7 +211,7 @@ public class GameComponent extends JComponent
   }
 
 
-	if(foundTreasureNum == 3){
+	if(foundTreasureNum == 6){
 		setMessageFinal(true);
 	}
     }
@@ -245,7 +247,13 @@ public class GameComponent extends JComponent
     }
 
     public void loadTreasure(ArrayList<Treasure> treasures) {
-	    this.theTreasures = treasures;
+      System.out.println("inside function loadTreasure: treasures.size() = " + treasures.size() );
+      System.out.println("inside function loadTreasure: this.theTreasures.size() = " + this.theTreasures.size() );
+      this.theTreasures = treasures;
+      System.out.println("AFTER ASSIGNING: this.theTreasures.size() = " + this.theTreasures.size() );
+      for ( int i = 0; i < treasures.size(); ++i){
+        this.theTreasures.set( i, treasures.get(i));
+      }
     }
 
 

@@ -54,7 +54,7 @@ public class GameGui{
 	component.loadPlayer(player,"player");
 
   System.out.println( this.toString() + " is calling placeTheTreasures!!");
-  this.placeTheTreasures(4);
+  this.placeTheTreasures(3);
   component.loadTreasure( theTreasures );
 
   Player [] treasures = placeTreasures(3);
@@ -180,16 +180,20 @@ public class GameGui{
 
     public void placeTheTreasures( int howMany ){
         if ( howMany == 0 ) System.out.println("make at least one treasure!");
-        Treasure first = new Treasure("treasure0");
-        if ( first != null ) System.out.println("first treasure is not null!");
-        theTreasures.add( first );
 
-        for (int i = 1; i < howMany; i++){
+        //Treasure first = new Treasure("treasure0");
+        //theTreasures.add( first );
+        //        System.out.println("first treasure: " + first.getX() + ", " + first.getY() );
+
+        for (int i = 0; i < howMany; i++){
           Treasure tempTreasure = new Treasure("treasure" + i);
           while (theTreasures.contains( tempTreasure )) {
             tempTreasure.resetXY();
           }
           theTreasures.add( tempTreasure );
+          System.out.println("treasure object " + i + ": " +
+                              theTreasures.get(i).getX() + ", " +
+                              theTreasures.get(i).getY());
           // use resetXY so we don't keep creating new objects on the heap
         }
 

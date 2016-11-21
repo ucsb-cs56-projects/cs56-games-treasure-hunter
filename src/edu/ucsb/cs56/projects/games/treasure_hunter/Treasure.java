@@ -16,8 +16,8 @@ import javax.imageio.ImageIO;
 
 public class Treasure {
     // private instance variables
-    private int xTile;
-    private int yTile;
+    private int xTile = 0;
+    private int yTile = 0;
     private String name;
     private boolean found = false;
     private BufferedImage image = null;
@@ -25,8 +25,7 @@ public class Treasure {
     //Treasure constructor
     public Treasure(String name) {
       this.name = name;
-      int xTile = (int)(Math.random()*12);
-      int yTile = (int)(Math.random()*9);
+      this.resetXY();
       try{
           image = ImageIO.read(getClass().getResource(GameGui.resourcesDir
                                + "treasure/treasure0.png"));
