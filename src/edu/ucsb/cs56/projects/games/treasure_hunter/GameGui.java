@@ -53,15 +53,8 @@ public class GameGui{
 	player = new Player(0,0,16,8,"player");
 	component.loadPlayer(player,"player");
 
-  System.out.println( this.toString() + " is calling placeTheTreasures!!");
-  this.placeTheTreasures(3);
+  this.placeTheTreasures(5); // change the amount of treasures here
   component.loadTreasure( theTreasures );
-
-  Player [] treasures = placeTreasures(3);
-  component.loadPlayer( treasures[0], "treasure" );
-  component.loadPlayer( treasures[1], "treasure1" );
-  component.loadPlayer( treasures[2], "treasure2" );
-
   component.loadMap("map.txt");
   addBindings();
 
@@ -120,62 +113,12 @@ public class GameGui{
       addBindings takes in the user's keyboard input.
 
      */
-
     public void addBindings() {
         // https://docs.oracle.com/javase/7/docs/api/javax/swing/KeyStroke.html
 	      component.registerKeyboardAction(new MoveAction(0,1), KeyStroke.getKeyStroke("DOWN"), JComponent.WHEN_FOCUSED);
         component.registerKeyboardAction(new MoveAction(0,-1), KeyStroke.getKeyStroke("UP"), JComponent.WHEN_FOCUSED);
         component.registerKeyboardAction(new MoveAction(-1,0), KeyStroke.getKeyStroke("LEFT"), JComponent.WHEN_FOCUSED);
         component.registerKeyboardAction(new MoveAction(1,0), KeyStroke.getKeyStroke("RIGHT"), JComponent.WHEN_FOCUSED);
-    }
-
-    public static Player[] placeTreasures( int howMany ){
-        int treasure1X = (int)(Math.random()*12);
-      	int treasure1Y = (int)(Math.random()*9);
-
-      	int treasure2X = (int)(Math.random()*12);
-      	int treasure2Y = (int)(Math.random()*9);
-
-      	int treasure3X = (int)(Math.random()*12);
-      	int treasure3Y = (int)(Math.random()*9);
-
-      	while(treasure1X == treasure2X && treasure1Y == treasure2Y) {
-      	    treasure2X = (int)(Math.random()*12);
-      	    treasure2Y = (int)(Math.random()*9);
-      	}
-      	while((treasure1X == treasure3X && treasure1Y == treasure3Y)
-      	      || (treasure2X == treasure3X && treasure2Y == treasure3Y)){
-      	    treasure3X = (int)(Math.random()*12);
-      	    treasure3Y = (int)(Math.random()*9);
-      	}
-        // prevents placement of treasures underneath stones //
-      	while((treasure1X == 0 && treasure1Y == 6)||(treasure1X == 1 && treasure1Y == 6)||(treasure1X == 3 && treasure1Y == 8)
-      		||(treasure1X == 4 && treasure1Y == 8)||(treasure1X == 5 && treasure1Y == 8)||(treasure1X == 8 && treasure1Y == 1)
-      		||(treasure1X == 8 && treasure1Y == 6)||(treasure1X == 9 && treasure1Y == 6)||(treasure1X == 10 && treasure1Y == 2)
-      		||(treasure1X == 11 && treasure1Y == 3)||(treasure1X == 11 && treasure1Y == 5)||(treasure1X == 11 && treasure1Y == 6)){
-            treasure1X = (int)(Math.random()*12);
-      	    treasure1Y = (int)(Math.random()*9);
-      	}
-      	while((treasure2X == 0 && treasure2Y == 6)||(treasure2X == 1 && treasure2Y == 6)||(treasure2X == 3 && treasure2Y == 8)
-      		||(treasure2X == 4 && treasure2Y == 8)||(treasure2X == 5 && treasure2Y == 8)||(treasure2X == 8 && treasure2Y == 1)
-      		||(treasure2X == 8 && treasure2Y == 6)||(treasure2X == 9 && treasure2Y == 6)||(treasure2X == 10 && treasure2Y == 2)
-      		||(treasure2X == 11 && treasure2Y == 3)||(treasure2X == 11 && treasure2Y == 5)||(treasure2X == 11 && treasure2Y == 6)){
-      	    treasure2X = (int)(Math.random()*12);
-      	    treasure2Y = (int)(Math.random()*9);
-      	}
-      	while((treasure3X == 0 && treasure3Y == 6)||(treasure3X == 1 && treasure3Y == 6)||(treasure3X == 3 && treasure3Y == 8)
-      		||(treasure3X == 4 && treasure3Y == 8)||(treasure3X == 5 && treasure3Y == 8)||(treasure3X == 8 && treasure3Y == 1)
-      		||(treasure3X == 8 && treasure3Y == 6)||(treasure3X == 9 && treasure3Y == 6)||(treasure3X == 10 && treasure3Y == 2)
-      		||(treasure3X == 11 && treasure3Y == 3)||(treasure3X == 11 && treasure3Y == 5)||(treasure3X == 11 && treasure3Y == 6)){
-      	    treasure3X = (int)(Math.random()*12);
-      	    treasure3Y = (int)(Math.random()*9);
-      	}
-        ////////////////////////////////////////////////////////////////////////
-        Player[] treasures = new Player[]{ new Player(treasure1X,treasure1Y,1,0,"treasure"),
-                                           new Player(treasure2X,treasure2Y,1,0,"treasure"),
-                                           new Player(treasure3X,treasure3Y,1,0,"treasure")
-                                         };
-        return treasures;
     }
 
     public void placeTheTreasures( int howMany ){
