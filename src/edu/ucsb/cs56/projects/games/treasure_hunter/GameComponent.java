@@ -54,10 +54,12 @@ public class GameComponent extends JComponent
 
 ////////////////////ACTUAL TREASURES////////////////////////////////
   for (int i = 0; i < theTreasures.size(); ++i){
-      if(GameGui.debug && theTreasures.get(i).getFound()) {
-          System.out.println("Drawing Treasure object " + i + "\n" +
-                              "x = " + theTreasures.get(i).getX() + " y = " + theTreasures.get(i).getY());
-
+      if(theTreasures.get(i).getFound()) {
+          if (GameGui.debug) System.out.println("Drawing Treasure object " +
+                                                 i + "\n" + "x = " +
+                                                 theTreasures.get(i).getX() +
+                                                 " y = " + theTreasures.get(i).getY());
+                                                 
           g.drawImage(theTreasures.get(i).getImage(),
                       theTreasures.get(i).getX()*50,
                       theTreasures.get(i).getY()*50,

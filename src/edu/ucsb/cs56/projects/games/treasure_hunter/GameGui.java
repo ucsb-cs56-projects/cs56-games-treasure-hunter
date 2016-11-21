@@ -25,7 +25,7 @@ public class GameGui{
     ArrayList<Treasure> theTreasures = new ArrayList<Treasure>();
     GameComponent component;
 
-    public static boolean debug = true;
+    public static boolean debug = false;
     public static final String resourcesDir = "/resources/";
 
     public static void main(String[] args)
@@ -134,9 +134,9 @@ public class GameGui{
             tempTreasure.resetXY();
           }
           theTreasures.add( tempTreasure );
-          System.out.println("treasure object " + i + ": " +
+          /*System.out.println("treasure object " + i + ": " +
                               theTreasures.get(i).getX() + ", " +
-                              theTreasures.get(i).getY());
+                              theTreasures.get(i).getY());*/
           // use resetXY so we don't keep creating new objects on the heap
         }
 
