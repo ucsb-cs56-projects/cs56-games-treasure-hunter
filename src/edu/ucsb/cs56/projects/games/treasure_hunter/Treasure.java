@@ -5,12 +5,10 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 /**
-   A component that draws the Treasure  by Alex Wood
-
-   @author Alex Wood (UCSB, CS56 W12, 2/16/2012)
-   @author Danielle Dodd and George Lieu
-   @version for CS56, W16, UCSB, 2/18/2016
-
+   A brand-new Treasure class by Lisa Liao and Patrick Vidican
+   @author Lisa Liao
+   @author Patrick Vidican
+   @version for CS56, F16, UCSB, 11/19/2016
 */
 
 
@@ -25,10 +23,11 @@ public class Treasure {
     //Treasure constructor
     public Treasure(String name) {
       this.name = name;
-      this.resetXY();
+      this.resetXY(); // otherwise the first treasure is always at 0,0
       try{
           image = ImageIO.read(getClass().getResource(GameGui.resourcesDir
                                + "treasure/treasure0.png"));
+          // function calls above might not be necessary if we just have one image
 	       } catch (Exception e) {}
     }
 
@@ -45,7 +44,7 @@ public class Treasure {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode(){ // straight outt conrad's tutorials
       int xTileBit = this.xTile & 0x0000FFFF;
       int yTileBit = this.yTile & 0x0000FFFF;
       return (xTileBit << 16) | yTileBit;

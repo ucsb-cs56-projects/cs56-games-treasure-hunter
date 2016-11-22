@@ -12,16 +12,14 @@ import java.util.ArrayList;
  *
  * @author Alex Wood (UCSB CS56. W12. 02/16/2012)
  * @author Danielle Dodd and George Lieu
- * @version for UCSB CS56, W16, 02/18/2016
+ * @author Lisa Liao and Patrick Vidican
+ * @version for UCSB CS56, F16, 11/19/2016
  */
 
 // all instances of Player as a treasure should be Treasure as a treasure
 public class GameGui{
 
     Player player;
-    Player treasure;
-    Player treasure1;
-    Player treasure2;
     ArrayList<Treasure> theTreasures = new ArrayList<Treasure>();
     GameComponent component;
 
@@ -38,32 +36,31 @@ public class GameGui{
     }
 
     public void go() {
-	JFrame frame = new JFrame();
+	     JFrame frame = new JFrame();
 
-	// Set the name and frame size
-	frame.setSize(608,480);
-	frame.setTitle("Treasure Hunter");
+       // Set the name and frame size
+       frame.setSize(608,480);
+       frame.setTitle("Treasure Hunter");
 
-	// Allows for game window to be closed
-	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       // Allows for game window to be closed
+       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	// Randomly places 3 treasures on game map
-  component = new GameComponent();
+       // Randomly places 3 treasures on game map
+       component = new GameComponent();
+       player = new Player(0,0,16,8,"player");
+       component.loadPlayer(player,"player");
 
-	player = new Player(0,0,16,8,"player");
-	component.loadPlayer(player,"player");
+       this.placeTheTreasures(5); // change the amount of treasures here
+       component.loadTreasure( theTreasures );
+       component.loadMap("map.txt");
+       addBindings();
 
-  this.placeTheTreasures(5); // change the amount of treasures here
-  component.loadTreasure( theTreasures );
-  component.loadMap("map.txt");
-  addBindings();
-
-	// adds game components and makes the window visible
-	frame.add(component);
-	frame.setVisible(true);
-	component.validate();
-	component.repaint();
-    }
+       // adds game components and makes the window visible
+       frame.add(component);
+       frame.setVisible(true);
+       component.validate();
+       component.repaint();
+     }
 
 
     class MoveAction extends AbstractAction {
@@ -141,6 +138,7 @@ public class GameGui{
         }
 
         // prevents placement of treasures underneath stones //
+        // maybe put this in a function cause this code smells //
         for ( int i = 0; i < theTreasures.size(); ++i){
           while((theTreasures.get(i).getX() == 0 && theTreasures.get(i).getY() == 6)
             ||(theTreasures.get(i).getX() == 1 && theTreasures.get(i).getY() == 6)

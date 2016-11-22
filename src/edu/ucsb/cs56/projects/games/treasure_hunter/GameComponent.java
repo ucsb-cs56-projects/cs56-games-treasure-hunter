@@ -16,10 +16,12 @@ import java.util.Scanner;
 /**
    A component that draws the map for the treasure hunter game by Alex Wood
    Edited by Danielle Dodd and George Lieu
+   Edited by Lisa Liao and Patrick Vidican
 
    @author Alex Wood (for CS56, W12, UCSB, 2/16/2012)
    @author Danielle Dodd and George Lieu
-   @version for CS56, W16, UCSB, 2/18/2016
+   @author Lisa Liao and Patrick Vidican
+   @version for UCSB CS56, F16, 11/19/2016
 
 */
 
@@ -59,7 +61,7 @@ public class GameComponent extends JComponent
                                                  i + "\n" + "x = " +
                                                  theTreasures.get(i).getX() +
                                                  " y = " + theTreasures.get(i).getY());
-                                                 
+
           g.drawImage(theTreasures.get(i).getImage(),
                       theTreasures.get(i).getX()*50,
                       theTreasures.get(i).getY()*50,
