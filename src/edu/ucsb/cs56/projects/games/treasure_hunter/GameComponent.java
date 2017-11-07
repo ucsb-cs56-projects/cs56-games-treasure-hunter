@@ -35,24 +35,39 @@ public class GameComponent extends JComponent
 
     private ArrayList<BufferedImage> tiles;
     private ArrayList<Character> tiletypes;
-    public String message = "";
+    
+    private String message = "";
     private String t ="";
     private String t1 ="";
     private String t2 ="";
+    
     private int tilesWidth;
     private int tilesHeight;
-
-    /*
-     The time limit that a player has to win the game or else they lose.
-     */
-    private int timeLimit = 200;
-
+    
     private int foundTreasureNum = 0;
 
     /*
-     * The initial time that the game starts at
+     * The initial time that the game starts at and the time limit of the game.
      */
     long startTime = System.currentTimeMillis();
+    private int timeLimit = 200;
+    
+    /**
+       Constructs a <tt>GameComponent</tt> object. 
+     */
+    public GameComponent() {
+	tiles = new ArrayList<BufferedImage>();
+	tiletypes = new ArrayList<Character>();
+	
+	message = "";
+	t = "";
+	t1 = "";
+	t2 = "";
+	
+	timeLimit = 200;
+	
+	foundTreasureNum = 0;
+    }
     
     /**
        Draws all components onto the screen. All of the tiles and the player sprite are drawn onto the screen. When a player finds a treasure, draws the <i>"TREASURE # FOUND"</i> message onto the screen. Keeps track of the timer and draws the <i>"YOU LOSE"</i> message onto the screen if the player runs out of time.
