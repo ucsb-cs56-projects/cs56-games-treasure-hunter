@@ -1,16 +1,12 @@
 package edu.ucsb.cs56.projects.games.treasure_hunter;
 
-import java.net.URL;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import javax.swing.JComponent;
-import java.awt.Font;
-import java.awt.Rectangle;
-import java.awt.Color;
-import java.util.ArrayList;
-import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-import java.io.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -39,48 +35,69 @@ public class GameComponent extends JComponent
     private String t2 ="";
     private int tilesWidth;
     private int tilesHeight;
-	  private int foundTreasureNum = 0;
 
-    /*
+
+    /**
+     The time limit that a player has to win the game or else they lose.
+     */
+    private int timeLimit = 200;
+
+    private int foundTreasureNum = 0;
+
+    /**
+     * The initial time that the game starts at
+     */
+    long startTime = System.currentTimeMillis();
+
+
+
+    /**
       paintComponent: It draws all of the tiles on the map. Also loads the player sprite.
       When player find the treasure, the message variable value changes and the "TREASURE # FOUND" message box is drawn onto the screen.
-
     */
     public void paintComponent(Graphics g) {
   // probably draws the tiles
-	for(int i = 0; i < tilesHeight; i++) {
-	   for(int j = 0; j< tilesWidth; j++) {
-		     g.drawImage(tiles.get(tilesWidth*i + j), j*50, i*50, null);
+	    for(int i = 0; i < tilesHeight; i++) {
+	        for(int j = 0; j< tilesWidth; j++) {
+		         g.drawImage(tiles.get(tilesWidth*i + j), j*50, i*50, null);
+	        }
 	    }
-	}
 
-////////////////////ACTUAL TREASURES////////////////////////////////
-  for (int i = 0; i < theTreasures.size(); ++i){
-      if(theTreasures.get(i).getFound()) {
-          if (GameGui.debug) System.out.println("Drawing Treasure object " +
+        if ((System.currentTimeMillis()-startTime)/1000>=timeLimit){
+            message = "YOU LOSE!";
+            new Thread(new MessageThread(this)).start();
+        }
+
+
+
+    ////////////////////ACTUAL TREASURES////////////////////////////////
+        for (int i = 0; i < theTreasures.size(); ++i){
+            if(theTreasures.get(i).getFound()) {
+                if (GameGui.debug) System.out.println("Drawing Treasure object " +
                                                  i + "\n" + "x = " +
                                                  theTreasures.get(i).getX() +
                                                  " y = " + theTreasures.get(i).getY());
-
-          g.drawImage(theTreasures.get(i).getImage(),
+                g.drawImage(theTreasures.get(i).getImage(),
                       theTreasures.get(i).getX()*50,
                       theTreasures.get(i).getY()*50,
                       null);
-      }
-  }
+            }
+        }
 ////////////////////////////////////////////////////////////////////
 
   // draw the actual player
-  g.drawImage(player.getCurrentImage(), player.getXPos(), player.getYPos(), null);
+        g.drawImage(player.getCurrentImage(), player.getXPos(), player.getYPos(), null);
 
-	Graphics2D g2 = (Graphics2D) g;
-	if(!message.equals("")) {
-	    g2.setColor(new Color(1f,0f,0f,.5f));
-	    g2.fill(new Rectangle(100,0,250,100));
-	    g2.setFont(new Font(null,Font.BOLD, 20));
-	    g2.setColor(Color.BLACK);
-	    g2.drawString(message, 110, 50);
-	}
+    	Graphics2D g2 = (Graphics2D) g;
+	    if(!message.equals("")) {
+	        g2.setColor(new Color(1f,0f,0f,.5f));
+	        g2.fill(new Rectangle(100,0,250,100));
+	        g2.setFont(new Font(null,Font.BOLD, 20));
+	        g2.setColor(Color.BLACK);
+	        g2.drawString(message, 110, 50);
+	    }
+
+	    String time = "Time: " + ((System.currentTimeMillis()-startTime)/1000);
 
     }
 
@@ -149,9 +166,13 @@ public class GameComponent extends JComponent
 	     //limits where the player can move (ie. can move out of the box)
        if(xTile < 0 || xTile > 11 || yTile < 0 || yTile > 8)
           player.setMovable(false);
+       //prevents the player from moving while time is up
+       else if(((System.currentTimeMillis()-startTime)/1000)>=timeLimit)
+           player.setMovable(false);
        //allows player to move after finding treasure
+       /* probably useless code, but we'll leave it here for now in case it is needed
        else if(!message.equals(""))
-          player.setMovable(true);
+          player.setMovable(true);*/
        //allows player to move into bushes
        else if(tiletypes.get(yTile*tilesWidth + xTile) == 'B')
           player.setMovable(true);

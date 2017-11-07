@@ -26,6 +26,16 @@ public class GameGui{
     public static boolean debug = false;
     public static final String resourcesDir = "/resources/";
 
+    /**
+     * Keeps track of the numbers of loops the game has executed.
+     */
+    private int frameCount=0;
+
+    /**
+     The time limit that a player has to win the game or else they lose.
+     */
+    private int timeLimit = 60;
+
     public static void main(String[] args)
     {
 	    if(debug) { System.out.println("Starting main");}
@@ -116,6 +126,8 @@ public class GameGui{
         component.registerKeyboardAction(new MoveAction(0,-1), KeyStroke.getKeyStroke("UP"), JComponent.WHEN_FOCUSED);
         component.registerKeyboardAction(new MoveAction(-1,0), KeyStroke.getKeyStroke("LEFT"), JComponent.WHEN_FOCUSED);
         component.registerKeyboardAction(new MoveAction(1,0), KeyStroke.getKeyStroke("RIGHT"), JComponent.WHEN_FOCUSED);
+        component.registerKeyboardAction(new PauseAction(), KeyStroke.getKeyStroke("P"), JComponent.WHEN_FOCUSED);
+
     }
 
     public void placeTheTreasures( int howMany ){

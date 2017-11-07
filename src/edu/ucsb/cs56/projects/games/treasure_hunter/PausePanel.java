@@ -1,7 +1,7 @@
 package edu.ucsb.cs56.projects.games.treasure_hunter;
 
-import java.awt.Graphics;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 class PausePanel extends JPanel {
 	
@@ -13,7 +13,6 @@ class PausePanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		g.setColor(getBackground());
 		g.fillRect(0, 0, getWidth(), getHeight());
-		paintComponent(g);
 	}
 	
 }
