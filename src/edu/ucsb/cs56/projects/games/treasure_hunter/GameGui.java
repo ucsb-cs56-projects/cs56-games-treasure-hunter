@@ -126,6 +126,8 @@ public class GameGui{
         component.registerKeyboardAction(new MoveAction(0,-1), KeyStroke.getKeyStroke("UP"), JComponent.WHEN_FOCUSED);
         component.registerKeyboardAction(new MoveAction(-1,0), KeyStroke.getKeyStroke("LEFT"), JComponent.WHEN_FOCUSED);
         component.registerKeyboardAction(new MoveAction(1,0), KeyStroke.getKeyStroke("RIGHT"), JComponent.WHEN_FOCUSED);
+        component.registerKeyboardAction(new PauseAction(), KeyStroke.getKeyStroke("P"), JComponent.WHEN_FOCUSED);
+
     }
 
     public void placeTheTreasures( int howMany ){

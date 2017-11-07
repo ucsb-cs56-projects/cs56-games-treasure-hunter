@@ -40,7 +40,7 @@ public class GameComponent extends JComponent
     /**
      The time limit that a player has to win the game or else they lose.
      */
-    private int timeLimit = 2;
+    private int timeLimit = 200;
 
     private int foundTreasureNum = 0;
 
