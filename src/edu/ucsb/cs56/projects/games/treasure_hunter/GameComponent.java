@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
-   A component that draws the map for the treasure hunter game by Alex Wood
+   A component that draws the map for the treasure hunter game by Alex Wood (CS56, W12, UCSB, 2/16/2012)
    Edited by Danielle Dodd and George Lieu
    Edited by Lisa Liao and Patrick Vidican
    Edited by Yusuf Alnawakhtha and Sang Min Oh
@@ -19,7 +19,7 @@ import java.util.Scanner;
 /**
    A component that draws the map for the Treasure Hunter game.
 
-   @author Alex Wood (for CS56, W12, UCSB, 2/16/2012)
+   @author Alex Wood
    @author Danielle Dodd and George Lieu
    @author Lisa Liao and Patrick Vidican
    @author Yusuf Alnawakhtha and Sang Min Oh
@@ -68,11 +68,20 @@ public class GameComponent extends JComponent
 	
 	foundTreasureNum = 0;
     }
+
+    /**
+       Sets the message of this <tt>GameComponent</tt> object.
+
+       @param newMessage The new message that this <tt>GameComponent</tt> object should have
+     */
+    public void setMessage(String newMessage) {
+	message = newMessage;
+    }
     
     /**
        Draws all components onto the screen. All of the tiles and the player sprite are drawn onto the screen. When a player finds a treasure, draws the <i>"TREASURE # FOUND"</i> message onto the screen. Keeps track of the timer and draws the <i>"YOU LOSE"</i> message onto the screen if the player runs out of time.
 
-      @param g Graphics object
+      @param g <tt>Graphics</tt> object
     */
     public void paintComponent(Graphics g) {
 	// probably draws the tiles
