@@ -53,13 +53,11 @@ public class GameComponent extends JComponent
      * The initial time that the game starts at
      */
     long startTime = System.currentTimeMillis();
-
-
-
+    
     /**
-       Draws all of the tiles and the player sprite onto the screen. When a player finds a treasure, draws the <i>"TREASURE # FOUND"</i> message onto the screen. Keeps track of the timer and draws the <i>"YOU LOSE"</i> message onto the screen if the player runs out of time.
+       Draws all components onto the screen. All of the tiles and the player sprite are drawn onto the screen. When a player finds a treasure, draws the <i>"TREASURE # FOUND"</i> message onto the screen. Keeps track of the timer and draws the <i>"YOU LOSE"</i> message onto the screen if the player runs out of time.
 
-      @param g - Graphics object
+      @param g Graphics object
     */
     public void paintComponent(Graphics g) {
 	// probably draws the tiles
@@ -101,7 +99,7 @@ public class GameComponent extends JComponent
     }
 
     /** 
-       Updates the player sprite on the map
+       Updates the player sprite on the map.
     */
     public void updatePlayer() {
 	paintImmediately(player.getXPos()-10, player.getYPos()-10,100,100);
@@ -110,7 +108,7 @@ public class GameComponent extends JComponent
     /**
        Loads the map from the layout specified in a text document. Each type of tile is loaded from the resources directory as a <tt>BufferedImage</tt>. According to the tile specified in the map layout, the Character that specifies the tile is stored in <tt>ArrayList&lt;Character&gt; tiletypes</tt> and the respective <tt>BufferedImage</tt> map tile is stored in <tt>ArrayList&lt;BufferedImage&gt; tiles</tt>. The <tt>ArrayList&lt;BufferedImage&gt; tiles</tt> is used later by <tt>paintComponent()</tt> in order to draw the tiles on the screen.
 
-       @param name - The name of the text tile that stores the layout of the map
+       @param name The name of the text tile that stores the layout of the map
      */
 
     public void loadMap(String name){
@@ -161,8 +159,8 @@ public class GameComponent extends JComponent
     /**
        Checks the move that the player made. Makes sure that the player stays within the bounds of the map ([0,11] width x [0,9] height). Provides collision detection in order to ensure that the player does not move through rocks (the player, however, is allowed to move through bushes). Checks the timer and prevents the player from moving once the time is up. Checks whether the player is standing on a tile with a hidden treasure. If a treasure is found, the message <i>"TREASURE # FOUND"</i> is displayed. 
        
-       @param xTile - The x-coordinate of the player's location on the map
-       @param yTile - The y-coordinate of the player's location on the map
+       @param xTile The x-coordinate of the player's location on the map
+       @param yTile The y-coordinate of the player's location on the map
     */
     public void checkMove(int xTile, int yTile) {
 	//limits where the player can move (ie. can move out of the box)
@@ -206,7 +204,7 @@ public class GameComponent extends JComponent
     /**
        Sets the message that will be displayed once a treasure is found.
        
-       @param treasureNumber - The number of the treasure that is found
+       @param treasureNumber The number of the treasure that is found
     */
     public void setMessage(int treasureNumber) {
 	message = "TREASURE " + treasureNumber + " FOUND!";
@@ -214,9 +212,9 @@ public class GameComponent extends JComponent
     }
     
     /** 
-	Sets the message that will be displayed if the player wins the game (i.e. finds all treasures on the map.
+	Sets the message that will be displayed if the player wins the game (i.e. finds all treasures on the map).
 
-	@param gameWon - A value that indicates whether the game is won or not
+	@param gameWon A value that indicates whether the game is won or not
     */
     public void setMessageFinal(boolean gameWon){
 	if(gameWon) {
@@ -230,8 +228,8 @@ public class GameComponent extends JComponent
     /** 
        Load and initialize the player sprite. It is used by the <tt>go()</tt> method in the <tt>GameGui</tt> class. 
 
-       @param player - The player object 
-       @param name - The name of the player
+       @param player The player object 
+       @param name The name of the player
     */
     public void loadPlayer(Player player, String name) {
 	this.player = player;
@@ -241,7 +239,7 @@ public class GameComponent extends JComponent
     /**
        Initializes the treasures and sets them on the map.
 
-       @param treasures - The list of treasures that are to be placed on the map
+       @param treasures The list of treasures that are to be placed on the map
      */
     public void loadTreasure(ArrayList<Treasure> treasures) {
 	this.theTreasures = treasures;
