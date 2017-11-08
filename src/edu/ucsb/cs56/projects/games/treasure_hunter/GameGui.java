@@ -142,10 +142,10 @@ public class GameGui {
     /**
        Binds keys to the respective actions. 
        <ul>
-       <li><i>UP</i> \t- moves the player one tile upwards</li>
-       <li><i>DOWN</i> \t- moves the player one tile downwards</li>
-       <li><i>LEFT</i> \t- moves the player one tile left</li>
-       <li><i>RIGHT</i> \t- moves the player one tile right</li>
+       <li><i>UP</i> - moves the player one tile upwards</li>
+       <li><i>DOWN</i> - moves the player one tile downwards</li>
+       <li><i>LEFT</i> - moves the player one tile left</li>
+       <li><i>RIGHT</i> - moves the player one tile right</li>
        </ul>
     */
     public void addBindings() {

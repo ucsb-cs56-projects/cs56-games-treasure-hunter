@@ -27,7 +27,6 @@ import java.util.Scanner;
 
 */
 
-
 public class GameComponent extends JComponent
 {
     Player player;
