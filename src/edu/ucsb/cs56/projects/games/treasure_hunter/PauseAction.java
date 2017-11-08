@@ -27,7 +27,7 @@ import java.awt.Color;
    @version for UCSB CS56, F17, 11/07/2017
 */
 
-class PauseAction extends AbstractAction {
+public class PauseAction extends AbstractAction {
     
     private JPanel pauseMessage = new JPanel();
 

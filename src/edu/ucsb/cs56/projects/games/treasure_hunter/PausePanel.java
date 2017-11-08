@@ -14,7 +14,7 @@ import java.awt.*;
    @version for UCSB CS56, F17, 11/07/2017
 */
 
-class PausePanel extends JPanel {
+public class PausePanel extends JPanel {
 
     /**
        Constructs a <tt>PausePanel</tt> object. The superclass' constructor is called.
