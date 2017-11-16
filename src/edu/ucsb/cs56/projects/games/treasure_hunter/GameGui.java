@@ -31,12 +31,6 @@ public class GameGui {
     public static boolean debug = false;
     public static final String resourcesDir = "/resources/";
 
-    //Keeps track of the numbers of loops the game has executed.
-    private int frameCount = 0;
-
-    // The time limit that a player has to win the game or else they lose.
-    private int timeLimit = 60;
-
     /**
        The main method of the <tt>GameGui</tt>. It creates a <tt>GameGui</tt> and calls the <tt>go()</tt> method.
 
