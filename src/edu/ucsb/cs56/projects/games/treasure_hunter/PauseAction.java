@@ -29,7 +29,7 @@ import java.awt.Color;
 
 public class PauseAction extends AbstractAction {
     
-    private JPanel pauseMessage = new JPanel();
+    private JPanel pauseMessage;
 
     /**
        Constructs a <tt>PauseAction</tt> object. The superclass' constructor is called.
@@ -49,6 +49,8 @@ public class PauseAction extends AbstractAction {
 	if(comp == null)
 	    return;
 	
+	pauseMessage = new JPanel();
+	
 	PausePanel glass = new PausePanel();
 	glass.setOpaque(false);
 	glass.setBackground(new Color(0, 0, 0, 175));
@@ -64,9 +66,10 @@ public class PauseAction extends AbstractAction {
 	panel.add(label);
 	
 	pauseMessage.setBackground(new Color(123, 63, 0));
-	pauseMessage.setLayout(new GridLayout(0, 1, 10, 10));
+	pauseMessage.setLayout(new GridLayout(2, 1, 10, 10));
 	pauseMessage.add(panel);
 	pauseMessage.add(new JButton(new PressAction("RESUME")));
+	pauseMessage.setVisible(true);
 	
 	JDialog dialog = new JDialog((Window) gameWindow, "", ModalityType.APPLICATION_MODAL);
 	dialog.getContentPane().add(pauseMessage);
