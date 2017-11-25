@@ -30,7 +30,7 @@ public class MessageThread implements Runnable{
     }
 
     /**
-       Runs the thread. The message is displayed or 5 seconds before it is erased.
+       Runs the thread. The message is displayed for 5 seconds before it is erased.
      */
     public void run() {
 	try{
