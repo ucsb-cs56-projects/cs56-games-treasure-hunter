@@ -19,6 +19,9 @@ import javax.imageio.ImageIO;
 */
 
 public class Treasure {
+	// static variables
+	static int numFound = 0;
+
     // private instance variables
     private int xTile = 0;
     private int yTile = 0;
@@ -98,6 +101,8 @@ public class Treasure {
      */
     public String getName() { return name; }
 
+	public int getNumFound() {return numFound;}
+
     /**
        Returns whether the <tt>Treasure</tt> has been found.
 
@@ -108,7 +113,13 @@ public class Treasure {
     /**
        Sets the state of the <tt>Treasure</tt> to be found.
      */
-    public void setFoundTrue() { found = true; }
+    public void setFoundTrue() { 
+    	// To prevent double-counting
+    	if(!found)
+    		numFound++;
+    		
+   		found = true;    	
+    }
 
     /**
        Resets the location of the <tt>Treasure</tt> object. The new x-/y-values for the tiles are randomly generated.

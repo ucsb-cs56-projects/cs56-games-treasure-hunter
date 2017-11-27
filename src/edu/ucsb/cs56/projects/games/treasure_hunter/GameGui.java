@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class GameGui{
 
     Player player;
-    ArrayList<Treasure> theTreasures = new ArrayList<Treasure>();
+    //ArrayList<Treasure> theTreasures = new ArrayList<Treasure>();
     GameComponent component;
 
 	/** a boolean that is true when the game loop is running
@@ -74,9 +74,10 @@ public class GameGui{
 		player = new Player(0,0,16,8,"player");
 		component.loadPlayer(player,"player");
 
-		this.placeTheTreasures(5); // change the amount of treasures here
-		component.loadTreasure( theTreasures );
+		
+		//component.loadTreasure();
 		component.loadMap("map.txt");
+		component.placeTheTreasures(5); // change the amount of treasures here
 		MoveAction move = new MoveAction();
 		// TODO: remove this if the game loop works properly
 		// addBindings();
@@ -216,48 +217,4 @@ public class GameGui{
 
     }*/
 
-    /**
-       Places the treasures on the map. Since the coordinates of the treasure are checked to make sure that they do not have the same coordinates as a rock (which would make the treasure unreachable since the player cannot walk through rocks). While an overlap of coordinates occurs, the treasure is given new coordinates.
-
-       @param howMany The number of treasures that are to be placed onto the map
-     */
-    public void placeTheTreasures(int howMany) {
-        if(howMany == 0)
-	    System.out.println("make at least one treasure!");
-
-        //Treasure first = new Treasure("treasure0");
-        //theTreasures.add( first );
-        //        System.out.println("first treasure: " + first.getX() + ", " + first.getY() );
-
-        for(int i=0; i<howMany; i++) {
-	    Treasure tempTreasure = new Treasure("treasure" + i);
-	    while (theTreasures.contains( tempTreasure )) {
-		tempTreasure.resetXY();
-	    }
-	    theTreasures.add( tempTreasure );
-	    /*System.out.println("treasure object " + i + ": " +
-                              theTreasures.get(i).getX() + ", " +
-                              theTreasures.get(i).getY());*/
-	    // use resetXY so we don't keep creating new objects on the heap
-        }
-
-        // prevents placement of treasures underneath stones //
-        // maybe put this in a function cause this code smells //
-        for(int i=0; i<theTreasures.size(); ++i) {
-	    while((theTreasures.get(i).getX() == 0 && theTreasures.get(i).getY() == 6)
-		  || (theTreasures.get(i).getX() == 1 && theTreasures.get(i).getY() == 6)
-		  || (theTreasures.get(i).getX() == 3 && theTreasures.get(i).getY() == 8)
-      		  || (theTreasures.get(i).getX() == 4 && theTreasures.get(i).getY() == 8)
-		  || (theTreasures.get(i).getX() == 5 && theTreasures.get(i).getY() == 8)
-		  || (theTreasures.get(i).getX() == 8 && theTreasures.get(i).getY() == 1)
-      		  || (theTreasures.get(i).getX() == 8 && theTreasures.get(i).getY() == 6)
-		  || (theTreasures.get(i).getX() == 9 && theTreasures.get(i).getY() == 6)
-		  || (theTreasures.get(i).getX() == 10 && theTreasures.get(i).getY() == 2)
-      		  || (theTreasures.get(i).getX() == 11 && theTreasures.get(i).getY() == 3)
-		  || (theTreasures.get(i).getX() == 11 && theTreasures.get(i).getY() == 5)
-		  || (theTreasures.get(i).getX() == 11 && theTreasures.get(i).getY() == 6)) {
-		theTreasures.get(i).resetXY();
-	    }
-        }
-    }
 }

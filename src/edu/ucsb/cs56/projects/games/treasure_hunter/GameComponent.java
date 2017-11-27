@@ -1,13 +1,14 @@
 package edu.ucsb.cs56.projects.games.treasure_hunter;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.lang.String;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 /*
    A component that draws the map for the treasure hunter game by Alex Wood (CS56, W12, UCSB, 2/16/2012)
@@ -30,10 +31,11 @@ import java.util.Scanner;
 public class GameComponent extends JComponent
 {
     Player player;
-    ArrayList<Treasure> theTreasures = new ArrayList<Treasure>();
+    ArrayList<Treasure> theTreasures;
 
     private ArrayList<BufferedImage> tiles;
-    private ArrayList<Character> tiletypes;
+    private char[][] tiletypes;
+    private int[][] treasureMap;
     
     private String message = "";
     private String t ="";
@@ -43,7 +45,11 @@ public class GameComponent extends JComponent
     private int tilesWidth;
     private int tilesHeight;
     
-    private int foundTreasureNum = 0;
+    private BufferedImage grassTile;
+	private BufferedImage bushTile;
+	private BufferedImage stoneTile;
+    
+    //private int foundTreasureNum = 0;
 
     /*
      * The initial time that the game starts at and the time limit of the game.
@@ -56,7 +62,6 @@ public class GameComponent extends JComponent
      */
     public GameComponent() {
 	tiles = new ArrayList<BufferedImage>();
-	tiletypes = new ArrayList<Character>();
 	
 	message = "";
 	t = "";
@@ -65,7 +70,7 @@ public class GameComponent extends JComponent
 	
 	timeLimit = 200;
 	
-	foundTreasureNum = 0;
+	//foundTreasureNum = 0;
     }
 
     /**
@@ -83,11 +88,24 @@ public class GameComponent extends JComponent
       @param g <tt>Graphics</tt> object
     */
     public void paintComponent(Graphics g) {
-	// probably draws the tiles
 	for(int i = 0; i < tilesHeight; i++) {
-	    for(int j = 0; j< tilesWidth; j++) {
-		g.drawImage(tiles.get(tilesWidth*i + j), j*50, i*50, null);
-	    }
+		for(int j = 0; j < tilesWidth; j++) {
+			switch(tiletypes[i][j]) {
+				case 'G':
+					g.drawImage(grassTile, j*50, i*50, null);
+					break;
+				case 'B':
+					g.drawImage(bushTile, j*50, i*50, null);
+					break;
+				case 'S':
+					g.drawImage(stoneTile, j*50, i*50, null);
+					break;
+			}
+			/*System.out.print(tiletypes[i][j] + " ");
+			if(j == tilesWidth - 1)
+				System.out.print("\n");*/
+		//g.drawImage(tiles.get(tilesWidth*i + j), j*50, i*50, null);
+		}
 	}
 	
         if ((System.currentTimeMillis()-startTime)/1000>=timeLimit){
@@ -135,7 +153,6 @@ public class GameComponent extends JComponent
      */
 
     public void loadMap(String name){
-	tiletypes = new ArrayList<Character>();
 	try {
 
 	    String dir = "/resources/";
@@ -149,30 +166,31 @@ public class GameComponent extends JComponent
 		System.out.println("url = " + url);
 	    }
 
+		grassTile = ImageIO.read(getClass().getResource("/resources/grass.png"));
+	    bushTile = ImageIO.read(getClass().getResource("/resources/bush.png"));
+	    stoneTile = ImageIO.read(getClass().getResource("/resources/stone.PNG"));
+
 	    Scanner scanner = new Scanner(getClass().getResourceAsStream(dir+ name));
-	    BufferedImage grassTile = ImageIO.read(getClass().getResource("/resources/grass.png"));
-	    BufferedImage bushTile = ImageIO.read(getClass().getResource("/resources/bush.png"));
-	    BufferedImage stoneTile = ImageIO.read(getClass().getResource("/resources/stone.PNG"));
 	    tilesWidth = scanner.nextInt();
 	    tilesHeight = scanner.nextInt();
+	  	tiletypes = new char[tilesHeight][tilesWidth];
 	    
-	    String temp;
-	    tiles = new ArrayList<BufferedImage>();
-	    while (scanner.hasNext()) {
-		temp = scanner.nextLine();
-		if(temp.equals(("G"))) {
-		    tiles.add(grassTile);
-		    tiletypes.add('G');
-		}
-		if(temp.equals(("B"))) {
-		    tiles.add(bushTile);
-		    tiletypes.add('B');
-		}
-		if(temp.equals(("S"))) {
-		    tiles.add(stoneTile);
-		    tiletypes.add('S');
-		}
+	    // Place the char that represents the tile in a 2x2 array that is representative of the map
+	    for(int i=0; i<tilesHeight; i++) {
+	    	for(int j=0; j<tilesWidth; j++) {
+	    		if(scanner.hasNext()) {
+	    			// Since all input tiles are a string of length 1, we can just use the charAt() function
+	    			String temp = scanner.next();
+	    			tiletypes[i][j] = temp.charAt(0);	    
+	    		} else {
+	    			// If there is no more input to read, just fill with grass tiles
+	    			tiletypes[i][j] = 'G';
+	    		}
+	    	}
 	    }
+	    
+	    // Close the Scanner
+	    scanner.close();
 	    
 	} catch (IOException e) {
 	    e.printStackTrace();
@@ -188,11 +206,17 @@ public class GameComponent extends JComponent
     public void checkMove(int xTile, int yTile) {
 	//limits where the player can move (ie. can move out of the box)
 	if(xTile < 0 || xTile > 11 || yTile < 0 || yTile > 8)
-	    player.setMovable(false);
+	    {
+	    	player.setMovable(false);
+	    }
+
 	
 	//prevents the player from moving while time is up
 	else if(((System.currentTimeMillis()-startTime)/1000)>=timeLimit)
-	    player.setMovable(false);
+	    {
+	    	player.setMovable(false);
+	    }
+	    
 	
 	//allows player to move after finding treasure
 	/* probably useless code, but we'll leave it here for now in case it is needed
@@ -200,23 +224,32 @@ public class GameComponent extends JComponent
 	   player.setMovable(true);*/
 	
 	//allows player to move into bushes
-	else if(tiletypes.get(yTile*tilesWidth + xTile) == 'B')
-	    player.setMovable(true);
+	/*else if(tiletypes.get(yTile*tilesWidth + xTile) == 'B')
+	    player.setMovable(true);*/
+	    
 	//prevent player from move into stones
-	else if(tiletypes.get(yTile*tilesWidth + xTile) == 'S')
-	    player.setMovable(false);
+	else if(tiletypes[yTile][xTile] == 'S')
+	    {
+	    	player.setMovable(false);
+	    }
+	    
 	else if(player.getXPos() != player.getXTile() * 50 || player.getYPos() != player.getYTile() * 50)
-	    player.setMovable(false);
+	    {
+	    	player.setMovable(false);
+	    }
 	else
-	    player.setMovable(true);
-
+		{
+	    	player.setMovable(true);
+		}
+		
+		System.out.println(player.isMovable());
+		
 	// loop through the Treasures and check if they are found
 	for (int i = 0; i < theTreasures.size(); ++i) {
 	    if(xTile == theTreasures.get(i).getX() && yTile == theTreasures.get(i).getY() && theTreasures.get(i).getFound() == false) {
                 setMessage(i);
                 theTreasures.get(i).setFoundTrue();
-                foundTreasureNum++;
-                if( foundTreasureNum == theTreasures.size() )
+                if( theTreasures.get(0).getNumFound() == theTreasures.size() )
 		    setMessageFinal(true);
                 if(GameGui.debug)
 		    System.out.println("foundTreasureNum++");
@@ -259,16 +292,29 @@ public class GameComponent extends JComponent
     }
 
 
-    /**
-       Initializes the treasures and sets them on the map.
+    
+    public void placeTheTreasures(int howMany) {
+    	treasureMap = new int[tilesHeight][tilesWidth];
+    	theTreasures = new ArrayList<Treasure>();
+    
+        if(howMany < 1)
+	    	System.out.println("Make at least one treasure!");
 
-       @param treasures The list of treasures that are to be placed on the map
-     */
-    public void loadTreasure(ArrayList<Treasure> treasures) {
-	this.theTreasures = treasures;
-
-	for ( int i = 0; i < treasures.size(); ++i) {
-	    this.theTreasures.set(i, treasures.get(i));
-	}
+        for(int i=0; i<howMany; i++) {
+			// Create a new Treasure
+			Treasure tempTreasure = new Treasure("Treasure " + i);
+			
+			// Reset the position of the Treasure to make sure that:
+			// 	1) No two Treasures share the same location
+			// 	2) A Treasure isn't located underneath stones
+			while (treasureMap[tempTreasure.getY()][tempTreasure.getX()] == 1 || tiletypes[tempTreasure.getY()][tempTreasure.getX()] == 'S') {
+				tempTreasure.resetXY();
+			}
+				
+			// At this point, there is no collision, so we can add the Treasure to the theTreasures ArrayList.
+			theTreasures.add( tempTreasure );
+			treasureMap[tempTreasure.getY()][tempTreasure.getX()] = 1;
+			
+        }
     }
 }
