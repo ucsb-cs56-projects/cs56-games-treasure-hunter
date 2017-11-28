@@ -7,23 +7,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import java.awt.event.ActionEvent;
-import java.awt.Component;
-import java.awt.Window;
-import java.awt.Dialog.ModalityType;
-import java.awt.GridLayout;
-import java.awt.Color;
-import javax.swing.RootPaneContainer;
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JDialog;
-import javax.swing.JComponent;
-import javax.swing.AbstractAction;
-import javax.swing.SwingUtilities;
-
-
 /*
   Created by Alex Wood (UCSB CS56, W12, 02/16/2012)
   Edited by Yusuf Alnawakhtha and Sang Min Oh

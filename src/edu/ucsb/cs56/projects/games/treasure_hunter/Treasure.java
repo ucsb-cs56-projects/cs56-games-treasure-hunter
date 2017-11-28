@@ -100,7 +100,12 @@ public class Treasure {
        @return The name
      */
     public String getName() { return name; }
-
+	
+	/**
+		Returns the number of <tt>Treasure</tt> objects that are found.
+		
+		@return The number of <tt>Treasure</tt> objects found
+	*/
 	public int getNumFound() {return numFound;}
 
     /**
@@ -111,7 +116,7 @@ public class Treasure {
     public boolean getFound() { return found; }
 
     /**
-       Sets the state of the <tt>Treasure</tt> to be found.
+       Sets the state of the <tt>Treasure</tt> to "found". In addition, it increments the number of <tt>Treasure</tt> objects that are found so far.
      */
     public void setFoundTrue() { 
     	// To prevent double-counting
