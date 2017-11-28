@@ -29,16 +29,12 @@ public class PauseAction {
     }
 
     /**
-       Creates a pause menu that takes over the entire screen. Within the panel that takes over the screen, a <tt>JDialog</tt> is created and it contains a <tt>JButton</tt> that can be used to quit from the pause menu and resume the game.
-
-       @param e An <tt>ActionEvent</tt> object
+       Creates a pause menu that takes over the game screen. Within the panel that takes over the screen, a <tt>JDialog</tt> is created and it contains a <tt>JButton</tt> that can be pressed to quit from the pause menu and resume the game.
+       
+       @param frame The JFrame that the pause menu will be drawn on
      */
     public void drawPauseMenu(JFrame frame) {
 		pauseMessage = new JPanel();
-	
-		PausePanel glass = new PausePanel();
-		glass.setOpaque(false);
-		glass.setBackground(new Color(0, 0, 0, 175));
 		    
 		JLabel label = new JLabel("PAUSED");
 		label.setForeground(Color.BLACK);
@@ -58,8 +54,6 @@ public class PauseAction {
 		dialog.pack();
 		dialog.setLocationRelativeTo(frame);
 		dialog.setVisible(true);
-	
-		glass.setVisible(false);
     }
     
     /**
@@ -87,7 +81,6 @@ public class PauseAction {
 	    Window pauseWindow = SwingUtilities.getWindowAncestor(comp);
 	    pauseWindow.dispose();
 	}
-    }
- 	   
+    } 	   
 }
 

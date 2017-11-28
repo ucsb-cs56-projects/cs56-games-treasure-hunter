@@ -280,17 +280,23 @@ public class GameComponent extends JComponent
     /** 
        Load and initialize the player sprite. It is used by the <tt>go()</tt> method in the <tt>GameGui</tt> class. 
 
-       @param player The player object 
-       @param name The name of the player
+       @param player The <tt>Player</tt> object 
+       @param name The name of the <tt>Player</tt> object
     */
     public void loadPlayer(Player player, String name) {
 	this.player = player;
     }
     
+    /**
+    	Randomly place <tt>Treasure</tt> objects around the map. This function also ensures that the <tt>Treasure</tt> objects do not share a location with another <tt>Treasure</tt> object, is not placed underneath a stone, and does not start at the coordinate (0, 0) (which ensures that the player does not find immediately find a treasure after starting the game).
+    	
+    	@param howMany The number of <tt>Treasure</tt> objects to be placed in the map
+    */
     public void placeTheTreasures(int howMany) {
     	treasureMap = new int[tilesHeight][tilesWidth];
     	theTreasures = new ArrayList<Treasure>();
-    
+    	
+    	// Make sure that at least one treasure is created (or else it would be a very boring game)
         if(howMany < 1)
 	    	System.out.println("Make at least one treasure!");
 
@@ -301,7 +307,7 @@ public class GameComponent extends JComponent
 			// Reset the position of the Treasure to make sure that:
 			// 	1) No two Treasures share the same location
 			// 	2) A Treasure isn't located underneath stones
-			while (treasureMap[tempTreasure.getY()][tempTreasure.getX()] == 1 || tiletypes[tempTreasure.getY()][tempTreasure.getX()] == 'S') {
+			while (treasureMap[tempTreasure.getY()][tempTreasure.getX()] == 1 || tiletypes[tempTreasure.getY()][tempTreasure.getX()] == 'S' || (tempTreasure.getX() == 0 && tempTreasure.getY() == 0)) {
 				tempTreasure.resetXY();
 			}
 				
