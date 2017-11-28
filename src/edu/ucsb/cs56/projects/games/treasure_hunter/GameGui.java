@@ -26,7 +26,6 @@ import java.util.ArrayList;
 public class GameGui{
 
     Player player;
-    //ArrayList<Treasure> theTreasures = new ArrayList<Treasure>();
     GameComponent component;
 
 	/** a boolean that is true when the game loop is running
