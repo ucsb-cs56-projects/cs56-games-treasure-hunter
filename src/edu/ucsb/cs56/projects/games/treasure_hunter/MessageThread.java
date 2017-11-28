@@ -42,7 +42,7 @@ public class MessageThread implements Runnable{
 		numMessages++;
 	    Thread.sleep(5000);
 	    numMessages--;
-	    if(numMessages==0) {
+	    if(numMessages==0 && !gc.winningCondition) {
 			gc.setMessage("");
 		}
 	}
