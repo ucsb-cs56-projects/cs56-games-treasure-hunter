@@ -60,12 +60,13 @@ public class GameComponent extends JComponent
      */
     public GameComponent() {
 
-	message = "";
-	t = "";
-	t1 = "";
-	t2 = "";
+		message = "";
+		t = "";
+		t1 = "";
+		t2 = "";
 
-	startTime = System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
+	}
 
     /**
        Sets the message of this <tt>GameComponent</tt> object.

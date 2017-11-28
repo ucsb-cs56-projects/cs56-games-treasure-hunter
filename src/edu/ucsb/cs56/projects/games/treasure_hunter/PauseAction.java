@@ -1,20 +1,9 @@
 package edu.ucsb.cs56.projects.games.treasure_hunter;
 
-import javax.swing.RootPaneContainer;
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JDialog;
-import javax.swing.JComponent;
-import javax.swing.AbstractAction;
-import javax.swing.SwingUtilities;
-import java.awt.event.ActionEvent;
-import java.awt.Component;
-import java.awt.Window;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.Dialog.ModalityType;
-import java.awt.GridLayout;
-import java.awt.Color;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 /*
@@ -46,7 +35,6 @@ public class PauseAction {
        @param e An <tt>ActionEvent</tt> object
      */
     public void drawPauseMenu(KeyEvent e) {
-    if(isPaused) {
     	System.out.println("Paused");
     	
     	Component comp = (Component) e.getSource();
@@ -84,7 +72,6 @@ public class PauseAction {
 		dialog.setVisible(true);
 	
 		glass.setVisible(false);
-		}
     }
     
     /**
