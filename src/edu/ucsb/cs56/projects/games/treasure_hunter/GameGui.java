@@ -7,6 +7,22 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import java.awt.event.ActionEvent;
+import java.awt.Component;
+import java.awt.Window;
+import java.awt.Dialog.ModalityType;
+import java.awt.GridLayout;
+import java.awt.Color;
+import javax.swing.RootPaneContainer;
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JDialog;
+import javax.swing.JComponent;
+import javax.swing.AbstractAction;
+import javax.swing.SwingUtilities;
+
 
 /*
   Created by Alex Wood (UCSB CS56, W12, 02/16/2012)
@@ -74,15 +90,13 @@ public class GameGui{
 		player = new Player(0,0,16,8,"player");
 		component.loadPlayer(player,"player");
 
-		
-		//component.loadTreasure();
+		// Load the map and randomly set the treasures on the map
 		component.loadMap("map.txt");
 		component.placeTheTreasures(5); // change the amount of treasures here
+		
+		// Add a listener that listens for directional key presses and tells the character to move accordingly.
 		MoveAction move = new MoveAction();
-
-
-		// adds game components and makes the window visible
-
+		PauseAction pause = new PauseAction();
 		frame.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -101,6 +115,8 @@ public class GameGui{
                         case KeyEvent.VK_DOWN:
                             move.moveDown = true;
                             break;
+                        case KeyEvent.VK_P:
+                        	pause.drawPauseMenu(e);
                     }
                 }
 			}
@@ -123,6 +139,19 @@ public class GameGui{
 				}
             }
 		});
+		/*
+		// Add a listener that listens for a key press that will pause the screen
+		PauseAction pause = new PauseAction();
+		frame.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_P) {
+					pause.setPaused(true);
+				}
+			}
+		});*/
+		
+		// adds game components and makes the window visible
 		frame.add(component);
 		frame.setVisible(true);
 		component.validate();
@@ -155,7 +184,7 @@ public class GameGui{
 
 
 	/**
-       A private inner class that handles player movement when one of the directional keys are pressed. <tt>MoveAction</tt> must be a private inner class because it needs access to the <tt>GameComponent</tt> and <tt>Player</tt> objects in the external <tt>GameGui</tt> class.
+       A private inner class that handles player movement when one of the directional keys are pressed. 
      */
     private class MoveAction {
 	int startingSprite = 0;
@@ -168,11 +197,7 @@ public class GameGui{
 	boolean moveDown;
 	
 	/**
-	 * TODO: fix javadoc comment
 	   Changes the player's sprite to reflect the direction that the player is moving in. Depending on the deltas in coordinates, the player sprite can be changed to standing still while facing north, south, west, or east. The number of the sprite is changed; the actual sprite picture is set in the <tt>Player</tt> object's <tt>setSprite()</tt> method.
-	   
-	   @param x The amount of steps the player moves in the x-direction
-	   @param y The amount of steps the player moves in the y-direction
 	*/
 	public void PerformMovement() {
 	    if(x == 0 && y ==0) {
@@ -196,7 +221,6 @@ public class GameGui{
 	}
 
     }
-
 
 
 

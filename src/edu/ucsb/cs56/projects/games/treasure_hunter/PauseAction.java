@@ -15,6 +15,7 @@ import java.awt.Window;
 import java.awt.Dialog.ModalityType;
 import java.awt.GridLayout;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 
 /*
   Created by Yusuf Alnawakhtha and Sang Min Oh (CS56, F17, 11/07/2017)
@@ -27,9 +28,10 @@ import java.awt.Color;
    @version for UCSB CS56, F17, 11/07/2017
 */
 
-public class PauseAction extends AbstractAction {
+public class PauseAction {
     
     private JPanel pauseMessage;
+    private boolean isPaused;
 
     /**
        Constructs a <tt>PauseAction</tt> object. The superclass' constructor is called.
@@ -43,42 +45,46 @@ public class PauseAction extends AbstractAction {
 
        @param e An <tt>ActionEvent</tt> object
      */
-    @Override
-    public void actionPerformed(ActionEvent e) {
-	Component comp = (Component) e.getSource();
-	if(comp == null)
-	    return;
+    public void drawPauseMenu(KeyEvent e) {
+    if(isPaused) {
+    	System.out.println("Paused");
+    	
+    	Component comp = (Component) e.getSource();
+    	if(comp == null) {
+    		return;
+    	}
+    	
+		pauseMessage = new JPanel();
 	
-	pauseMessage = new JPanel();
+		PausePanel glass = new PausePanel();
+		glass.setOpaque(false);
+		glass.setBackground(new Color(0, 0, 0, 175));
 	
-	PausePanel glass = new PausePanel();
-	glass.setOpaque(false);
-	glass.setBackground(new Color(0, 0, 0, 175));
+		RootPaneContainer gameWindow = (RootPaneContainer) SwingUtilities.getWindowAncestor(comp);
+		gameWindow.setGlassPane(glass);
+		glass.setVisible(true);
+		    
+		JLabel label = new JLabel("PAUSED");
+		label.setForeground(Color.BLACK);
+		JPanel panel = new JPanel();
+		panel.setOpaque(false);
+		panel.add(label);
 	
-	RootPaneContainer gameWindow = (RootPaneContainer) SwingUtilities.getWindowAncestor(comp);
-	gameWindow.setGlassPane(glass);
-	glass.setVisible(true);
-        
-	JLabel label = new JLabel("PAUSED");
-	label.setForeground(Color.BLACK);
-	JPanel panel = new JPanel();
-	panel.setOpaque(false);
-	panel.add(label);
+		pauseMessage.setBackground(new Color(123, 63, 0));
+		pauseMessage.setLayout(new GridLayout(2, 1, 10, 10));
+		pauseMessage.add(panel);
+		pauseMessage.add(new JButton(new PressAction("RESUME")));
+		pauseMessage.setVisible(true);
 	
-	pauseMessage.setBackground(new Color(123, 63, 0));
-	pauseMessage.setLayout(new GridLayout(2, 1, 10, 10));
-	pauseMessage.add(panel);
-	pauseMessage.add(new JButton(new PressAction("RESUME")));
-	pauseMessage.setVisible(true);
+		JDialog dialog = new JDialog((Window) gameWindow, "", ModalityType.APPLICATION_MODAL);
+		dialog.getContentPane().add(pauseMessage);
+		dialog.setUndecorated(true);
+		dialog.pack();
+		dialog.setLocationRelativeTo((Window) gameWindow);
+		dialog.setVisible(true);
 	
-	JDialog dialog = new JDialog((Window) gameWindow, "", ModalityType.APPLICATION_MODAL);
-	dialog.getContentPane().add(pauseMessage);
-	dialog.setUndecorated(true);
-	dialog.pack();
-	dialog.setLocationRelativeTo((Window) gameWindow);
-	dialog.setVisible(true);
-	
-	glass.setVisible(false);
+		glass.setVisible(false);
+		}
     }
     
     /**
@@ -105,7 +111,9 @@ public class PauseAction extends AbstractAction {
 	    Component comp = (Component) e.getSource();
 	    Window pauseWindow = SwingUtilities.getWindowAncestor(comp);
 	    pauseWindow.dispose();
+	    isPaused = false;
 	}
     }
+ 	   
 }
 

@@ -48,7 +48,7 @@ public class GameComponent extends JComponent
 	private BufferedImage bushTile;
 	private BufferedImage stoneTile;
     
-    //private int foundTreasureNum = 0;
+    private JPanel pauseMessage;
 
     /**
      * The initial time that the game starts at and the time limit of the game.
@@ -68,8 +68,6 @@ public class GameComponent extends JComponent
 	t2 = "";
 	
 	timeLimit = 200;
-	
-	//foundTreasureNum = 0;
     }
 
     /**
@@ -100,10 +98,6 @@ public class GameComponent extends JComponent
 					g.drawImage(stoneTile, j*50, i*50, null);
 					break;
 			}
-			/*System.out.print(tiletypes[i][j] + " ");
-			if(j == tilesWidth - 1)
-				System.out.print("\n");*/
-		//g.drawImage(tiles.get(tilesWidth*i + j), j*50, i*50, null);
 		}
 	}
 	
@@ -215,13 +209,6 @@ public class GameComponent extends JComponent
 	    {
 	    	player.setMovable(false);
 	    }
-	    
-
-	
-	//allows player to move into bushes
-	/*else if(tiletypes.get(yTile*tilesWidth + xTile) == 'B')
-	    player.setMovable(true);*/
-	    
 	//prevent player from move into stones
 	else if(tiletypes[yTile][xTile] == 'S')
 	    {
@@ -251,6 +238,8 @@ public class GameComponent extends JComponent
 		    setMessageFinal(true);
                 if(GameGui.debug)
 		    System.out.println("foundTreasureNum++");
+		    validate();
+		    repaint();
 	    }
 	}
     }
@@ -288,8 +277,6 @@ public class GameComponent extends JComponent
     public void loadPlayer(Player player, String name) {
 	this.player = player;
     }
-
-
     
     public void placeTheTreasures(int howMany) {
     	treasureMap = new int[tilesHeight][tilesWidth];
