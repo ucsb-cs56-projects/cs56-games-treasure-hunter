@@ -1,10 +1,10 @@
 package edu.ucsb.cs56.projects.games.treasure_hunter;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
-
 
 /*
   Created by Alex Wood (UCSB CS56, W12, 02/16/2012)
@@ -39,6 +39,8 @@ public class GameGui{
 
     public static boolean debug = false;
     public static final String resourcesDir = "/resources/";
+    
+	private int state;
 
     /**
        The main method of the <tt>GameGui</tt>. It creates a <tt>GameGui</tt> and calls the <tt>go()</tt> method.
@@ -48,11 +50,78 @@ public class GameGui{
     public static void main(String[] args) {
 	if(debug) 
 	    System.out.println("Starting main");
+	
+	// Create the GUI
 	GameGui gui = new GameGui();
 	
 	if(debug) 
 	    System.out.println("In main calling gui.go()");
-	gui.go();
+	
+	gui.createMainMenu();
+    }
+    
+    /**
+    	Creates the GUI frame and places all of the Main Menu components in it.
+    */
+    public void createMainMenu() {
+    	frame = new JFrame();
+    	state = 0;
+    	
+    	// Set the name and frame size
+    	frame.setSize(608, 480);
+    	frame.setTitle("Treasure Hunter");
+    	
+    	// Allows for the game window to be closed
+    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	
+    	// Create the panel and the buttons on the Main Menu
+    	JPanel menuPanel = new JPanel();
+    	
+    	JLabel menuLabel = new JLabel("Main Menu");
+    	menuLabel.setForeground(Color.BLACK);
+		menuPanel.add(menuLabel);
+		menuPanel.add(new JButton(new StartAction("START")));
+		menuPanel.setVisible(true);
+		
+		frame.add(menuPanel);
+		frame.setVisible(true);
+		
+		while(state == 0) {
+			try{
+			Thread.sleep(1);
+			} catch (Exception e) {}
+		} 
+			frame.getContentPane().removeAll();
+			frame = new JFrame();
+			frame.getContentPane().setBackground(Color.BLACK);
+			try{
+			Thread.sleep(2000);
+			} catch (Exception e) {}
+			go();
+    }
+    
+    /**
+    	A private inner class that listens to the "START" button and starts the game when it is pressed.
+    */
+    private class StartAction extends AbstractAction {
+    	/**
+    		Constructs a <tt>StartAction</tt> object.
+   			
+   			@param text The next that appears on the <tt>JButton</tt> and describes the action taken when it is pressed
+    	*/
+    	public StartAction(String text) {
+    		super(text);
+    	}
+    
+    /**
+    	Removes everything from the <tt>JFrame</tt> and loads the game.
+    	
+    	@param e An <tt>ActionEvent</tt> object
+    */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+   		state = 1;
+    }
     }
     
     /**
