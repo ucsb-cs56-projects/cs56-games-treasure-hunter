@@ -74,7 +74,6 @@ public class GameComponent extends JComponent
      */
     String time;
     
-    
     /**
      * States if the game has been won
      */
@@ -130,8 +129,6 @@ public class GameComponent extends JComponent
 		new Thread(new MessageThread(this)).start();
 	    }
         }
-	
-	
 	
 	////////////////////ACTUAL TREASURES////////////////////////////////
         for (int i = 0; i < theTreasures.size(); ++i) {
@@ -332,14 +329,23 @@ public class GameComponent extends JComponent
 	    // At this point, there is no collision, so we can add the Treasure to the theTreasures ArrayList.
 	    theTreasures.add( tempTreasure );
 	    treasureMap[tempTreasure.getY()][tempTreasure.getX()] = 1;
-	    
         }
     }
-    
+
+    /**
+       Updates the amount of time that the game was paused for.
+
+       @param time The time that the game was paused for
+     */
     public void pauseTimer(long time) {
     	pausedTime += time;
     }
-    
+
+    /**
+       Sets an indicator that determines whether the game is currently paused or not.
+
+       @param state The indicator for whether a game is paused or not
+     */
     public void setPause(boolean state) {
 	pause = state;
     }

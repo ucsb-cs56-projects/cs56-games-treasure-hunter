@@ -28,9 +28,10 @@ public class PauseAction {
     }
     
     /**
-       Creates a pause menu that takes over the game screen. Within the panel that takes over the screen, a <tt>JDialog</tt> is created and it contains a <tt>JButton</tt> that can be pressed to quit from the pause menu and resume the game.
+       Creates a pause menu that takes over the game screen. Within the panel that takes over the screen, a <tt>JDialog</tt> is created and it contains a <tt>JButton</tt> that can be pressed to quit from the pause menu and resume the game. This function also records the amount of time that the pause screen was showing for.
        
        @param frame The JFrame that the pause menu will be drawn on
+       @return Duration of time that the pause menu was shown for
     */
     public long drawPauseMenu(JFrame frame) {
     	long startPause = System.currentTimeMillis();
