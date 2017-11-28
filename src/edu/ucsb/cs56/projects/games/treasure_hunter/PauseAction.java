@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 
 /*
   Created by Yusuf Alnawakhtha and Sang Min Oh (CS56, F17, 11/07/2017)
@@ -29,17 +28,13 @@ public class PauseAction {
     }
 
     /**
-       Creates a pause menu that takes over the entire screen. Within the panel that takes over the screen, a <tt>JDialog</tt> is created and it contains a <tt>JButton</tt> that can be used to quit from the pause menu and resume the game.
+       Creates a pause menu that takes over the game screen. Within the panel that takes over the screen, a <tt>JDialog</tt> is created and it contains a <tt>JButton</tt> that can be pressed to quit from the pause menu and resume the game.
 
-       @param e An <tt>ActionEvent</tt> object
+       @param frame The JFrame that the pause menu will be drawn on
      */
     public long drawPauseMenu(JFrame frame) {
     	long startPause = System.currentTimeMillis();
 		pauseMessage = new JPanel();
-	
-		PausePanel glass = new PausePanel();
-		glass.setOpaque(false);
-		glass.setBackground(new Color(0, 0, 0, 175));
 		    
 		JLabel label = new JLabel("PAUSED");
 		label.setForeground(Color.BLACK);
@@ -59,8 +54,7 @@ public class PauseAction {
 		dialog.pack();
 		dialog.setLocationRelativeTo(frame);
 		dialog.setVisible(true);
-	
-		glass.setVisible(false);
+
 		return (System.currentTimeMillis() - startPause);
     }
     
@@ -90,6 +84,5 @@ public class PauseAction {
 	    pauseWindow.dispose();
 	}
     }
- 	   
 }
 

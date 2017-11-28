@@ -5,6 +5,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 
+
 /*
   Created by Alex Wood (UCSB CS56, W12, 02/16/2012)
   Edited by Yusuf Alnawakhtha and Sang Min Oh
@@ -32,9 +33,9 @@ public class GameGui{
 	boolean running = true;
 
 	/**
-	 * Stores the movement's key input
+	 * Stores the code for the key that is pressed
 	 */
-	int direction = 0;
+	int keypress = 0;
 
     public static boolean debug = false;
     public static final String resourcesDir = "/resources/";
@@ -83,8 +84,8 @@ public class GameGui{
 			@Override
 			public void keyPressed(KeyEvent e) {
 			    if(!move.moveLeft && !move.moveRight && !move.moveUp && !move.moveDown) {
-                    direction = e.getKeyCode();
-                    switch (direction) {
+                    keypress = e.getKeyCode();
+                    switch (keypress) {
                         case KeyEvent.VK_LEFT:
                             move.moveLeft = true;
                             break;
@@ -108,8 +109,8 @@ public class GameGui{
 			}
 			@Override
             public void keyReleased(KeyEvent e){
-				direction = e.getKeyCode();
-				switch (direction) {
+				keypress = e.getKeyCode();
+				switch (keypress) {
 					case KeyEvent.VK_LEFT:
 						move.moveLeft = false;
 						break;
@@ -125,17 +126,6 @@ public class GameGui{
 				}
             }
 		});
-		/*
-		// Add a listener that listens for a key press that will pause the screen
-		PauseAction pause = new PauseAction();
-		frame.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_P) {
-					pause.setPaused(true);
-				}
-			}
-		});*/
 		
 		// adds game components and makes the window visible
 		frame.add(component);
