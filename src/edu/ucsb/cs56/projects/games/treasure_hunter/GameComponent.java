@@ -32,7 +32,6 @@ public class GameComponent extends JComponent
     Player player;
     ArrayList<Treasure> theTreasures;
 
-    private ArrayList<BufferedImage> tiles;
     private char[][] tiletypes;
     private int[][] treasureMap;
     
@@ -53,22 +52,20 @@ public class GameComponent extends JComponent
     /**
      * The initial time that the game starts at and the time limit of the game.
      */
-    long startTime = System.currentTimeMillis();
-    private int timeLimit = 2;
+    long startTime;
+    private int timeLimit = 20;
     
     /**
        Constructs a <tt>GameComponent</tt> object. 
      */
     public GameComponent() {
-	tiles = new ArrayList<BufferedImage>();
-	
+
 	message = "";
 	t = "";
 	t1 = "";
 	t2 = "";
-	
-	timeLimit = 200;
-    }
+
+	startTime = System.currentTimeMillis();
 
     /**
        Sets the message of this <tt>GameComponent</tt> object.
@@ -121,15 +118,25 @@ public class GameComponent extends JComponent
         g.drawImage(player.getCurrentImage(), player.getXPos(), player.getYPos(), null);
 
     	Graphics2D g2 = (Graphics2D) g;
-	if(!message.equals("")) {
-	    g2.setColor(new Color(1f,0f,0f,.5f));
-	    g2.fill(new Rectangle(100,0,250,100));
-	    g2.setFont(new Font(null,Font.BOLD, 20));
-	    g2.setColor(Color.BLACK);
-	    g2.drawString(message, 110, 50);
-	}
+		if(!message.equals("")) {
+	    	g2.setColor(new Color(1f,0f,0f,.5f));
+	    	g2.fill(new Rectangle(100,0,250,100));
+	    	g2.setFont(new Font(null,Font.BOLD, 20));
+	    	g2.setColor(Color.BLACK);
+	    	g2.drawString(message, 110, 50);
+		}
 
-	String time = "Time: " + ((System.currentTimeMillis()-startTime)/1000);
+		String time;
+		if((System.currentTimeMillis()-startTime)/1000 <= timeLimit) {
+			 time = "Time: " + (timeLimit - ((System.currentTimeMillis() - startTime) / 1000));
+		}
+		else
+		{
+			 time = "Time: " + 0;
+		}
+		g2.setFont(new Font(null,Font.BOLD, 20));
+		g2.setColor(Color.YELLOW);
+		g.drawString(time, 180, 20);
     }
 
     /** 
@@ -149,9 +156,6 @@ public class GameComponent extends JComponent
 	try {
 
 	    String dir = "/resources/";
-	    String imagefile1 = "bush.png";
-	    String imagefile2 = "grass.png";
-	    String imagefile3 = "stone.PNG";
 	    URL url = (getClass().getResource(dir+name));
 
 	    if(GameGui.debug) {
@@ -232,11 +236,13 @@ public class GameComponent extends JComponent
 	// loop through the Treasures and check if they are found
 	for (int i = 0; i < theTreasures.size(); ++i) {
 	    if(xTile == theTreasures.get(i).getX() && yTile == theTreasures.get(i).getY() && theTreasures.get(i).getFound() == false) {
-                setMessage(i);
-                theTreasures.get(i).setFoundTrue();
-                if( theTreasures.get(0).getNumFound() == theTreasures.size() )
-		    setMessageFinal(true);
+			theTreasures.get(i).setFoundTrue();
+			setMessage(theTreasures.get(i).getNumFound());
+
+			if( theTreasures.get(0).getNumFound() == theTreasures.size() )
+		    		setMessageFinal(true);
                 if(GameGui.debug)
+
 		    System.out.println("foundTreasureNum++");
 		    validate();
 		    repaint();
