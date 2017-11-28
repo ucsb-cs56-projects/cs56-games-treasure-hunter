@@ -20,7 +20,12 @@ public class MessageThread implements Runnable{
     
     GameComponent gc;
 
-    /**
+	/**
+	 * Number of messages that have been displayed in the past five seconds
+	 */
+	static int numMessages = 0;
+
+	/**
        Constructs a <tt>MessageThread</tt> object that contains a <tt>GameComponent</tt> object.
 
        @param gc <tt>GameComponent</tt> object
@@ -34,8 +39,12 @@ public class MessageThread implements Runnable{
      */
     public void run() {
 	try{
+		numMessages++;
 	    Thread.sleep(5000);
-	    gc.setMessage("");
+	    numMessages--;
+	    if(numMessages==0) {
+			gc.setMessage("");
+		}
 	}
 	catch(InterruptedException ie) {
 	    System.out.println("Thread was interrupted!");
