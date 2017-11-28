@@ -46,8 +46,6 @@ public class GameComponent extends JComponent
     private BufferedImage grassTile;
 	private BufferedImage bushTile;
 	private BufferedImage stoneTile;
-    
-    private JPanel pauseMessage;
 
     /**
      * The initial time that the game starts at and the time limit of the game.

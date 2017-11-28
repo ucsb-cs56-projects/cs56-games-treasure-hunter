@@ -20,7 +20,6 @@ import java.awt.event.KeyEvent;
 public class PauseAction {
     
     private JPanel pauseMessage;
-    private boolean isPaused;
 
     /**
        Constructs a <tt>PauseAction</tt> object. The superclass' constructor is called.
@@ -34,23 +33,12 @@ public class PauseAction {
 
        @param e An <tt>ActionEvent</tt> object
      */
-    public void drawPauseMenu(KeyEvent e) {
-    	System.out.println("Paused");
-    	
-    	Component comp = (Component) e.getSource();
-    	if(comp == null) {
-    		return;
-    	}
-    	
+    public void drawPauseMenu(JFrame frame) {
 		pauseMessage = new JPanel();
 	
 		PausePanel glass = new PausePanel();
 		glass.setOpaque(false);
 		glass.setBackground(new Color(0, 0, 0, 175));
-	
-		RootPaneContainer gameWindow = (RootPaneContainer) SwingUtilities.getWindowAncestor(comp);
-		gameWindow.setGlassPane(glass);
-		glass.setVisible(true);
 		    
 		JLabel label = new JLabel("PAUSED");
 		label.setForeground(Color.BLACK);
@@ -64,11 +52,11 @@ public class PauseAction {
 		pauseMessage.add(new JButton(new PressAction("RESUME")));
 		pauseMessage.setVisible(true);
 	
-		JDialog dialog = new JDialog((Window) gameWindow, "", ModalityType.APPLICATION_MODAL);
+		JDialog dialog = new JDialog(frame, "", ModalityType.APPLICATION_MODAL);
 		dialog.getContentPane().add(pauseMessage);
 		dialog.setUndecorated(true);
 		dialog.pack();
-		dialog.setLocationRelativeTo((Window) gameWindow);
+		dialog.setLocationRelativeTo(frame);
 		dialog.setVisible(true);
 	
 		glass.setVisible(false);
@@ -98,7 +86,6 @@ public class PauseAction {
 	    Component comp = (Component) e.getSource();
 	    Window pauseWindow = SwingUtilities.getWindowAncestor(comp);
 	    pauseWindow.dispose();
-	    isPaused = false;
 	}
     }
  	   

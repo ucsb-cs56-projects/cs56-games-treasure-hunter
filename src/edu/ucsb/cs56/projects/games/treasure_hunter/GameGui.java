@@ -41,6 +41,8 @@ import javax.swing.SwingUtilities;
 
 public class GameGui{
 
+	private JFrame frame;
+
     Player player;
     GameComponent component;
 
@@ -75,7 +77,7 @@ public class GameGui{
        Creates the GUI frame and places all components onto it.
      */
     public void go() {
-		JFrame frame = new JFrame();
+		frame = new JFrame();
 
 		// Set the name and frame size
 		frame.setSize(608,480);
@@ -115,7 +117,7 @@ public class GameGui{
                             move.moveDown = true;
                             break;
                         case KeyEvent.VK_P:
-                        	pause.drawPauseMenu(e);
+                        	pause.drawPauseMenu(frame);
                     }
                 }
 			}
