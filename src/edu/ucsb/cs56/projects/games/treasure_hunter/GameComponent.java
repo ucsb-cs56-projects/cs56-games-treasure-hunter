@@ -1,14 +1,13 @@
 package edu.ucsb.cs56.projects.games.treasure_hunter;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.lang.String;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
-import javax.imageio.ImageIO;
-import javax.swing.*;
 
 /*
    A component that draws the map for the treasure hunter game by Alex Wood (CS56, W12, UCSB, 2/16/2012)
@@ -51,11 +50,11 @@ public class GameComponent extends JComponent
     
     //private int foundTreasureNum = 0;
 
-    /*
+    /**
      * The initial time that the game starts at and the time limit of the game.
      */
     long startTime = System.currentTimeMillis();
-    private int timeLimit = 200;
+    private int timeLimit = 2;
     
     /**
        Constructs a <tt>GameComponent</tt> object. 
@@ -217,11 +216,7 @@ public class GameComponent extends JComponent
 	    	player.setMovable(false);
 	    }
 	    
-	
-	//allows player to move after finding treasure
-	/* probably useless code, but we'll leave it here for now in case it is needed
-	   else if(!message.equals(""))
-	   player.setMovable(true);*/
+
 	
 	//allows player to move into bushes
 	/*else if(tiletypes.get(yTile*tilesWidth + xTile) == 'B')
@@ -232,18 +227,21 @@ public class GameComponent extends JComponent
 	    {
 	    	player.setMovable(false);
 	    }
-	    
-	else if(player.getXPos() != player.getXTile() * 50 || player.getYPos() != player.getYTile() * 50)
+	    //TODO: probably remove the following else if statement, I don't see why it's required
+	/*else if(player.getXPos() != player.getXTile() * 50 || player.getYPos() != player.getYTile() * 50)
 	    {
 	    	player.setMovable(false);
-	    }
+	    }*/
 	else
 		{
 	    	player.setMovable(true);
 		}
-		
-		System.out.println(player.isMovable());
-		
+
+		try {
+			Thread.sleep(1);
+		} catch(Exception ex) {}
+
+
 	// loop through the Treasures and check if they are found
 	for (int i = 0; i < theTreasures.size(); ++i) {
 	    if(xTile == theTreasures.get(i).getX() && yTile == theTreasures.get(i).getY() && theTreasures.get(i).getFound() == false) {

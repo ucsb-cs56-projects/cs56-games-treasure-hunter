@@ -79,8 +79,7 @@ public class GameGui{
 		component.loadMap("map.txt");
 		component.placeTheTreasures(5); // change the amount of treasures here
 		MoveAction move = new MoveAction();
-		// TODO: remove this if the game loop works properly
-		// addBindings();
+
 
 		// adds game components and makes the window visible
 
@@ -107,10 +106,21 @@ public class GameGui{
 			}
 			@Override
             public void keyReleased(KeyEvent e){
-			    move.moveRight = false;
-			    move.moveLeft = false;
-			    move.moveDown = false;
-			    move.moveUp = false;
+				direction = e.getKeyCode();
+				switch (direction) {
+					case KeyEvent.VK_LEFT:
+						move.moveLeft = false;
+						break;
+					case KeyEvent.VK_RIGHT:
+						move.moveRight = false;
+						break;
+					case KeyEvent.VK_UP:
+						move.moveUp = false;
+						break;
+					case KeyEvent.VK_DOWN:
+						move.moveDown = false;
+						break;
+				}
             }
 		});
 		frame.add(component);
@@ -138,6 +148,8 @@ public class GameGui{
 				}
 				move.x = 0;
 				move.y = 0;
+				component.validate();
+				component.repaint();
 			}
     	}
 
@@ -145,7 +157,7 @@ public class GameGui{
 	/**
        A private inner class that handles player movement when one of the directional keys are pressed. <tt>MoveAction</tt> must be a private inner class because it needs access to the <tt>GameComponent</tt> and <tt>Player</tt> objects in the external <tt>GameGui</tt> class.
      */
-    private class MoveAction extends AbstractAction implements ActionListener{
+    private class MoveAction {
 	int startingSprite = 0;
 	int x = 0;
 	int y = 0;
@@ -183,38 +195,9 @@ public class GameGui{
         }
 	}
 
-	/**
-	   Updates the screen to reflect the player's movement. The sprite is checked to ensure that the move is valid. If the player is able to move, animation is provided to make the player's movement more realistic. 
-
-	   @param e <tt>ActionEvent</tt> object
-	 */
-	public void actionPerformed(ActionEvent e) {
-
-	    component.validate();
-	    component.repaint();
-	}
-
     }
 
-    /**
-       Binds keys to the respective actions. 
-       <ul>
-       <li><i>UP</i> - moves the player one tile upwards</li>
-       <li><i>DOWN</i> - moves the player one tile downwards</li>
-       <li><i>LEFT</i> - moves the player one tile left</li>
-       <li><i>RIGHT</i> - moves the player one tile right</li>
-       </ul>
-    */
 
-    /*TODO: probably remove
-    public void addBindings() {
-        // https://docs.oracle.com/javase/7/docs/api/javax/swing/KeyStroke.html
-		component.registerKeyboardAction(new MoveAction(0,1), KeyStroke.getKeyStroke("DOWN"), JComponent.WHEN_FOCUSED);
-        component.registerKeyboardAction(new MoveAction(0,-1), KeyStroke.getKeyStroke("UP"), JComponent.WHEN_FOCUSED);
-        component.registerKeyboardAction(new MoveAction(-1,0), KeyStroke.getKeyStroke("LEFT"), JComponent.WHEN_FOCUSED);
-        component.registerKeyboardAction(new MoveAction(1,0), KeyStroke.getKeyStroke("RIGHT"), JComponent.WHEN_FOCUSED);
-        component.registerKeyboardAction(new PauseAction(), KeyStroke.getKeyStroke("P"), JComponent.WHEN_FOCUSED);
 
-    }*/
 
 }
