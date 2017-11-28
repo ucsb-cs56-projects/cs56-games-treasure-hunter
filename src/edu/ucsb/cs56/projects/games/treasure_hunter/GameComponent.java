@@ -47,11 +47,13 @@ public class GameComponent extends JComponent
 	private BufferedImage bushTile;
 	private BufferedImage stoneTile;
 
+    private JPanel pauseMessage;
+
     /**
      * The initial time that the game starts at and the time limit of the game.
      */
     long startTime;
-    private int timeLimit = 20;
+    private int timeLimit = 200;
     
     /**
        Constructs a <tt>GameComponent</tt> object. 
@@ -98,8 +100,10 @@ public class GameComponent extends JComponent
 	}
 	
         if ((System.currentTimeMillis()-startTime)/1000>=timeLimit){
-            message = "YOU LOSE!";
-            new Thread(new MessageThread(this)).start();
+			if(message!="YOU LOSE!") {
+				message = "YOU LOSE!";
+				new Thread(new MessageThread(this)).start();
+			}
         }
 	
 
