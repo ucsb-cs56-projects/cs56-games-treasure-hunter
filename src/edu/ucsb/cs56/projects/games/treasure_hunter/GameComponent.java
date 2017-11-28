@@ -36,10 +36,7 @@ public class GameComponent extends JComponent
     private int[][] treasureMap;
     
     private String message = "";
-    private String t ="";
-    private String t1 ="";
-    private String t2 ="";
-    
+
     private int tilesWidth;
     private int tilesHeight;
     
@@ -47,8 +44,7 @@ public class GameComponent extends JComponent
     private BufferedImage bushTile;
     private BufferedImage stoneTile;
     
-    private JPanel pauseMessage;
-    
+
     /**
      * The initial time that the game starts at and the time limit of the game.
      */
@@ -85,9 +81,7 @@ public class GameComponent extends JComponent
     public GameComponent() {
 	
 	message = "";
-	t = "";
-	t1 = "";
-	t2 = "";
+
 	
 	startTime = System.currentTimeMillis();
     }
@@ -124,7 +118,7 @@ public class GameComponent extends JComponent
 	}
 	
         if (((System.currentTimeMillis()-startTime - pausedTime)/1000>=timeLimit) && !winningCondition) {
-	    if(message!="YOU LOSE!") {
+	    if(!message.equals("YOU LOSE!")) {
 		message = "YOU LOSE!";
 		new Thread(new MessageThread(this)).start();
 	    }
@@ -258,7 +252,7 @@ public class GameComponent extends JComponent
 		
 		if (theTreasures.get(0).getNumFound() == theTreasures.size()) {
 		    winningCondition = true;
-		    setMessageFinal(winningCondition);
+		    setMessageFinal();
 		}
 
 		if(GameGui.debug)
@@ -283,22 +277,18 @@ public class GameComponent extends JComponent
     /** 
 	Sets the message that will be displayed if the player wins the game (i.e. finds all treasures on the map).
 	
-	@param gameWon A value that indicates whether the game is won or not
     */
-    public void setMessageFinal(boolean gameWon){
-	if(gameWon) {
+    public void setMessageFinal(){
 	    message = "YOU WIN!";
 	    new Thread(new MessageThread(this)).start();
-	}
     }
     
     /** 
 	Load and initialize the player sprite. It is used by the <tt>go()</tt> method in the <tt>GameGui</tt> class. 
 	
 	@param player The <tt>Player</tt> object 
-	@param name The name of the <tt>Player</tt> object
     */
-    public void loadPlayer(Player player, String name) {
+    public void loadPlayer(Player player) {
 	this.player = player;
     }
     

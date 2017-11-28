@@ -1,8 +1,7 @@
 package edu.ucsb.cs56.projects.games.treasure_hunter;
 
-import java.util.ArrayList;
-import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
 /*
   Created by Lisa Liao and Patrick Vidican (CS56, F16, 11/19/2016)

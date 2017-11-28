@@ -1,10 +1,10 @@
 package edu.ucsb.cs56.projects.games.treasure_hunter;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.*;
 
 /*
   Created by Alex Wood (UCSB CS56, W12, 02/16/2012)
@@ -25,8 +25,8 @@ public class GameGui{
     
     private JFrame frame;
     
-    Player player;
-    GameComponent component;
+    private Player player;
+    private GameComponent component;
     
     /** 
 	A boolean that is true when the game loop is running
@@ -36,7 +36,7 @@ public class GameGui{
     /**
      * Stores the code for the key that is pressed
      */
-    int keypress = 0;
+    private int keypress = 0;
     
     public static boolean debug = false;
     public static final String resourcesDir = "/resources/";
@@ -64,7 +64,7 @@ public class GameGui{
     /**
        Creates the GUI frame and places all of the Main Menu components in it.
     */
-    public void createMainMenu() {
+	private void createMainMenu() {
     	frame = new JFrame();
     	state = 0;
     	
@@ -141,7 +141,7 @@ public class GameGui{
 	// Randomly places 3 treasures on game map
 	component = new GameComponent();
 	player = new Player(0,0,16,8,"player");
-	component.loadPlayer(player,"player");
+	component.loadPlayer(player);
 	
 	// Load the map and randomly set the treasures on the map
 	component.loadMap("map.txt");
