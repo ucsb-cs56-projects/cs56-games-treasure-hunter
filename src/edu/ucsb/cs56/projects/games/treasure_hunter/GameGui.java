@@ -1,27 +1,8 @@
 package edu.ucsb.cs56.projects.games.treasure_hunter;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-
-import java.awt.event.ActionEvent;
-import java.awt.Component;
-import java.awt.Window;
-import java.awt.Dialog.ModalityType;
-import java.awt.GridLayout;
-import java.awt.Color;
-import javax.swing.RootPaneContainer;
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JDialog;
-import javax.swing.JComponent;
-import javax.swing.AbstractAction;
-import javax.swing.SwingUtilities;
 
 
 /*
@@ -117,7 +98,11 @@ public class GameGui{
                             move.moveDown = true;
                             break;
                         case KeyEvent.VK_P:
-                        	pause.drawPauseMenu(frame);
+                        	component.setPause(true);
+                        	long pausedTime = pause.drawPauseMenu(frame);
+                        	component.pauseTimer(pausedTime);
+                        	component.setPause(false);
+                        	break;
                     }
                 }
 			}

@@ -33,7 +33,8 @@ public class PauseAction {
 
        @param e An <tt>ActionEvent</tt> object
      */
-    public void drawPauseMenu(JFrame frame) {
+    public long drawPauseMenu(JFrame frame) {
+    	long startPause = System.currentTimeMillis();
 		pauseMessage = new JPanel();
 	
 		PausePanel glass = new PausePanel();
@@ -60,6 +61,7 @@ public class PauseAction {
 		dialog.setVisible(true);
 	
 		glass.setVisible(false);
+		return (System.currentTimeMillis() - startPause);
     }
     
     /**

@@ -53,9 +53,29 @@ public class GameComponent extends JComponent
      * The initial time that the game starts at and the time limit of the game.
      */
     long startTime;
-    private int timeLimit = 200;
-    
-    /**
+
+	/**
+	 * The time limit for the game
+	 */
+	private static int timeLimit = 200;
+
+	/**
+	 * The amount of time the game has been paused for
+	 */
+	private static int pausedTime = 0;
+
+	/**
+	 * Boolean that checks if the game is paused
+	 */
+	private boolean pause = false;
+
+	/**
+	 * The time string that is printed onto the screen
+	 */
+	String time;
+
+
+	/**
        Constructs a <tt>GameComponent</tt> object. 
      */
     public GameComponent() {
@@ -99,7 +119,7 @@ public class GameComponent extends JComponent
 		}
 	}
 	
-        if ((System.currentTimeMillis()-startTime)/1000>=timeLimit){
+        if ((System.currentTimeMillis()-startTime - pausedTime)/1000>=timeLimit){
 			if(message!="YOU LOSE!") {
 				message = "YOU LOSE!";
 				new Thread(new MessageThread(this)).start();
@@ -129,9 +149,11 @@ public class GameComponent extends JComponent
 	    	g2.drawString(message, 110, 50);
 		}
 
-		String time;
-		if((System.currentTimeMillis()-startTime)/1000 <= timeLimit) {
-			 time = "Time: " + (timeLimit - ((System.currentTimeMillis() - startTime) / 1000));
+		if((System.currentTimeMillis()-startTime - pausedTime)/1000 <= timeLimit) {
+			if(!pause)
+			{
+				time = "Time: " + (timeLimit - ((System.currentTimeMillis() - startTime - pausedTime) / 1000));
+			}
 		}
 		else
 		{
@@ -212,7 +234,7 @@ public class GameComponent extends JComponent
 
 	
 	//prevents the player from moving while time is up
-	else if(((System.currentTimeMillis()-startTime)/1000)>=timeLimit)
+	else if(((System.currentTimeMillis()-startTime - pausedTime)/1000)>=timeLimit)
 	    {
 	    	player.setMovable(false);
 	    }
@@ -311,4 +333,13 @@ public class GameComponent extends JComponent
 			
         }
     }
+
+	public void pauseTimer(long time) {
+    	pausedTime += time;
+	}
+
+	public void setPause(boolean state)
+	{
+		pause = state;
+	}
 }
