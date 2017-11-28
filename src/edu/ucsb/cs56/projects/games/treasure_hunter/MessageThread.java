@@ -5,11 +5,11 @@ import java.lang.Runnable;
 /*
   Created by Danielle Dodd and George Lieu (CS56, W16, 3/1/2016)
   Edited by Yusuf Alnawakhtha and Sang Min Oh
- */
+*/
 
 /**
    The <tt>MessageThread</tt> class takes care of displaying the game's messages.
-
+   
    @author George Lieu
    @author Danielle Dodd
    @author Yusuf Alnawakhtha and Sang Min Oh
@@ -19,32 +19,32 @@ import java.lang.Runnable;
 public class MessageThread implements Runnable{
     
     GameComponent gc;
-
-	/**
-	 * Number of messages that have been displayed in the past five seconds
-	 */
-	static int numMessages = 0;
-
-	/**
-       Constructs a <tt>MessageThread</tt> object that contains a <tt>GameComponent</tt> object.
-
-       @param gc <tt>GameComponent</tt> object
+    
+    /**
+     * Number of messages that have been displayed in the past five seconds
      */
+    static int numMessages = 0;
+    
+    /**
+       Constructs a <tt>MessageThread</tt> object that contains a <tt>GameComponent</tt> object.
+       
+       @param gc <tt>GameComponent</tt> object
+    */
     public MessageThread(GameComponent gc) {
 	this.gc = gc;
     }
-
+    
     /**
        Runs the thread. The message is displayed for 5 seconds before it is erased.
-     */
+    */
     public void run() {
 	try{
-		numMessages++;
+	    numMessages++;
 	    Thread.sleep(5000);
 	    numMessages--;
 	    if(numMessages==0 && !gc.winningCondition) {
-			gc.setMessage("");
-		}
+		gc.setMessage("");
+	    }
 	}
 	catch(InterruptedException ie) {
 	    System.out.println("Thread was interrupted!");
