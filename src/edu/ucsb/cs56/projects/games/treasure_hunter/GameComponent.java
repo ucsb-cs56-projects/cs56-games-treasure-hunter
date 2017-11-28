@@ -57,7 +57,7 @@ public class GameComponent extends JComponent
 	/**
 	 * The time limit for the game
 	 */
-	private static int timeLimit = 200;
+	private static int timeLimit = 50;
 
 	/**
 	 * The amount of time the game has been paused for
@@ -74,6 +74,11 @@ public class GameComponent extends JComponent
 	 */
 	String time;
 
+
+	/**
+	 * States if the game has been won
+	 */
+	boolean winningCondition = false;
 
 	/**
        Constructs a <tt>GameComponent</tt> object. 
@@ -119,7 +124,7 @@ public class GameComponent extends JComponent
 		}
 	}
 	
-        if ((System.currentTimeMillis()-startTime - pausedTime)/1000>=timeLimit){
+        if (((System.currentTimeMillis()-startTime - pausedTime)/1000>=timeLimit) && !winningCondition){
 			if(message!="YOU LOSE!") {
 				message = "YOU LOSE!";
 				new Thread(new MessageThread(this)).start();
@@ -150,7 +155,7 @@ public class GameComponent extends JComponent
 		}
 
 		if((System.currentTimeMillis()-startTime - pausedTime)/1000 <= timeLimit) {
-			if(!pause)
+			if(!pause && !winningCondition)
 			{
 				time = "Time: " + (timeLimit - ((System.currentTimeMillis() - startTime - pausedTime) / 1000));
 			}
@@ -234,7 +239,7 @@ public class GameComponent extends JComponent
 
 	
 	//prevents the player from moving while time is up
-	else if(((System.currentTimeMillis()-startTime - pausedTime)/1000)>=timeLimit)
+	else if((((System.currentTimeMillis()-startTime - pausedTime)/1000)>=timeLimit) && !winningCondition)
 	    {
 	    	player.setMovable(false);
 	    }
@@ -264,8 +269,11 @@ public class GameComponent extends JComponent
 			theTreasures.get(i).setFoundTrue();
 			setMessage(theTreasures.get(i).getNumFound());
 
-			if( theTreasures.get(0).getNumFound() == theTreasures.size() )
-		    		setMessageFinal(true);
+			if (theTreasures.get(0).getNumFound() == theTreasures.size())
+			{
+				winningCondition = true;
+			setMessageFinal(winningCondition);
+			}
                 if(GameGui.debug)
 
 		    System.out.println("foundTreasureNum++");
@@ -294,8 +302,6 @@ public class GameComponent extends JComponent
 	if(gameWon) {
 	    message = "YOU WIN!";
 	    new Thread(new MessageThread(this)).start();
-	    //TODO: fix the problem of the time a message box appear
-	    //TODO: find a way to pause the game
 	}
     }
 
