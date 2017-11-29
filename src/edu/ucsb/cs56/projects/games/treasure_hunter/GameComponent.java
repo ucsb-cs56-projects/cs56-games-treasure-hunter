@@ -117,7 +117,7 @@ public class GameComponent extends JComponent
 	    }
 	}
 	
-        if (((System.currentTimeMillis()-startTime - pausedTime)/1000>=timeLimit) && !winningCondition) {
+        if ((((System.currentTimeMillis()-startTime - pausedTime)/1000>=timeLimit) && !winningCondition) && !pause) {
 	    if(!message.equals("YOU LOSE!")) {
 		message = "YOU LOSE!";
 		new Thread(new MessageThread(this)).start();
@@ -150,7 +150,7 @@ public class GameComponent extends JComponent
 		time = "Time: " + (timeLimit - ((System.currentTimeMillis() - startTime - pausedTime) / 1000));
 	    }
 	}
-	else {
+	else if(!pause) {
 	    time = "Time: " + 0;
 	}
 	g2.setFont(new Font(null,Font.BOLD, 20));
