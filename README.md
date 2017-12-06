@@ -25,41 +25,35 @@ Project History
 
 The project creates an instance of the game which allows the user to control a player in search of multiple pieces of treasure in a map made up of grass, bush and stone tiles. The game allows the player to move around the map using the four directional keys and allows the player to pause the game at any time by pressing the 'P' key. The player must find all of the treasures before the timer goes to 0 and the player is not allowed to move after the game is over.
 
-# Developer Notes TODO
+# Developer Notes
 ================
 
-* GameComponent.java 
+* GameComponent.java creates the component of the GUI that holds all of the visual elemnets of the game. It contains code that loads the tiles into the map, loads the player sprite into the map, sets the treasures randomly in the map, and draws the messages onto the screen. It contains code that checks the validity of the player's move and redraws the graphics with the updates to the game. In addition, the timer is implemented in this class.
 
-* GameGui.java 
+* GameGui.java creates the GUI for the game. It is responsible for creating the main menu and the main game component. It is also responsible for listening to user input in order to update the game. The directional keys moves the character and the 'P' key pauses the game. 
 
-* MessageThread.java 
+* MessageThread.java creates threads for displaying the message. It makes sure that each message is displayed for 5 seconds before it disappears.
 
-* PauseAction.java 
+* PauseAction.java creates the pause menu. It instantiates all of the components that compose the pause menu. It also creates a button that allows the user to exit the pause menu and go back into the game. The pause menu also keeps track of how much time it was up for (for correctly resuming the timer count). 
 
-* Player.java 
+* Player.java is the class that creates the player and holds all of its information (such as its location, and its current sprite). 
 
-* PlayerTest.java 
+* PlayerTest.java contains tests for the Player class in order to make sure that it is working properly. 
 
-* Treasure.java 
+* Treasure.java is the class that creates the treasures and holds its information (such as its location, its sprite, and whether it has been found). It also contains a static class variable that counts how many total treasures have been found since the start of the game.
 
-# Running the Game TODO
+# Running the Game 
 ==================
 
 In order to run the game you must do the following:
 1. Type "ant run" from Treasure Hunter's git root directory (i.e. the directory that has the .git directory).
 2. In the main menu that shows up, press the "START" button.
 
-Once you start the game you the board will appear and your character will be at position 0,0 
+Once you start the game you the board will appear and your character will be at position 0,0. There will be 50 seconds on the timer for you to find all of the treasures.
 
-![](http://i.imgur.com/qor9ibq.png)
+Currently, there are 5 treasures (you can adjust the number of treasures in GameGUI.java) randomly placed on the map. There are some stones on the map, which the player cannot pass through.
 
-Currently, there are 5 treasures (you can adjust the number of treasures in GameGUI.java) randomly placed on the map.
-
-This is the result of finding a treasure. 
-
-![](http://i.imgur.com/9TiBmmL.png)
-
-There are some stones on the map, which the player cannot pass through.
+When you find a treasure, a message that indicates the number of the treasure that was found. 
 
 If the player finds all of the treasures before the timer goes to 0, a "YOU WIN" message will appear. If the player does not find all of the treasures before the timer goes to 0, a "YOU LOSE" message will appear.
 
