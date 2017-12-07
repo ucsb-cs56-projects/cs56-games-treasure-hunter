@@ -1,5 +1,5 @@
-cs56-games-treasure-hunter
-==========================
+# cs56-games-treasure-hunter
+===============
 A GUI game called Treasure-Hunter.
 
 README file updated by Mena Iskander & Miguel Delgado, CS56, W14, Proj1.
@@ -10,7 +10,7 @@ README file updated in 2016 by Lisa L and Patrick V, CS56, F16, Lab09
 
 README file updated in 2017 by Yusuf A and Sang Min O, CS56, F17, Lab09
 
-Project History
+# Project History
 ===============
 ```
  W14 | jcneally 5pm	| migueld37, menaiskander	| Treasure Hunter Game
@@ -20,12 +20,12 @@ Project History
 ```
 
 # File Explanation
-=================
+===============
 
 The project creates an instance of the game which allows the user to control a player in search of multiple pieces of treasure in a map made up of grass, bush and stone tiles. The game allows the player to move around the map using the four directional keys and allows the player to pause the game at any time by pressing the 'P' key. The player must find all of the treasures before the timer goes to 0 and the player is not allowed to move after the game is over.
 
 # Developer Notes
-================
+===============
 
 * GameComponent.java creates the component of the GUI that holds all of the visual elemnets of the game. It contains code that loads the tiles into the map, loads the player sprite into the map, sets the treasures randomly in the map, and draws the messages onto the screen. It contains code that checks the validity of the player's move and redraws the graphics with the updates to the game. In addition, the timer is implemented in this class.
 
@@ -42,7 +42,7 @@ The project creates an instance of the game which allows the user to control a p
 * Treasure.java is the class that creates the treasures and holds its information (such as its location, its sprite, and whether it has been found). It also contains a static class variable that counts how many total treasures have been found since the start of the game.
 
 # Running the Game 
-==================
+===============
 
 In order to run the game you must do the following:
 1. Type "ant run" from Treasure Hunter's git root directory (i.e. the directory that has the .git directory).
