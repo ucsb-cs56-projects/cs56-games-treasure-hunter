@@ -19,7 +19,6 @@ Project History
  F17 | sean 4pm	    	| yusuf, sang min		| Treasure Hunter Game
 ```
 
-=======
 # File Explanation
 =================
 
@@ -59,13 +58,16 @@ If the player finds all of the treasures before the timer goes to 0, a "YOU WIN"
 
 # W16 Final Remarks
 ===============
+
 The treasure hunter game is a simple game with a GUI where the user controls a player sprite to look for 3 randomly placed treasures. There are 3 main files you will most likely be working with: GameComponent.java, GameGui.java, and Player.java. If you decide to edit the message thread then you can look into the MessageThread.java to make these changes. Refer to the developer notes in the README for further information. It would be a good idea to look into the issue of player movement lagtime, as it detracts from the game play. A bug that you can look into is the duration of the message box as it is inconsistent. For refactoring code, you could consider the (1) randomly placed treasure segment and (2) the treasures appearance after finding them. 
 
 # F16 Final Remarks
 ===============
+
 Treasure Hunter now uses an independent Treasure class for its on-screen treasures, rather than an instance of Player. The code has been cleaned up significantly, but your work is not yet done. One particularly smelly bit is the code where Treasure objects are generated such that they don't appear underneath a Stone tile. The best thing to do here would probably be to redo the map generation code such that the environment is not static, like it is now. Another big issue is input latency. This might be solved by using a swing timer as described [here](http://stackoverflow.com/questions/22730715/java-keyboard-input-game-development)
 HOWEVER: an even better solution might be to completely [replace Java Swing with libGDX](https://libgdx.badlogicgames.com/), a library based on LWJGL. This may not be an easy task, but it should improve the user experience significantly. You might even be able to run it on Android, if you do it right. Try to maintain feature parity with the original game, and once the whole project is migrated to libGDX, then work on making the game more fun. Treasure Hunter is pretty boring at the moment, so perhaps you guys could make some new design choices in regards to gameplay. Maybe you could implement some enemy mobs that chase you around the map as you hunt for treasure. Perhaps the treasures should be items that the player could use to defend themselves, or build their own structures with. Our advice is to clean up the code inside before adding new features, or expanding the scope of the game.
 
 # F17 Final Remarks
 ===============
+
 A Significant amount of bugs have been taken care of, such as the ones related to collision detection and message thread display. A timer has been added to provide a sense of urgency during the game, which is a start to making the game into something other than a boring map traversal. A pause screen and a basic main menu have also been added. The key-input is no longer extremely sensitive, but there is sometimes a delay when switching movement directions. This might be due to the delay caused by system when registering a new key being pressed, but this should still have a software solution (a similar delay happens between the first two inputs when a key is held, but we were able to provide a solution in the GUI class). The main menu should be updated, since we only added a basic version. The timer should be refactored to a different class, possibly by implementing an observer pattern. The game state now updates in a game loop as opposed to when the character moves, this allows the addition of game features that are independent of the player's movement such as enemies. Implementing a dumb (moves randomly) AI and adding collision detection between them and the player should be simple and would add great value to the game. Another feature that would make this game better is implementing a score system (as the game is right now, the score would probably only depend on the time the player has left) and saving the top score in the game. As the last group mentioned, it would be great to migrate this project to libGDX, but this will take a considerable amount of time. As the game gets larger, this will be harder to do. So, if you are able and up to the challenge, you should give it a shot.
