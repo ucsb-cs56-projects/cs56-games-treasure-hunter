@@ -25,8 +25,8 @@ public class GameGui{
     
     private JFrame frame;
     
-    private Player player;
-    private GameComponent component;
+    private Player player, player2;
+    private GameComponent component, component2;
     
     /** 
 	A boolean that is true when the game loop is running
@@ -81,6 +81,7 @@ public class GameGui{
     	menuLabel.setForeground(Color.BLACK);
 	menuPanel.add(menuLabel);
 	menuPanel.add(new JButton(new StartAction("START")));
+	menuPanel.add(new JButton(new MultiplayerAction("MULTIPLAYER")));
 	menuPanel.setVisible(true);
 
 	// Add the panel to the frame
@@ -98,7 +99,8 @@ public class GameGui{
 	    Thread.sleep(100);
 	    frame.dispose();
 	} catch (Exception e) {}
-	go();
+	if(state == 1) go();
+	else goMulti();
     }
     
     /**
@@ -124,6 +126,16 @@ public class GameGui{
 	    state = 1;
 	}
     }
+
+    private class MultiplayerAction extends AbstractAction {
+	public MultiplayerAction(String text) {
+	    super(text);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+	    state = 2;
+	}
+    }
     
     /**
        Creates the GUI frame and places all components onto it.
@@ -140,6 +152,107 @@ public class GameGui{
 	
 	// Randomly places 3 treasures on game map
 	component = new GameComponent();
+	player = new Player(0,0,16,8,"player");
+	component.loadPlayer(player);
+	
+	// Load the map and randomly set the treasures on the map
+	component.loadMap("map.txt");
+	component.placeTheTreasures(5); // change the amount of treasures here
+	
+	// Add a listener that listens for directional key presses and tells the character to move accordingly.
+	MoveAction move = new MoveAction();
+	PauseAction pause = new PauseAction();
+	frame.addKeyListener(new KeyAdapter() {
+		@Override
+		public void keyPressed(KeyEvent e) {
+		    if(!move.moveLeft && !move.moveRight && !move.moveUp && !move.moveDown) {
+			keypress = e.getKeyCode();
+			switch (keypress) {
+                        case KeyEvent.VK_LEFT:
+                            move.moveLeft = true;
+                            break;
+                        case KeyEvent.VK_RIGHT:
+                            move.moveRight = true;
+                            break;
+                        case KeyEvent.VK_UP:
+                            move.moveUp = true;
+                            break;
+                        case KeyEvent.VK_DOWN:
+                            move.moveDown = true;
+                            break;
+                        case KeyEvent.VK_P:
+			    component.setPause(true);
+			    long pausedTime = pause.drawPauseMenu(frame);
+			    component.pauseTimer(pausedTime);
+			    component.setPause(false);
+			    break;
+			}
+		    }
+		}
+		
+		@Override
+		public void keyReleased(KeyEvent e){
+		    keypress = e.getKeyCode();
+		    switch (keypress) {
+		    case KeyEvent.VK_LEFT:
+			move.moveLeft = false;
+			break;
+		    case KeyEvent.VK_RIGHT:
+			move.moveRight = false;
+			break;
+		    case KeyEvent.VK_UP:
+			move.moveUp = false;
+			break;
+		    case KeyEvent.VK_DOWN:
+			move.moveDown = false;
+			break;
+		    }
+		}
+	    });
+	
+	// adds game components and makes the window visible
+	frame.add(component);
+	frame.setVisible(true);
+	component.validate();
+	component.repaint();
+	while(running) {
+	    move.PerformMovement();
+	    player.setSprite(move.startingSprite);
+	    component.checkMove(player.getXTile() + move.x, player.getYTile() + move.y);
+	    if(player.isMovable()) {
+		for(int i = 0; i < 50; i++) {
+		    player.moveTo(player.getXPos() + move.x,player.getYPos()+move.y);
+		    if(move.x !=0 || move.y!=0)
+			player.setSprite(move.startingSprite+i/10);
+		    if(player.getCurrentSprite() >= move.startingSprite + 4 && (move.x != 0 || move.y != 0))
+			player.setSprite(move.startingSprite);
+		    component.updatePlayer();
+		    try {
+			Thread.sleep(5);
+		    } catch(Exception ex) {}
+		}
+		player.setTiles(player.getXTile() + move.x, player.getYTile()+move.y);
+	    }
+	    move.x = 0;
+	    move.y = 0;
+	    component.validate();
+	    component.repaint();
+	}
+    }
+
+    public void goMulti() {
+	frame = new JFrame();
+	
+	// Set the name and frame size
+	frame.setSize(1216,480);
+	frame.setTitle("Treasure Hunter");
+	
+	// Allows for game window to be closed
+	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
+	// Randomly places 3 treasures on game map
+	component = new GameComponent();
+	component2 = new GameComponent();
 	player = new Player(0,0,16,8,"player");
 	component.loadPlayer(player);
 	
