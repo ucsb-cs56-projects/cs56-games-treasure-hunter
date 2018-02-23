@@ -78,6 +78,7 @@ public class GameGui{
         menuPanel.add(menuLabel);
         menuPanel.add(new JButton(new StartAction("START")));
         menuPanel.add(new JButton(new MultiplayerAction("MULTIPLAYER")));
+	menuPanel.add(new JButton(new OptionsAction("OPTIONS")));
         menuPanel.setVisible(true);
         
         // Add the panel to the frame
@@ -131,6 +132,30 @@ public class GameGui{
             state = 2;
         }
     }
+
+    private class OptionsAction extends AbstractAction {
+
+	public OptionsAction(String text) {
+	    super(text);
+	    
+	    frame = new JFrame();
+	    frame.setSize(608,480);
+	    frame.setTitle("Treasure Hunter");
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	    JPanel optionsPanel = new JPanel();
+	    JLabel optionsLabel = new JLabel("Options");
+	    optionsPanel.add(optionsLabel);
+	    optionsPanel.setVisible(true);
+	}
+
+
+	
+	public void actionPerformed(ActionEvent e) {
+	    state = 3;
+	}
+
+    }
     
     /**
      Creates the GUI frame and places all components onto it.
@@ -140,7 +165,7 @@ public class GameGui{
         
         // Set the name and frame size
         if(state == 1) frame.setSize(608, 480);
-        else frame.setSize(1216, 480);
+        else if(state == 2) frame.setSize(1216, 480);
         frame.setTitle("Treasure Hunter");
         
         // Allows for game window to be closed
@@ -211,7 +236,7 @@ public class GameGui{
                     }
                 }
             });
-        } else {
+        } else if(state ==2) {
             frame.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyPressed(KeyEvent e) {
@@ -320,7 +345,7 @@ public class GameGui{
                     }
                 }
             }
-        } else {
+        } else if(state ==2) {
             while(running) {
                 try {
                     Thread.sleep(5);
