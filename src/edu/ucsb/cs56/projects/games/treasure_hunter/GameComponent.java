@@ -36,6 +36,7 @@ public class GameComponent extends JComponent
     private int[][] treasureMap, treasureMap2;
     
     private String message = "";
+    private int messageNum = 1;
     
     private int tilesWidth;
     private int tilesHeight;
@@ -53,7 +54,7 @@ public class GameComponent extends JComponent
     /**
      * The time limit for the game
      */
-    private static int timeLimit = 50;
+    private static int timeLimit;
     
     /**
      * The amount of time the game has been paused for
@@ -82,6 +83,8 @@ public class GameComponent extends JComponent
      */
     public GameComponent(int mode) {
         this.mode = mode;
+        if(mode == 1) timeLimit = 50;
+        else if(mode == 2) timeLimit = 10000;
         message = "";
         startTime = System.currentTimeMillis();
     }
@@ -149,6 +152,13 @@ public class GameComponent extends JComponent
                 g.drawImage(theTreasures.get(i).getImage(), theTreasures.get(i).getX() * 50, theTreasures.get(i).getY() * 50, null);
             }
         }
+        
+        for (int i = 0; i < theTreasures2.size(); ++i) {
+            if(theTreasures2.get(i).getFound()) {
+                if (GameGui.debug) System.out.println("Drawing Treasure object " + i + "\n" + "x = " + theTreasures2.get(i).getX() + " y = " + theTreasures2.get(i).getY());
+                g.drawImage(theTreasures2.get(i).getImage(), theTreasures2.get(i).getX() * 50 + 608, theTreasures2.get(i).getY() * 50, null);
+            }
+        }
         ////////////////////////////////////////////////////////////////////
         
         // draw the actual player
@@ -157,13 +167,21 @@ public class GameComponent extends JComponent
         
         Graphics2D g2 = (Graphics2D) g;
         if(!message.equals("")) {
-            g2.setColor(new Color(1f, 0f, 0f, 0.5f));
-            g2.fill(new Rectangle(100, 0, 250, 100));
-            g2.setFont(new Font(null,Font.BOLD, 20));
-            g2.setColor(Color.BLACK);
-            g2.drawString(message, 110, 50);
+            if(messageNum == 1) {
+                g2.setColor(new Color(1f, 0f, 0f, 0.5f));
+                g2.fill(new Rectangle(100, 0, 250, 100));
+                g2.setFont(new Font(null,Font.BOLD, 20));
+                g2.setColor(Color.BLACK);
+                g2.drawString(message, 110, 50);
+            } else if(messageNum == 2) {
+                g2.setColor(new Color(1f, 0f, 0f, 0.5f));
+                g2.fill(new Rectangle(708, 0, 250, 100));
+                g2.setFont(new Font(null,Font.BOLD, 20));
+                g2.setColor(Color.BLACK);
+                g2.drawString(message, 718, 50);
+            }
         }
-        
+        if(mode == 2) return;
         if((System.currentTimeMillis() - startTime - pausedTime) / 1000 <= timeLimit) {
             if(!pause && !winningCondition) {
                 time = "Time: " + (timeLimit - ((System.currentTimeMillis() - startTime - pausedTime) / 1000));
@@ -254,26 +272,48 @@ public class GameComponent extends JComponent
             player.setMovable(false);
         }
         
+        else if(winningCondition) player.setMovable(false);
+        
         else {
             player.setMovable(true);
         }
         
         // loop through the Treasures and check if they are found
         for (int i = 0; i < theTreasures.size(); ++i) {
-            if(xTile == theTreasures.get(i).getX() && yTile == theTreasures.get(i).getY() && theTreasures.get(i).getFound() == false) {
-                theTreasures.get(i).setFoundTrue();
-                setMessage(theTreasures.get(i).getNumFound());
-                
-                if (theTreasures.get(0).getNumFound() == theTreasures.size()) {
-                    winningCondition = true;
-                    setMessageFinal();
+            if(this.player.equals(player)) {
+                if(xTile == theTreasures.get(i).getX() && yTile == theTreasures.get(i).getY() && theTreasures.get(i).getFound() == false) {
+                    theTreasures.get(i).setFoundTrue();
+                    messageNum = 1;
+                    setMessage(theTreasures.get(i).getNumFound());
+                    
+                    if (theTreasures.get(0).getNumFound() == theTreasures.size()) {
+                        winningCondition = true;
+                        setMessageFinal();
+                    }
+                    
+                    if(GameGui.debug)
+                        System.out.println("foundTreasureNum++");
+                    
+                    validate();
+                    repaint();
                 }
-                
-                if(GameGui.debug)
-                    System.out.println("foundTreasureNum++");
-                
-                validate();
-                repaint();
+            } else {
+                if(xTile == theTreasures2.get(i).getX() && yTile == theTreasures2.get(i).getY() && theTreasures2.get(i).getFound() == false) {
+                    theTreasures2.get(i).setFoundTrue2();
+                    messageNum = 2;
+                    setMessage(theTreasures2.get(i).getNumFound2());
+                    
+                    if (theTreasures2.get(0).getNumFound2() == theTreasures2.size()) {
+                        winningCondition = true;
+                        setMessageFinal();
+                    }
+                    
+                    if(GameGui.debug)
+                        System.out.println("foundTreasureNum++");
+                    
+                    validate();
+                    repaint();
+                }
             }
         }
     }
@@ -339,14 +379,14 @@ public class GameComponent extends JComponent
             // At this point, there is no collision, so we can add the Treasure to the theTreasures ArrayList.
             theTreasures.add( tempTreasure );
             treasureMap[tempTreasure.getY()][tempTreasure.getX()] = 1;
-            
-            for(int i = 0; i < howMany; i++) {
-                Treasure tempTreasure = new Treasure("Treasure " + i);
-                while (treasureMap[tempTreasure.getY()][tempTreasure.getX()] == 1 || tiletypes[tempTreasure.getY()][tempTreasure.getX()] == 'S' || (tempTreasure.getX() == 0 && tempTreasure.getY() == 0)) {
-                    tempTreasure.resetXY();
-                }
-                theTreasures.add( tempTreasure );
-                treasureMap[tempTreasure.getY()][tempTreasure.getX()] = 1;
+        }
+        for(int i = 0; i < howMany; i++) {
+            Treasure tempTreasure = new Treasure("Treasure " + i);
+            while (treasureMap[tempTreasure.getY()][tempTreasure.getX()] == 1 || tiletypes[tempTreasure.getY()][tempTreasure.getX()] == 'S' || (tempTreasure.getX() == 0 && tempTreasure.getY() == 0)) {
+                tempTreasure.resetXY();
+            }
+            theTreasures2.add( tempTreasure );
+            treasureMap2[tempTreasure.getY()][tempTreasure.getX()] = 1;
         }
     }
     

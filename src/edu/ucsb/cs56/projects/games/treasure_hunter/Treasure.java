@@ -20,6 +20,7 @@ import java.awt.image.BufferedImage;
 public class Treasure {
     // static variables
     static int numFound = 0;
+    static int numFound2 = 0;
     
     // private instance variables
     private int xTile = 0;
@@ -117,6 +118,10 @@ public class Treasure {
         return numFound;
     }
     
+    public int getNumFound2() {
+        return numFound2;
+    }
+    
     /**
      Returns whether the <tt>Treasure</tt> has been found.
      
@@ -133,6 +138,14 @@ public class Treasure {
         // To prevent double-counting
         if(!found)
             numFound++;
+        
+        found = true;
+    }
+    
+    public void setFoundTrue2() {
+        // To prevent double-counting
+        if(!found)
+            numFound2++;
         
         found = true;
     }
