@@ -28,6 +28,12 @@ public class Player {
     private ArrayList<BufferedImage> sprites;
     private int currentSprite = 0;
     
+    private int startingSprite = 0;
+    private int x = 0;
+    private int y = 0;
+    private boolean inMotion = false;
+    private int frameCount = 0;
+    
     /**
      Constructs a <tt>Player</tt> object.
      
@@ -48,6 +54,62 @@ public class Player {
             this.currentSprite = currentSprite;
             this.moveTo(xTile * 50, yTile * 50);
         } catch (Exception e) {}
+    }
+    
+    public int getStartingSprite() {
+        return startingSprite;
+    }
+    
+    public void setStartingSprite(int newStartingSprite) {
+        startingSprite = newStartingSprite;
+    }
+    
+    public int getX() {
+        return x;
+    }
+    
+    public void setX(int newX) {
+        x = newX;
+    }
+    
+    public int getY() {
+        return y;
+    }
+    
+    public void setY(int newY) {
+        y = newY;
+    }
+    
+    public boolean isInMotion() {
+        return inMotion;
+    }
+    
+    public void setInMotion(boolean newInMotion) {
+        inMotion = newInMotion;
+    }
+    
+    public int getFrameCount() {
+        return frameCount;
+    }
+    
+    public void setFrameCount(int newFrameCount) {
+        frameCount = newFrameCount;
+    }
+    
+    public void animate() {
+        xPos += x;
+        yPos += y;
+        if(moving()) setSprite(startingSprite + frameCount / 10);
+        if(currentSprite >= startingSprite + 4 && moving()) setSprite(startingSprite);
+        frameCount++;
+        if(frameCount == 50) {
+            frameCount = 0;
+            inMotion = false;
+        }
+    }
+    
+    public boolean moving() {
+        return !(x == 0 && y == 0);
     }
     
     /**
