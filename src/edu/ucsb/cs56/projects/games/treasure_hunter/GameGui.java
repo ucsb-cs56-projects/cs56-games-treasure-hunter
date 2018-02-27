@@ -29,13 +29,13 @@ public class GameGui{
     
     private JFrame frame;
     private Player player, player2;
-
-    private GameComponent component, component2;
-
+    private GameComponent component;
     private int numTreasures = 5;
-
-    
-
+    public static boolean debug = false;
+    public static final String resourcesDir = "/resources/";
+    private int state;
+    private boolean[] keyDown = new boolean[200];
+    private Timer timer;
     
     /**
      A boolean that is true when the game loop is running
@@ -46,12 +46,6 @@ public class GameGui{
      Stores the code for the key that is pressed
      */
     private int keypress = 0;
-    
-    public static boolean debug = false;
-    public static final String resourcesDir = "/resources/";
-    private int state;
-    
-    private boolean[] keyDown = new boolean[200];
     
     /**
      The main method of the <tt>GameGui</tt>. It creates a <tt>GameGui</tt> and calls the <tt>go()</tt> method.
@@ -64,10 +58,7 @@ public class GameGui{
         GameGui gui = new GameGui();
         if(debug) System.out.println("In main calling gui.go()");
         gui.createMainMenu();
-	
     }
-
-   
     
     /**
      Creates the GUI frame and places all of the Main Menu components in it.
@@ -99,26 +90,23 @@ public class GameGui{
         frame.setVisible(true);
         
         // Wait until the button is pressed (the state will change)
-        while(state == 0) {
-            try {
-                Thread.sleep(1);
-            } catch (Exception e) {}
-        }
-        try{
-            Thread.sleep(100);
-            frame.dispose();
-        } catch (Exception e) {}
-
+        TimerTask task = new TimerTask() {
+            public void run() {
+                if(state == 0) return;
+                timer.cancel();
+                try{
+                    Thread.sleep(100);
+                    frame.dispose();
+                } catch (Exception e) {}
+                
+                if(state == 3) options_go();
+                if(state == 1) go();
+                else if(state == 2) goMulti();
+            }
+        };
         
-
-	
-        if(state == 3) options_go();
-
-	
-
-        if(state == 1) go();
-        else if(state == 2) goMulti();
-
+        timer = new Timer("Timer");
+        timer.scheduleAtFixedRate(task, 0, 1);
     }
     
     /**
@@ -154,71 +142,55 @@ public class GameGui{
             state = 2;
         }
     }
-
-    private class OptionsAction extends AbstractAction {
-
-
-	public OptionsAction(String text) {
-	    super(text);
-    }
-
-
-	
-	public void actionPerformed(ActionEvent e) {
-	    state = 3;
-	}
-    }
-      
-
-	
     
-
-    public void options_go() {
-
-	JFrame new_frame = new JFrame();
-	new_frame.setSize(608,480);
-	new_frame.setTitle("Treasure Hunter");
-	new_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	JPanel optionsPanel = new JPanel();
-	JLabel optionsLabel = new JLabel("TREASURE");
-	optionsLabel.setForeground(Color.BLACK);
-	optionsPanel.add(optionsLabel);
-	JTextField tField = new JTextField("Set number of treasures",30);
-	optionsPanel.add(tField);
-
-	tField.addActionListener(new ActionListener()
-	    {
-		public void actionPerformed(ActionEvent e)
-		{
-		    String input = tField.getText();
-		    numTreasures = Integer.parseInt(input);
-		}
-	    });
-		    
-	JButton tButton = new JButton("MENU");
-	optionsPanel.add(tButton);
-	new_frame.add(optionsPanel, BorderLayout.CENTER);
-
-	tButton.addActionListener(new ActionListener()
-	  {
-		public void actionPerformed(ActionEvent e)
-		{
-		    createMainMenu();
-		}
-	  });
-	optionsPanel.setVisible(true);
-	new_frame.add(optionsPanel, BorderLayout.CENTER);
-	new_frame.setLocationRelativeTo(frame.getContentPane());
-	new_frame.setVisible(true);
-
-	
-
-	
-
+    private class OptionsAction extends AbstractAction {
+        public OptionsAction(String text) {
+            super(text);
+        }
+        
+        public void actionPerformed(ActionEvent e) {
+            state = 3;
+        }
     }
-
-
-   
+    
+    public void options_go() {
+        JFrame new_frame = new JFrame();
+        new_frame.setSize(608,480);
+        new_frame.setTitle("Treasure Hunter");
+        new_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel optionsPanel = new JPanel();
+        JLabel optionsLabel = new JLabel("TREASURE");
+        optionsLabel.setForeground(Color.BLACK);
+        optionsPanel.add(optionsLabel);
+        JTextField tField = new JTextField("Set number of treasures", 30);
+        optionsPanel.add(tField);
+        
+        tField.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String input = tField.getText();
+                numTreasures = Integer.parseInt(input);
+                new_frame.dispose();
+                createMainMenu();
+            }
+        });
+        
+        JButton tButton = new JButton("TREASURE");
+        optionsPanel.add(tButton);
+        new_frame.add(optionsPanel, BorderLayout.CENTER);
+        
+        tButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                state = 5;
+            }
+        });
+        optionsPanel.setVisible(true);
+        new_frame.add(optionsPanel, BorderLayout.CENTER);
+        new_frame.setLocationRelativeTo(frame.getContentPane());
+        new_frame.setVisible(true);
+        
+    }
     
     /**
      Changes the player's sprite to reflect the direction that the player is moving in. Depending on the deltas in coordinates, the player sprite can be changed to standing still while facing north, south, west, or east. The number of the sprite is changed; the actual sprite picture is set in the <tt>Player</tt> object's <tt>setSprite()</tt> method.
@@ -277,7 +249,7 @@ public class GameGui{
                 }
             }
         }
-
+        
     }
     
     /**
@@ -325,7 +297,7 @@ public class GameGui{
                 keyDown[keypress] = false;
             }
         });
-            
+        
         // adds game components and makes the window visible
         frame.add(component);
         frame.setVisible(true);
@@ -337,7 +309,7 @@ public class GameGui{
             }
         };
         
-        Timer timer = new Timer("Timer");
+        timer = new Timer("Timer");
         timer.scheduleAtFixedRate(task, 0, 10);
     }
     
@@ -398,7 +370,7 @@ public class GameGui{
             }
         };
         
-        Timer timer = new Timer("Timer");
+        timer = new Timer("Timer");
         timer.scheduleAtFixedRate(task, 0, 10);
     }
 }
