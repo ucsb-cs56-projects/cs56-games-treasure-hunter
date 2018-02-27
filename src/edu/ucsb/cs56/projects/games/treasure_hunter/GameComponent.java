@@ -260,8 +260,10 @@ public class GameComponent extends JComponent
      @param xTile The x-coordinate of the player's location on the map
      @param yTile The y-coordinate of the player's location on the map
      */
-    public void checkMove(Player player, int xTile, int yTile) {
+    public void checkMove(Player player) {
         //limits where the player can move (ie. can move out of the box)
+        int xTile = player.getXTile() + player.getX();
+        int yTile = player.getYTile() + player.getY();
         if(xTile < 0 || xTile > 11 || yTile < 0 || yTile > 8) {
             player.setMovable(false);
         }

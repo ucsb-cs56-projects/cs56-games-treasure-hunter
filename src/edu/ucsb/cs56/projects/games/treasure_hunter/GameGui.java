@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -27,9 +29,13 @@ public class GameGui{
     
     private JFrame frame;
     private Player player, player2;
+<<<<<<< HEAD
     private GameComponent component, component2;
 
     private int numTreasures = 5;
+=======
+    private GameComponent component;
+>>>>>>> ca75e177628e0ad90b7361d0d14ff6cec517523a
     
     /**
      A boolean that is true when the game loop is running
@@ -45,8 +51,7 @@ public class GameGui{
     public static final String resourcesDir = "/resources/";
     private int state;
     
-    private boolean inAnimation, inAnimation2;
-    private int frameCount, frameCount2;
+    private boolean[] keyDown = new boolean[200];
     
     /**
      The main method of the <tt>GameGui</tt>. It creates a <tt>GameGui</tt> and calls the <tt>go()</tt> method.
@@ -101,7 +106,7 @@ public class GameGui{
         menuPanel.add(menuLabel);
         menuPanel.add(new JButton(new StartAction("START")));
         menuPanel.add(new JButton(new MultiplayerAction("MULTIPLAYER")));
-	menuPanel.add(new JButton(new OptionsAction("OPTIONS")));
+        menuPanel.add(new JButton(new OptionsAction("OPTIONS")));
         menuPanel.setVisible(true);
         
         // Add the panel to the frame
@@ -119,12 +124,17 @@ public class GameGui{
             Thread.sleep(100);
             frame.dispose();
         } catch (Exception e) {}
+<<<<<<< HEAD
         if(state == 1 || state == 2) go();
 
 	
         if(state == 3) options_go();
 
 	
+=======
+        if(state == 1) go();
+        else if(state == 2) goMulti();
+>>>>>>> ca75e177628e0ad90b7361d0d14ff6cec517523a
     }
     
     /**
@@ -162,6 +172,7 @@ public class GameGui{
     }
 
     private class OptionsAction extends AbstractAction {
+<<<<<<< HEAD
 
 	public OptionsAction(String text) {
 	    super(text);
@@ -231,6 +242,88 @@ public class GameGui{
 	tPanel.add(tField);
 	tFrame.add(tPanel);
 	
+=======
+        
+        public OptionsAction(String text) {
+            super(text);
+            
+            frame = new JFrame();
+            frame.setSize(608,480);
+            frame.setTitle("Treasure Hunter");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            
+            JPanel optionsPanel = new JPanel();
+            JLabel optionsLabel = new JLabel("Options");
+            optionsPanel.add(optionsLabel);
+            optionsPanel.setVisible(true);
+        }
+        
+        
+        
+        public void actionPerformed(ActionEvent e) {
+            state = 3;
+        }
+        
+    }
+    
+    /**
+     Changes the player's sprite to reflect the direction that the player is moving in. Depending on the deltas in coordinates, the player sprite can be changed to standing still while facing north, south, west, or east. The number of the sprite is changed; the actual sprite picture is set in the <tt>Player</tt> object's <tt>setSprite()</tt> method.
+     */
+    private void performMovement() {
+        if (keyDown[KeyEvent.VK_A]) {
+            player.setX(-1);
+            player.setStartingSprite(4);
+        } else if (keyDown[KeyEvent.VK_D]) {
+            player.setX(1);
+            player.setStartingSprite(8);
+        } else player.setX(0);
+        
+        if (keyDown[KeyEvent.VK_W]) {
+            player.setY(-1);
+            player.setStartingSprite(12);
+        } else if (keyDown[KeyEvent.VK_S]) {
+            player.setY(1);
+            player.setStartingSprite(0);
+        } else player.setY(0);
+        
+        if(state == 1) return;
+        
+        if (keyDown[KeyEvent.VK_LEFT]) {
+            player2.setX(-1);
+            player2.setStartingSprite(4);
+        } else if (keyDown[KeyEvent.VK_RIGHT]) {
+            player2.setX(1);
+            player2.setStartingSprite(8);
+        } else player2.setX(0);
+        
+        if (keyDown[KeyEvent.VK_UP]) {
+            player2.setY(-1);
+            player2.setStartingSprite(12);
+        } else if (keyDown[KeyEvent.VK_DOWN]) {
+            player2.setY(1);
+            player2.setStartingSprite(0);
+        } else player2.setY(0);
+    }
+    
+    private void updatePlayer(Player player) {
+        if(player.isInMotion()) {
+            player.animate();
+            component.updatePlayer(player);
+        } else {
+            component.validate();
+            component.repaint();
+            performMovement();
+            if(player.moving()) {
+                player.setSprite(player.getStartingSprite());
+                component.checkMove(player);
+                if(player.isMovable()) {
+                    player.setFrameCount(0);
+                    player.setInMotion(true);
+                    player.setTiles(player.getXTile() + player.getX(), player.getYTile() + player.getY());
+                }
+            }
+        }
+>>>>>>> ca75e177628e0ad90b7361d0d14ff6cec517523a
     }
     
     /**
@@ -240,8 +333,7 @@ public class GameGui{
         frame = new JFrame();
         
         // Set the name and frame size
-        if(state == 1) frame.setSize(608, 480);
-        else if(state == 2) frame.setSize(1216, 480);
+        frame.setSize(608, 480);
         frame.setTitle("Treasure Hunter");
         
         // Allows for game window to be closed
@@ -251,273 +343,108 @@ public class GameGui{
         component = new GameComponent(state);
         player = new Player(0, 0, 16, 8, "player");
         component.loadPlayer(player);
-        if(state == 2) {
-            player2 = new Player(0, 0, 16, 8, "player");
-            component.loadPlayer2(player2);
-        }
         
         // Load the map and randomly set the treasures on the map
         component.loadMap("map.txt");
         component.placeTheTreasures(5); // change the amount of treasures here
         
         // Add a listener that listens for directional key presses and tells the character to move accordingly.
-        MoveAction move = new MoveAction();
-        MoveAction move2 = new MoveAction();
         PauseAction pause = new PauseAction();
-        if(state == 1) {
-            frame.addKeyListener(new KeyAdapter() {
-                @Override
-                public void keyPressed(KeyEvent e) {
-                    if(!move.moveLeft && !move.moveRight && !move.moveUp && !move.moveDown) {
-                        keypress = e.getKeyCode();
-                        switch (keypress) {
-                            case KeyEvent.VK_LEFT:
-                                move.moveLeft = true;
-                                break;
-                            case KeyEvent.VK_RIGHT:
-                                move.moveRight = true;
-                                break;
-                            case KeyEvent.VK_UP:
-                                move.moveUp = true;
-                                break;
-                            case KeyEvent.VK_DOWN:
-                                move.moveDown = true;
-                                break;
-                            case KeyEvent.VK_P:
-                                component.setPause(true);
-                                long pausedTime = pause.drawPauseMenu(frame);
-                                component.pauseTimer(pausedTime);
-                                component.setPause(false);
-                                break;
-                        }
-                    }
-                }
+        
+        frame.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                keypress = e.getKeyCode();
+                keyDown[keypress] = true;
                 
-                @Override
-                public void keyReleased(KeyEvent e) {
-                    keypress = e.getKeyCode();
-                    switch (keypress) {
-                        case KeyEvent.VK_LEFT:
-                            move.moveLeft = false;
-                            break;
-                        case KeyEvent.VK_RIGHT:
-                            move.moveRight = false;
-                            break;
-                        case KeyEvent.VK_UP:
-                            move.moveUp = false;
-                            break;
-                        case KeyEvent.VK_DOWN:
-                            move.moveDown = false;
-                            break;
-                    }
+                if(keypress == KeyEvent.VK_P) {
+                    component.setPause(true);
+                    long pausedTime = pause.drawPauseMenu(frame);
+                    component.pauseTimer(pausedTime);
+                    component.setPause(false);
                 }
-            });
-        } else if(state ==2) {
-            frame.addKeyListener(new KeyAdapter() {
-                @Override
-                public void keyPressed(KeyEvent e) {
-                    if(!move.moveLeft && !move.moveRight && !move.moveUp && !move.moveDown) {
-                        keypress = e.getKeyCode();
-                        switch (keypress) {
-                            case KeyEvent.VK_A:
-                                move.moveLeft = true;
-                                break;
-                            case KeyEvent.VK_D:
-                                move.moveRight = true;
-                                break;
-                            case KeyEvent.VK_W:
-                                move.moveUp = true;
-                                break;
-                            case KeyEvent.VK_S:
-                                move.moveDown = true;
-                                break;
-                            case KeyEvent.VK_LEFT:
-                                move2.moveLeft = true;
-                                break;
-                            case KeyEvent.VK_RIGHT:
-                                move2.moveRight = true;
-                                break;
-                            case KeyEvent.VK_UP:
-                                move2.moveUp = true;
-                                break;
-                            case KeyEvent.VK_DOWN:
-                                move2.moveDown = true;
-                                break;
-                            case KeyEvent.VK_P:
-                                component.setPause(true);
-                                long pausedTime = pause.drawPauseMenu(frame);
-                                component.pauseTimer(pausedTime);
-                                component.setPause(false);
-                                break;
-                        }
-                    }
-                }
-                
-                @Override
-                public void keyReleased(KeyEvent e) {
-                    keypress = e.getKeyCode();
-                    switch (keypress) {
-                        case KeyEvent.VK_A:
-                            move.moveLeft = false;
-                            break;
-                        case KeyEvent.VK_D:
-                            move.moveRight = false;
-                            break;
-                        case KeyEvent.VK_W:
-                            move.moveUp = false;
-                            break;
-                        case KeyEvent.VK_S:
-                            move.moveDown = false;
-                            break;
-                        case KeyEvent.VK_LEFT:
-                            move2.moveLeft = false;
-                            break;
-                        case KeyEvent.VK_RIGHT:
-                            move2.moveRight = false;
-                            break;
-                        case KeyEvent.VK_UP:
-                            move2.moveUp = false;
-                            break;
-                        case KeyEvent.VK_DOWN:
-                            move2.moveDown = false;
-                            break;
-                    }
-                }
-            });
-        }
+            }
+            
+            @Override
+            public void keyReleased(KeyEvent e) {
+                keypress = e.getKeyCode();
+                keyDown[keypress] = false;
+            }
+        });
             
         // adds game components and makes the window visible
         frame.add(component);
         frame.setVisible(true);
         component.validate();
         component.repaint();
-        inAnimation = false;
-        inAnimation2 = false;
-        frameCount = 0;
-        frameCount2 = 0;
-        if(state == 1) {
-            while(running) {
-                try {
-                    Thread.sleep(5);
-                } catch(Exception ex) {}
-                if(inAnimation) {
-                    animate(player, move, frameCount);
-                    frameCount++;
-                    if(frameCount == 50) inAnimation = false;
-                } else {
-                    move.x = 0;
-                    move.y = 0;
-                    component.validate();
-                    component.repaint();
-                    move.performMovement();
-                    if(move.moving()) {
-                        player.setSprite(move.startingSprite);
-                        component.checkMove(player, player.getXTile() + move.x, player.getYTile() + move.y);
-                        if(player.isMovable()) {
-                            frameCount = 0;
-                            inAnimation = true;
-                            player.setTiles(player.getXTile() + move.x, player.getYTile() + move.y);
-                        }
-                    }
-                }
+        TimerTask task = new TimerTask() {
+            public void run() {
+                updatePlayer(player);
             }
-        } else if(state ==2) {
-            while(running) {
-                try {
-                    Thread.sleep(5);
-                } catch(Exception ex) {}
-                
-                if(inAnimation) {
-                    animate(player, move, frameCount);
-                    frameCount++;
-                    if(frameCount == 50) inAnimation = false;
-                } else {
-                    move.x = 0;
-                    move.y = 0;
-                    component.validate();
-                    component.repaint();
-                    move.performMovement();
-                    if(move.moving()) {
-                        player.setSprite(move.startingSprite);
-                        component.checkMove(player, player.getXTile() + move.x, player.getYTile() + move.y);
-                        if(player.isMovable()) {
-                            frameCount = 0;
-                            inAnimation = true;
-                            player.setTiles(player.getXTile() + move.x, player.getYTile() + move.y);
-                        }
-                    }
-                }
-                
-                if(inAnimation2) {
-                    animate(player2, move2, frameCount2);
-                    frameCount2++;
-                    if(frameCount2 == 50) inAnimation2 = false;
-                } else {
-                    move2.x = 0;
-                    move2.y = 0;
-                    component.validate();
-                    component.repaint();
-                    move2.performMovement();
-                    if(move2.moving()) {
-                        player2.setSprite(move2.startingSprite);
-                        component.checkMove(player2, player2.getXTile() + move2.x, player2.getYTile() + move2.y);
-                        if(player2.isMovable()) {
-                            frameCount2 = 0;
-                            inAnimation2 = true;
-                            player2.setTiles(player2.getXTile() + move2.x, player2.getYTile() + move2.y);
-                        }
-                    }
-                }
-            }
-        }
+        };
+        
+        Timer timer = new Timer("Timer");
+        timer.scheduleAtFixedRate(task, 0, 10);
     }
     
-    private void animate(Player player, MoveAction move, int frameCount) {
-        player.moveTo(player.getXPos() + move.x, player.getYPos() + move.y);
-        if(move.moving())
-            player.setSprite(move.startingSprite + frameCount / 10);
-        if(player.getCurrentSprite() >= move.startingSprite + 4 && move.moving())
-            player.setSprite(move.startingSprite);
-        component.updatePlayer(player);
-    }
-    
-    /**
-     A private inner class that handles player movement when one of the directional keys are pressed.
-     */
-    private class MoveAction {
-        int startingSprite = 0;
-        int x = 0;
-        int y = 0;
+    public void goMulti() {
+        frame = new JFrame();
         
-        boolean moveLeft;
-        boolean moveRight;
-        boolean moveUp;
-        boolean moveDown;
+        // Set the name and frame size
+        frame.setSize(1216, 480);
+        frame.setTitle("Treasure Hunter");
         
-        public boolean moving() {
-            return !(x == 0 && y == 0);
-        }
+        // Allows for game window to be closed
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        /**
-         Changes the player's sprite to reflect the direction that the player is moving in. Depending on the deltas in coordinates, the player sprite can be changed to standing still while facing north, south, west, or east. The number of the sprite is changed; the actual sprite picture is set in the <tt>Player</tt> object's <tt>setSprite()</tt> method.
-         */
-        public void performMovement() {
-            if (moveLeft) {
-                x = -1;
-                startingSprite = 4;
+        // Randomly places 3 treasures on game map
+        component = new GameComponent(state);
+        player = new Player(0, 0, 16, 8, "player");
+        component.loadPlayer(player);
+        player2 = new Player(0, 0, 16, 8, "player");
+        component.loadPlayer2(player2);
+        
+        // Load the map and randomly set the treasures on the map
+        component.loadMap("map.txt");
+        component.placeTheTreasures(5); // change the amount of treasures here
+        
+        // Add a listener that listens for directional key presses and tells the character to move accordingly.
+        PauseAction pause = new PauseAction();
+        
+        frame.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                keypress = e.getKeyCode();
+                keyDown[keypress] = true;
+                
+                if(keypress == KeyEvent.VK_P) {
+                    component.setPause(true);
+                    long pausedTime = pause.drawPauseMenu(frame);
+                    component.pauseTimer(pausedTime);
+                    component.setPause(false);
+                }
             }
-            if (moveRight) {
-                x = 1;
-                startingSprite = 8;
+            
+            @Override
+            public void keyReleased(KeyEvent e) {
+                keypress = e.getKeyCode();
+                keyDown[keypress] = false;
             }
-            if (moveUp) {
-                y = -1;
-                startingSprite = 12;
+        });
+        
+        // adds game components and makes the window visible
+        frame.add(component);
+        frame.setVisible(true);
+        component.validate();
+        component.repaint();
+        TimerTask task = new TimerTask() {
+            public void run() {
+                updatePlayer(player);
+                updatePlayer(player2);
             }
-            if (moveDown) {
-                y = 1;
-                startingSprite = 0;
-            }
-        }
+        };
+        
+        Timer timer = new Timer("Timer");
+        timer.scheduleAtFixedRate(task, 0, 10);
     }
 }
