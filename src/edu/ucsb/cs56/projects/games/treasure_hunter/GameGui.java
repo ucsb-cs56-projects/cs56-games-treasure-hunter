@@ -195,17 +195,17 @@ public class GameGui{
 		}
 	    });
 		    
-	//JButton tButton = new JButton("TREASURE");
-	//optionsPanel.add(tButton);
+	JButton tButton = new JButton("MENU");
+	optionsPanel.add(tButton);
 	new_frame.add(optionsPanel, BorderLayout.CENTER);
 
-	//tButton.addActionListener(new ActionListener()
-	//  {
-	//	public void actionPerformed(ActionEvent e)
-	//	{
-	//	    state = 5;
-	//	}
-	//  });
+	tButton.addActionListener(new ActionListener()
+	  {
+		public void actionPerformed(ActionEvent e)
+		{
+		    createMainMenu();
+		}
+	  });
 	optionsPanel.setVisible(true);
 	new_frame.add(optionsPanel, BorderLayout.CENTER);
 	new_frame.setLocationRelativeTo(frame.getContentPane());
