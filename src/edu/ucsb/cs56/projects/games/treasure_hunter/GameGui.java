@@ -2,9 +2,11 @@ package edu.ucsb.cs56.projects.games.treasure_hunter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 
 /**
  Created by Alex Wood (UCSB CS56, W12, 02/16/2012)
@@ -26,6 +28,8 @@ public class GameGui{
     private JFrame frame;
     private Player player, player2;
     private GameComponent component, component2;
+
+    private int numTreasures = 5;
     
     /**
      A boolean that is true when the game loop is running
@@ -55,6 +59,25 @@ public class GameGui{
         GameGui gui = new GameGui();
         if(debug) System.out.println("In main calling gui.go()");
         gui.createMainMenu();
+	gui.createEndMenu();
+    }
+
+    private void createEndMenu() {
+	JFrame n_frame = new JFrame();
+	state = 4;
+	n_frame.setSize(608,480);
+	n_frame.setTitle("Treasure Hunter");
+	n_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	while(state == 4){
+	    try{
+		Thread.sleep(1);
+	    } catch(Exception e) {};
+	}
+	try {
+	    Thread.sleep(100);
+	    frame.dispose();
+	} catch(Exception e) {}
     }
     
     /**
@@ -97,6 +120,11 @@ public class GameGui{
             frame.dispose();
         } catch (Exception e) {}
         if(state == 1 || state == 2) go();
+
+	
+        if(state == 3) options_go();
+
+	
     }
     
     /**
@@ -137,24 +165,72 @@ public class GameGui{
 
 	public OptionsAction(String text) {
 	    super(text);
-	    
-	    frame = new JFrame();
-	    frame.setSize(608,480);
-	    frame.setTitle("Treasure Hunter");
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-	    JPanel optionsPanel = new JPanel();
-	    JLabel optionsLabel = new JLabel("Options");
-	    optionsPanel.add(optionsLabel);
-	    optionsPanel.setVisible(true);
-	}
+    }
 
 
 	
 	public void actionPerformed(ActionEvent e) {
 	    state = 3;
 	}
+    }
+      
 
+	
+    
+
+    public void options_go() {
+
+	JFrame new_frame = new JFrame();
+	new_frame.setSize(608,480);
+	new_frame.setTitle("Treasure Hunter");
+	new_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	JPanel optionsPanel = new JPanel();
+	JLabel optionsLabel = new JLabel("TREASURE");
+	optionsLabel.setForeground(Color.BLACK);
+	optionsPanel.add(optionsLabel);
+	JTextField tField = new JTextField("Set number of treasures",30);
+	optionsPanel.add(tField);
+
+	tField.addActionListener(new ActionListener()
+	    {
+		public void actionPerformed(ActionEvent e)
+		{
+		    String input = tField.getText();
+		    numTreasures = Integer.parseInt(input);
+		}
+	    });
+		    
+	//JButton tButton = new JButton("TREASURE");
+	//optionsPanel.add(tButton);
+	new_frame.add(optionsPanel, BorderLayout.CENTER);
+
+	//tButton.addActionListener(new ActionListener()
+	//  {
+	//	public void actionPerformed(ActionEvent e)
+	//	{
+	//	    state = 5;
+	//	}
+	//  });
+	optionsPanel.setVisible(true);
+	new_frame.add(optionsPanel, BorderLayout.CENTER);
+	new_frame.setLocationRelativeTo(frame.getContentPane());
+	new_frame.setVisible(true);
+
+	
+
+	
+
+    }
+
+
+    public void treasure_go(){
+
+	JFrame tFrame = new JFrame();
+	JPanel tPanel = new JPanel();
+	JTextField tField = new JTextField(30);
+	tPanel.add(tField);
+	tFrame.add(tPanel);
+	
     }
     
     /**
