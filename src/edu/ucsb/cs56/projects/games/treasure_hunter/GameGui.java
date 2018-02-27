@@ -29,13 +29,13 @@ public class GameGui{
     
     private JFrame frame;
     private Player player, player2;
-<<<<<<< HEAD
+
     private GameComponent component, component2;
 
     private int numTreasures = 5;
-=======
-    private GameComponent component;
->>>>>>> ca75e177628e0ad90b7361d0d14ff6cec517523a
+
+    
+
     
     /**
      A boolean that is true when the game loop is running
@@ -64,26 +64,10 @@ public class GameGui{
         GameGui gui = new GameGui();
         if(debug) System.out.println("In main calling gui.go()");
         gui.createMainMenu();
-	gui.createEndMenu();
+	
     }
 
-    private void createEndMenu() {
-	JFrame n_frame = new JFrame();
-	state = 4;
-	n_frame.setSize(608,480);
-	n_frame.setTitle("Treasure Hunter");
-	n_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-	while(state == 4){
-	    try{
-		Thread.sleep(1);
-	    } catch(Exception e) {};
-	}
-	try {
-	    Thread.sleep(100);
-	    frame.dispose();
-	} catch(Exception e) {}
-    }
+   
     
     /**
      Creates the GUI frame and places all of the Main Menu components in it.
@@ -124,17 +108,17 @@ public class GameGui{
             Thread.sleep(100);
             frame.dispose();
         } catch (Exception e) {}
-<<<<<<< HEAD
-        if(state == 1 || state == 2) go();
+
+        
 
 	
         if(state == 3) options_go();
 
 	
-=======
+
         if(state == 1) go();
         else if(state == 2) goMulti();
->>>>>>> ca75e177628e0ad90b7361d0d14ff6cec517523a
+
     }
     
     /**
@@ -172,7 +156,7 @@ public class GameGui{
     }
 
     private class OptionsAction extends AbstractAction {
-<<<<<<< HEAD
+
 
 	public OptionsAction(String text) {
 	    super(text);
@@ -234,37 +218,7 @@ public class GameGui{
     }
 
 
-    public void treasure_go(){
-
-	JFrame tFrame = new JFrame();
-	JPanel tPanel = new JPanel();
-	JTextField tField = new JTextField(30);
-	tPanel.add(tField);
-	tFrame.add(tPanel);
-	
-=======
-        
-        public OptionsAction(String text) {
-            super(text);
-            
-            frame = new JFrame();
-            frame.setSize(608,480);
-            frame.setTitle("Treasure Hunter");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            
-            JPanel optionsPanel = new JPanel();
-            JLabel optionsLabel = new JLabel("Options");
-            optionsPanel.add(optionsLabel);
-            optionsPanel.setVisible(true);
-        }
-        
-        
-        
-        public void actionPerformed(ActionEvent e) {
-            state = 3;
-        }
-        
-    }
+   
     
     /**
      Changes the player's sprite to reflect the direction that the player is moving in. Depending on the deltas in coordinates, the player sprite can be changed to standing still while facing north, south, west, or east. The number of the sprite is changed; the actual sprite picture is set in the <tt>Player</tt> object's <tt>setSprite()</tt> method.
@@ -323,7 +277,7 @@ public class GameGui{
                 }
             }
         }
->>>>>>> ca75e177628e0ad90b7361d0d14ff6cec517523a
+
     }
     
     /**
