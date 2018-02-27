@@ -249,7 +249,6 @@ public class GameGui{
                 }
             }
         }
-        
     }
     
     /**
@@ -272,7 +271,7 @@ public class GameGui{
         
         // Load the map and randomly set the treasures on the map
         component.loadMap("map.txt");
-        component.placeTheTreasures(5); // change the amount of treasures here
+        component.placeTheTreasures(numTreasures); // change the amount of treasures here
         
         // Add a listener that listens for directional key presses and tells the character to move accordingly.
         PauseAction pause = new PauseAction();
@@ -332,7 +331,7 @@ public class GameGui{
         
         // Load the map and randomly set the treasures on the map
         component.loadMap("map.txt");
-        component.placeTheTreasures(5); // change the amount of treasures here
+        component.placeTheTreasures(numTreasures); // change the amount of treasures here
         
         // Add a listener that listens for directional key presses and tells the character to move accordingly.
         PauseAction pause = new PauseAction();
