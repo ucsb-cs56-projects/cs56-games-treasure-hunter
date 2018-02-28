@@ -1,13 +1,17 @@
 package edu.ucsb.cs56.projects.games.treasure_hunter;
 
+import java.awt.Font;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.Timer;
 import java.util.TimerTask;
+
 
 
 /**
@@ -37,6 +41,7 @@ public class GameGui{
     private int state;
     private boolean[] keyDown = new boolean[200];
     private Timer timer;
+    private BufferedImage keys;
     
     /**
      A boolean that is true when the game loop is running
@@ -83,6 +88,7 @@ public class GameGui{
         menuPanel.add(new JButton(new StartAction("START")));
         menuPanel.add(new JButton(new MultiplayerAction("MULTIPLAYER")));
         menuPanel.add(new JButton(new OptionsAction("OPTIONS")));
+	menuPanel.add(new JButton(new ControlAction("CONTROLS")));
         menuPanel.setVisible(true);
         
         // Add the panel to the frame
@@ -102,6 +108,7 @@ public class GameGui{
                 
                 if(state == 3) options_go();
                 if(state == 1) go();
+		if(state == 4) control_go();
                 else if(state == 2) goMulti();
             }
         };
@@ -152,6 +159,17 @@ public class GameGui{
         public void actionPerformed(ActionEvent e) {
             state = 3;
         }
+    }
+
+    private class ControlAction extends AbstractAction {
+
+	public ControlAction(String text) {
+	    super(text);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+	    state = 4;
+	}
     }
     
     public void options_go() {
@@ -205,9 +223,47 @@ public class GameGui{
 	
         timePanel.setVisible(true);
         treasurePanel.add(timePanel);
+
         new_frame.setLocationRelativeTo(frame.getContentPane());
         new_frame.setVisible(true);
         
+    }
+
+    public void control_go() {
+
+	JFrame cframe = new JFrame();
+        cframe.setSize(800,480);
+        cframe.setTitle("Controls");
+        cframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	JPanel cPanel = new JPanel();
+	JPanel controlPanel = new JPanel();
+	JLabel controlLabel = new JLabel("Use the WASD keys to move your player.");
+	JLabel control2Label = new JLabel("If you are playing multiplayer, move the player on the right using the directional keys");
+	JLabel control3Label = new JLabel("and move the player on the left with the WASD keys.");
+	controlLabel.setFont(new Font("Verdana",1,16));
+	control2Label.setFont(new Font("Verdana",1,16));
+	control3Label.setFont(new Font("Verdana",1,16));
+	JButton cButton = new JButton("MAIN MENU");
+	controlPanel.setLayout(new GridLayout(3,1));
+	controlPanel.add(controlLabel);
+	controlPanel.add(control2Label);
+	controlPanel.add(control3Label);
+	cPanel.add(controlPanel);
+	cPanel.add(cButton);
+	cButton.addActionListener(new ActionListener()
+	  {
+		public void actionPerformed(ActionEvent e)
+		{
+		    cframe.dispose();
+		    createMainMenu();
+		}
+	  });
+	
+	cPanel.setVisible(true);
+	cframe.add(cPanel, BorderLayout.CENTER);
+	cframe.setLocationByPlatform(true);
+	cframe.setLocationRelativeTo(frame.getContentPane());
+        cframe.setVisible(true);
     }
     
     /**
