@@ -89,6 +89,10 @@ public class GameComponent extends JComponent
         startTime = System.currentTimeMillis();
     }
 
+    public void setTimeLimit(int timeSet) {
+
+	this.timeLimit = timeSet;
+    }
     
     
     /**

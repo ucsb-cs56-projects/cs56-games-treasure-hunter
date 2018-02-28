@@ -31,6 +31,7 @@ public class GameGui{
     private Player player, player2;
     private GameComponent component;
     private int numTreasures = 5;
+    private int timeSet = 0;
     public static boolean debug = false;
     public static final String resourcesDir = "/resources/";
     private int state;
@@ -158,35 +159,52 @@ public class GameGui{
         new_frame.setSize(608,480);
         new_frame.setTitle("Treasure Hunter");
         new_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel optionsPanel = new JPanel();
-        JLabel optionsLabel = new JLabel("TREASURE");
-        optionsLabel.setForeground(Color.BLACK);
-        optionsPanel.add(optionsLabel);
+        JPanel treasurePanel = new JPanel();
+        JLabel treasureLabel = new JLabel("TREASURE");
+        treasureLabel.setForeground(Color.BLACK);
+        treasurePanel.add(treasureLabel);
         JTextField tField = new JTextField("Set number of treasures", 30);
-        optionsPanel.add(tField);
+        treasurePanel.add(tField);
         
-        tField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String input = tField.getText();
-                numTreasures = Integer.parseInt(input);
-                new_frame.dispose();
-                createMainMenu();
-            }
-        });
-        
-        JButton tButton = new JButton("TREASURE");
-        optionsPanel.add(tButton);
-        new_frame.add(optionsPanel, BorderLayout.CENTER);
-        
-        tButton.addActionListener(new ActionListener()
+        JButton treasure_enter = new JButton("ENTER");
+        treasurePanel.add(treasure_enter);
+        treasure_enter.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
-                state = 5;
+		String input = tField.getText();
+                numTreasures = Integer.parseInt(input);
+                new_frame.dispose();
+                createMainMenu();
+		
             }
         });
-        optionsPanel.setVisible(true);
-        new_frame.add(optionsPanel, BorderLayout.CENTER);
+	treasurePanel.setVisible(true);
+	new_frame.add(treasurePanel, BorderLayout.CENTER);
+       
+
+	JPanel timePanel = new JPanel();
+	JLabel timeLabel = new JLabel("TIME");
+	timeLabel.setForeground(Color.BLACK);
+	timePanel.add(timeLabel);
+	JTextField timeField = new JTextField("Set time limit", 30);
+	timePanel.add(timeField);
+	JButton time_enter = new JButton("ENTER");
+	timePanel.add(time_enter);
+	time_enter.addActionListener(new ActionListener()
+	    {
+		public void actionPerformed(ActionEvent e)
+		{
+		    String timeInput = timeField.getText();
+		    timeSet = Integer.parseInt(timeInput);
+		    new_frame.dispose();
+		    createMainMenu();
+		}
+	    });
+
+	
+        timePanel.setVisible(true);
+        treasurePanel.add(timePanel);
         new_frame.setLocationRelativeTo(frame.getContentPane());
         new_frame.setVisible(true);
         
@@ -271,7 +289,11 @@ public class GameGui{
         
         // Load the map and randomly set the treasures on the map
         component.loadMap("map.txt");
-        component.placeTheTreasures(numTreasures); // change the amount of treasures here
+        component.placeTheTreasures(numTreasures);// change the amount of treasures here
+
+	if(timeSet!=0)
+	    component.setTimeLimit(timeSet);
+	
         
         // Add a listener that listens for directional key presses and tells the character to move accordingly.
         PauseAction pause = new PauseAction();
