@@ -35,6 +35,7 @@ public class GameComponent extends JComponent
     private char[][] tiletypes;
     private int[][] treasureMap, treasureMap2;
     
+    
     private String message = "";
     private int messageNum = 1;
     
