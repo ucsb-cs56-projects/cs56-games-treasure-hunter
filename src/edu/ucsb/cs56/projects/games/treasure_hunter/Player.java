@@ -32,7 +32,7 @@ public class Player {
     private int x = 0;
     private int y = 0;
     private boolean inMotion = false;
-    private int frameCount = 0;
+    private int frameCount = 0;    
     
     /**
      Constructs a <tt>Player</tt> object.
@@ -43,18 +43,33 @@ public class Player {
      @param currentSprite The number of the <tt>Player</tt> object's current sprite
      @param name The name of the <tt>Player</tt>
      */
-    public Player(int xTile, int yTile, int numSprites, int currentSprite, String name) {
-        try {
+    public Player(int xTile, int yTile, int numSprites, int currentSprite, int setSprite, String name) {
+        try {  
             sprites = new ArrayList<BufferedImage>();
-            for(int i = 0; i < numSprites; i++)
+	    if(setSprite == 0) {
+		for(int i = 0; i < numSprites; i++)
                 sprites.add(ImageIO.read(getClass().getResource(GameGui.resourcesDir + name + "/" + name + i + ".png")));
             
-            this.xTile = xTile;
-            this.yTile = yTile;
-            this.currentSprite = currentSprite;
-            this.moveTo(xTile * 50, yTile * 50);
+		this.xTile = xTile;
+		this.yTile = yTile;
+		this.currentSprite = currentSprite;
+		this.moveTo(xTile * 50, yTile * 50);
+	    }
+
+	    else if(setSprite == 1) {
+		for(int i = 0; i < numSprites; i++)
+                sprites.add(ImageIO.read(getClass().getResource(GameGui.resourcesDir + "player2" + "/" + "pokemon" + i + ".png")));
+            
+		this.xTile = xTile;
+		this.yTile = yTile;
+		this.currentSprite = currentSprite;
+		this.moveTo(xTile * 50, yTile * 50);
+	    }
+	    
         } catch (Exception e) {}
     }
+
+
     
     public int getStartingSprite() {
         return startingSprite;

@@ -42,6 +42,7 @@ public class GameGui{
     private boolean[] keyDown = new boolean[200];
     private Timer timer;
     private BufferedImage keys;
+    private int charSprite = 0;
     
     /**
      A boolean that is true when the game loop is running
@@ -224,6 +225,35 @@ public class GameGui{
         timePanel.setVisible(true);
         treasurePanel.add(timePanel);
 
+	JPanel spritePanel = new JPanel();
+	JLabel spriteLabel = new JLabel("Pick a character");
+	spriteLabel.setForeground(Color.BLACK);
+	JButton sprite1 = new JButton("CAVEMAN");
+	sprite1.addActionListener(new ActionListener()
+	    {
+		public void actionPerformed(ActionEvent e)
+		{
+		    charSprite = 0;
+		    new_frame.dispose();
+		    createMainMenu();
+		}
+	    });
+	JButton sprite2 = new JButton("POKEMON TRAINER");
+	sprite2.addActionListener(new ActionListener()
+	    {
+		public void actionPerformed(ActionEvent e)
+		{
+		    charSprite = 1;
+		    new_frame.dispose();
+		    createMainMenu();
+		}
+	    });
+		    
+	spritePanel.add(spriteLabel);
+	spritePanel.add(sprite1);
+	spritePanel.add(sprite2);
+	treasurePanel.add(spritePanel);
+
         new_frame.setLocationRelativeTo(frame.getContentPane());
         new_frame.setVisible(true);
         
@@ -340,7 +370,7 @@ public class GameGui{
         
         // Randomly places 3 treasures on game map
         component = new GameComponent(state);
-        player = new Player(0, 0, 16, 8, "player");
+        player = new Player(0, 0, 16, 8, charSprite, "player");
         component.loadPlayer(player);
         
         // Load the map and randomly set the treasures on the map
@@ -402,9 +432,9 @@ public class GameGui{
         
         // Randomly places 3 treasures on game map
         component = new GameComponent(state);
-        player = new Player(0, 0, 16, 8, "player");
+        player = new Player(0, 0, 16, 8, charSprite, "player");
         component.loadPlayer(player);
-        player2 = new Player(0, 0, 16, 8, "player");
+        player2 = new Player(0, 0, 16, 8, charSprite, "player");
         component.loadPlayer2(player2);
         
         // Load the map and randomly set the treasures on the map
