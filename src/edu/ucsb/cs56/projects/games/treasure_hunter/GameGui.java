@@ -352,40 +352,42 @@ public class GameGui{
     /**
      Changes the player's sprite to reflect the direction that the player is moving in. Depending on the deltas in coordinates, the player sprite can be changed to standing still while facing north, south, west, or east. The number of the sprite is changed; the actual sprite picture is set in the <tt>Player</tt> object's <tt>setSprite()</tt> method.
      */
-    private void performMovement() {
-        if (keyDown[KeyEvent.VK_A]) {
-            player.setX(-1);
-            player.setStartingSprite(4);
-        } else if (keyDown[KeyEvent.VK_D]) {
-            player.setX(1);
-            player.setStartingSprite(8);
-        } else player.setX(0);
+    private void performMovement(Player player) {
+        if(this.player.equals(player)) {
+            if (keyDown[KeyEvent.VK_A]) {
+                player.setX(-1);
+                player.setStartingSprite(4);
+            } else if (keyDown[KeyEvent.VK_D]) {
+                player.setX(1);
+                player.setStartingSprite(8);
+            } else player.setX(0);
+            
+            if (keyDown[KeyEvent.VK_W]) {
+                player.setY(-1);
+                player.setStartingSprite(12);
+            } else if (keyDown[KeyEvent.VK_S]) {
+                player.setY(1);
+                player.setStartingSprite(0);
+            } else player.setY(0);
+        }
         
-        if (keyDown[KeyEvent.VK_W]) {
-            player.setY(-1);
-            player.setStartingSprite(12);
-        } else if (keyDown[KeyEvent.VK_S]) {
-            player.setY(1);
-            player.setStartingSprite(0);
-        } else player.setY(0);
-        
-        if(state == 1) return;
-        
-        if (keyDown[KeyEvent.VK_LEFT]) {
-            player2.setX(-1);
-            player2.setStartingSprite(4);
-        } else if (keyDown[KeyEvent.VK_RIGHT]) {
-            player2.setX(1);
-            player2.setStartingSprite(8);
-        } else player2.setX(0);
-        
-        if (keyDown[KeyEvent.VK_UP]) {
-            player2.setY(-1);
-            player2.setStartingSprite(12);
-        } else if (keyDown[KeyEvent.VK_DOWN]) {
-            player2.setY(1);
-            player2.setStartingSprite(0);
-        } else player2.setY(0);
+        else {
+            if (keyDown[KeyEvent.VK_LEFT]) {
+                player2.setX(-1);
+                player2.setStartingSprite(4);
+            } else if (keyDown[KeyEvent.VK_RIGHT]) {
+                player2.setX(1);
+                player2.setStartingSprite(8);
+            } else player2.setX(0);
+            
+            if (keyDown[KeyEvent.VK_UP]) {
+                player2.setY(-1);
+                player2.setStartingSprite(12);
+            } else if (keyDown[KeyEvent.VK_DOWN]) {
+                player2.setY(1);
+                player2.setStartingSprite(0);
+            } else player2.setY(0);
+        }
     }
     
     private void updatePlayer(Player player) {
@@ -395,7 +397,7 @@ public class GameGui{
         } else {
             component.validate();
             component.repaint();
-            performMovement();
+            performMovement(player);
             if(player.moving()) {
                 player.setSprite(player.getStartingSprite());
                 component.checkMove(player);

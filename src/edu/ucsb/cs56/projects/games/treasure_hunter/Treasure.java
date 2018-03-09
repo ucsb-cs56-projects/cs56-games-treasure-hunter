@@ -17,7 +17,7 @@ import java.awt.image.BufferedImage;
  @version for UCSB CS56, F17, 11/07/2017
  */
 
-public class Treasure {
+public class Treasure implements GameObject {
     // static variables
     static int numFound = 0;
     static int numFound2 = 0;
