@@ -43,6 +43,7 @@ public class GameGui{
     private Timer timer;
     private BufferedImage keys;
     private int charSprite = 0;
+    private int charSprite2 = 0;
     
     /**
      A boolean that is true when the game loop is running
@@ -226,10 +227,10 @@ public class GameGui{
         treasurePanel.add(timePanel);
 
 	JPanel spritePanel = new JPanel();
-	JLabel spriteLabel = new JLabel("Pick a character");
+	JLabel spriteLabel = new JLabel("Pick a character: Player 1");
 	spriteLabel.setForeground(Color.BLACK);
-	JButton sprite1 = new JButton("CAVEMAN");
-	sprite1.addActionListener(new ActionListener()
+	JButton player1c = new JButton("CAVEMAN");
+	player1c.addActionListener(new ActionListener()
 	    {
 		public void actionPerformed(ActionEvent e)
 		{
@@ -238,8 +239,8 @@ public class GameGui{
 		    createMainMenu();
 		}
 	    });
-	JButton sprite2 = new JButton("POKEMON TRAINER");
-	sprite2.addActionListener(new ActionListener()
+	JButton player1p = new JButton("POKEMON TRAINER");
+	player1p.addActionListener(new ActionListener()
 	    {
 		public void actionPerformed(ActionEvent e)
 		{
@@ -250,9 +251,37 @@ public class GameGui{
 	    });
 		    
 	spritePanel.add(spriteLabel);
-	spritePanel.add(sprite1);
-	spritePanel.add(sprite2);
+	spritePanel.add(player1c);
+	spritePanel.add(player1p);
+
+	JPanel sprite2Panel = new JPanel();
+	JLabel sprite2Label = new JLabel("Pick a character: Player 2");
+	sprite2Label.setForeground(Color.BLACK);
+	JButton player2c = new JButton("CAVEMAN");
+	player2c.addActionListener(new ActionListener()
+	    {
+		public void actionPerformed(ActionEvent e)
+		{
+		    charSprite2 = 0;
+		    new_frame.dispose();
+		    createMainMenu();
+		}
+	    });
+	JButton player2p = new JButton("POKEMON TRAINER");
+	player2p.addActionListener(new ActionListener()
+	    {
+		public void actionPerformed(ActionEvent e)
+		{
+		    charSprite2 = 1;
+		    new_frame.dispose();
+		    createMainMenu();
+		}
+	    });
+	sprite2Panel.add(sprite2Label);
+	sprite2Panel.add(player2c);
+	sprite2Panel.add(player2p);
 	treasurePanel.add(spritePanel);
+	treasurePanel.add(sprite2Panel);
 
         new_frame.setLocationRelativeTo(frame.getContentPane());
         new_frame.setVisible(true);
@@ -434,7 +463,7 @@ public class GameGui{
         component = new GameComponent(state);
         player = new Player(0, 0, 16, 8, charSprite, "player");
         component.loadPlayer(player);
-        player2 = new Player(0, 0, 16, 8, charSprite, "player");
+        player2 = new Player(0, 0, 16, 8, charSprite2, "player");
         component.loadPlayer2(player2);
         
         // Load the map and randomly set the treasures on the map
