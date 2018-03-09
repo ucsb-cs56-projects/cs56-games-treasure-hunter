@@ -18,7 +18,7 @@ import javax.imageio.ImageIO;
  @version for UCSB CS56, F17, 11/07/2017
  */
 
-public class Player {
+public class Player implements GameObject {
     // private instance variables
     private boolean movable = true;
     private int xTile;
