@@ -249,10 +249,22 @@ public class GameGui{
 		    createMainMenu();
 		}
 	    });
+
+	JButton player1o = new JButton("ORC PIRATE");
+	player1o.addActionListener(new ActionListener()
+	    {
+		public void actionPerformed(ActionEvent e)
+		{
+		    charSprite = 2;
+		    new_frame.dispose();
+		    createMainMenu();
+		}
+	    });
 		    
 	spritePanel.add(spriteLabel);
 	spritePanel.add(player1c);
 	spritePanel.add(player1p);
+	spritePanel.add(player1o);
 
 	JPanel sprite2Panel = new JPanel();
 	JLabel sprite2Label = new JLabel("Pick a character: Player 2");
@@ -277,9 +289,21 @@ public class GameGui{
 		    createMainMenu();
 		}
 	    });
+
+	JButton player2o = new JButton("ORC PIRATE");
+	player2o.addActionListener(new ActionListener()
+	    {
+		public void actionPerformed(ActionEvent e)
+		{
+		    charSprite2 = 2;
+		    new_frame.dispose();
+		    createMainMenu();
+		}
+	    });
 	sprite2Panel.add(sprite2Label);
 	sprite2Panel.add(player2c);
 	sprite2Panel.add(player2p);
+	sprite2Panel.add(player2o);
 	treasurePanel.add(spritePanel);
 	treasurePanel.add(sprite2Panel);
 

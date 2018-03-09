@@ -65,6 +65,16 @@ public class Player {
 		this.currentSprite = currentSprite;
 		this.moveTo(xTile * 50, yTile * 50);
 	    }
+
+	    else if(setSprite == 2) {
+		for(int i = 0; i < numSprites; i++)
+                sprites.add(ImageIO.read(getClass().getResource(GameGui.resourcesDir + "player3" + "/" + "orc" + i + ".png")));
+            
+		this.xTile = xTile;
+		this.yTile = yTile;
+		this.currentSprite = currentSprite;
+		this.moveTo(xTile * 50, yTile * 50);
+	    }
 	    
         } catch (Exception e) {}
     }
