@@ -47,7 +47,6 @@ public class GameComponent extends JComponent
     private BufferedImage grassTile;
     private BufferedImage bushTile;
     private BufferedImage stoneTile;
-    private BufferedImage dotTile;
     
     
     /**
@@ -234,7 +233,7 @@ public class GameComponent extends JComponent
             grassTile = ImageIO.read(getClass().getResource("/resources/grass.png"));
             bushTile = ImageIO.read(getClass().getResource("/resources/bush.png"));
             stoneTile = ImageIO.read(getClass().getResource("/resources/stone.PNG"));
-	    dotTile = ImageIO.read(getClass().getResource("/resources/dot.png"));
+	    
             
             Scanner scanner = new Scanner(getClass().getResourceAsStream(dir + name));
             tilesWidth = scanner.nextInt();
