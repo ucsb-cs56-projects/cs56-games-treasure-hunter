@@ -219,43 +219,24 @@ public class GameComponent extends JComponent
      @param name The name of the text tile that stores the layout of the map
      */
     
-    public void loadMap(String name){
+    public void loadMap(){
         try {
-            
-            String dir = "/resources/";
-            URL url = (getClass().getResource(dir+name));
-            
-            if(GameGui.debug) {
-                System.out.println("dir + name = " + (dir + name));
-                System.out.println("url = " + url);
-            }
-            
             grassTile = ImageIO.read(getClass().getResource("/resources/grass.png"));
             bushTile = ImageIO.read(getClass().getResource("/resources/bush.png"));
             stoneTile = ImageIO.read(getClass().getResource("/resources/stone.PNG"));
 	    
-            
-            Scanner scanner = new Scanner(getClass().getResourceAsStream(dir + name));
-            tilesWidth = scanner.nextInt();
-            tilesHeight = scanner.nextInt();
+            tilesWidth = 12;
+            tilesHeight = 9;
             tiletypes = new char[tilesHeight][tilesWidth];
             
-            // Place the char that represents the tile in a 2x2 array that is representative of the map
             for(int i = 0; i < tilesHeight; i++) {
                 for(int j = 0; j < tilesWidth; j++) {
-                    if(scanner.hasNext()) {
-                        // Since all input tiles are a string of length 1, we can just use the charAt() function
-                        String temp = scanner.next();
-                        tiletypes[i][j] = temp.charAt(0);
-                    } else {
-                        // If there is no more input to read, just fill with grass tiles
-                        tiletypes[i][j] = 'G';
-                    }
+                    double temp = Math.random();
+                    if(temp < 0.6) tiletypes[i][j] = 'G';
+                    else if(temp < 0.9) tiletypes[i][j] = 'B';
+                    else tiletypes[i][j] = 'S';
                 }
             }
-            
-            // Close the Scanner
-            scanner.close();
             
         } catch (IOException e) {
             e.printStackTrace();

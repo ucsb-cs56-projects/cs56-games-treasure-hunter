@@ -429,7 +429,7 @@ public class GameGui{
         component.loadPlayer(player);
         
         // Load the map and randomly set the treasures on the map
-        component.loadMap("map.txt");
+        component.loadMap();
         component.placeTheTreasures(numTreasures);// change the amount of treasures here
 
 	if(timeSet!=0)
@@ -493,7 +493,7 @@ public class GameGui{
         component.loadPlayer2(player2);
         
         // Load the map and randomly set the treasures on the map
-        component.loadMap("map.txt");
+        component.loadMap();
         component.placeTheTreasures(numTreasures); // change the amount of treasures here
         
         // Add a listener that listens for directional key presses and tells the character to move accordingly.
