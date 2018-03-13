@@ -176,7 +176,7 @@ public class GameGui{
     
     public void options_go() {
         JFrame new_frame = new JFrame();
-        new_frame.setSize(608,480);
+        new_frame.setSize(720,480);
         new_frame.setTitle("Treasure Hunter");
         new_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel treasurePanel = new JPanel();
@@ -260,11 +260,22 @@ public class GameGui{
 		    createMainMenu();
 		}
 	    });
+	JButton player1d = new JButton("DETECTIVE");
+	player1d.addActionListener(new ActionListener()
+	    {
+		public void actionPerformed(ActionEvent e)
+		{
+		    charSprite = 3;
+		    new_frame.dispose();
+		    createMainMenu();
+		}
+	    });
 		    
 	spritePanel.add(spriteLabel);
 	spritePanel.add(player1c);
 	spritePanel.add(player1p);
 	spritePanel.add(player1o);
+	spritePanel.add(player1d);
 
 	JPanel sprite2Panel = new JPanel();
 	JLabel sprite2Label = new JLabel("Pick a character: Player 2");
@@ -300,10 +311,23 @@ public class GameGui{
 		    createMainMenu();
 		}
 	    });
+
+	JButton player2d = new JButton("DETECTIVE");
+	player2d.addActionListener(new ActionListener()
+	    {
+		public void actionPerformed(ActionEvent e)
+		{
+		    charSprite2 = 3;
+		    new_frame.dispose();
+		    createMainMenu();
+		}
+	    });
+	
 	sprite2Panel.add(sprite2Label);
 	sprite2Panel.add(player2c);
 	sprite2Panel.add(player2p);
 	sprite2Panel.add(player2o);
+	sprite2Panel.add(player2d);
 	treasurePanel.add(spritePanel);
 	treasurePanel.add(sprite2Panel);
 

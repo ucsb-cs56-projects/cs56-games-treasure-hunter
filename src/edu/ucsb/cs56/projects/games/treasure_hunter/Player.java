@@ -75,6 +75,17 @@ public class Player implements GameObject {
 		this.currentSprite = currentSprite;
 		this.moveTo(xTile * 50, yTile * 50);
 	    }
+
+	    else if(setSprite == 3) {
+		for(int i = 0; i < numSprites; i++)
+                sprites.add(ImageIO.read(getClass().getResource(GameGui.resourcesDir + "player4" + "/" + "detective" + i + ".png")));
+            
+		this.xTile = xTile;
+		this.yTile = yTile;
+		this.currentSprite = currentSprite;
+		this.moveTo(xTile * 50, yTile * 50);
+	    }
+		
 	    
         } catch (Exception e) {}
     }
