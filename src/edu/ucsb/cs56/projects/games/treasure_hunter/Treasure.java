@@ -157,4 +157,9 @@ public class Treasure implements GameObject {
         this.xTile = (int)(Math.random()*12);
         this.yTile = (int)(Math.random()*9);
     }
+    
+    public void resetNumFound() {
+        numFound = 0;
+        numFound2 = 0;
+    }
 }
