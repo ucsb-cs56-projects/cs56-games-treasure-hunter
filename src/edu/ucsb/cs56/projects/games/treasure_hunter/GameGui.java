@@ -497,6 +497,7 @@ public class GameGui{
         
         timer = new Timer("Timer");
         timer.scheduleAtFixedRate(task, 0, 10);
+	    
     }
     
     public void goMulti() {

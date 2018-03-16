@@ -106,7 +106,7 @@ public class GameComponent extends JComponent
     public void setMessage(String newMessage) {
         message = newMessage;
     }
-
+	
     
     
     /**
@@ -330,6 +330,7 @@ public class GameComponent extends JComponent
     public void setMessageFinal(){
         message = "YOU WIN!";
         new Thread(new MessageThread(this)).start();
+	
     }
     
     /**
