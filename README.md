@@ -1,4 +1,6 @@
 # cs56-games-treasure-hunter
+
+![README image](readmeImage.png)
 ===============
 
 A GUI game called Treasure-Hunter.
@@ -81,3 +83,17 @@ HOWEVER: an even better solution might be to completely [replace Java Swing with
 * Implementing a dumb (moves randomly) AI and adding collision detection between them and the player should be simple and would add great value to the game. 
 * Another feature that would make this game better is implementing a score system (as the game is right now, the score would probably only depend on the time the player has left) and saving the top score in the game. 
 * As the last group mentioned, it would be great to migrate this project to libGDX, but this will take a considerable amount of time. As the game gets larger, this will be harder to do. So, if you are able and up to the challenge, you should give it a shot.
+
+# W18 Final Remarks
+===============
+
+* More GUI aspects have been added, such as a control and options menu where you can change the characters and the time limit, among other things.
+* Different character sprites have been added, so the player can now choose from 4 different characters.
+* A multiplayer mode has been added, so that two people can play on the same keyboard.
+* The tiles now generate randomly, so each instance of the game has as different setting.
+* The key-input is still a bit sensitive in multiplayer mode, but should be fixable.
+* The GameGui class need a lot of refactoring, specifically the gui components of the main menu. Maybe consider making seperate classes for each of the frames.
+* We recommend adding some kind of enemy with a semi-random movement that ends that game if it collides with the character.
+* A scoring system has not been implemented yet, but would be a great way to make the game more interesting and give players more incentive to play again.
+* The GUI components seem a bit outdated and time consuming to code, so switching to libGDX would make the game run smoother and easier to code, though like the last group said, it will take quite a bit of work
+* An idea to really give the game some structure and make it more fun would be to create levels, with each level having more enemies or harder to find treasure. The basics of the game have been established, so don't worry too much about further improving the smaller details and try to expand the scope of the game.

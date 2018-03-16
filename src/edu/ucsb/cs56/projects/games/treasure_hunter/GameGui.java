@@ -42,6 +42,8 @@ public class GameGui{
     private boolean[] keyDown = new boolean[200];
     private Timer timer;
     private BufferedImage keys;
+    private int charSprite = 0;
+    private int charSprite2 = 0;
     
     /**
      A boolean that is true when the game loop is running
@@ -88,7 +90,7 @@ public class GameGui{
         menuPanel.add(new JButton(new StartAction("START")));
         menuPanel.add(new JButton(new MultiplayerAction("MULTIPLAYER")));
         menuPanel.add(new JButton(new OptionsAction("OPTIONS")));
-	menuPanel.add(new JButton(new ControlAction("CONTROLS")));
+        menuPanel.add(new JButton(new ControlAction("CONTROLS")));
         menuPanel.setVisible(true);
         
         // Add the panel to the frame
@@ -108,7 +110,7 @@ public class GameGui{
                 
                 if(state == 3) options_go();
                 if(state == 1) go();
-		if(state == 4) control_go();
+                if(state == 4) control_go();
                 else if(state == 2) goMulti();
             }
         };
@@ -160,21 +162,21 @@ public class GameGui{
             state = 3;
         }
     }
-
+    
     private class ControlAction extends AbstractAction {
-
-	public ControlAction(String text) {
-	    super(text);
-	}
-
-	public void actionPerformed(ActionEvent e) {
-	    state = 4;
-	}
+        
+        public ControlAction(String text) {
+            super(text);
+        }
+        
+        public void actionPerformed(ActionEvent e) {
+            state = 4;
+        }
     }
     
     public void options_go() {
         JFrame new_frame = new JFrame();
-        new_frame.setSize(608,480);
+        new_frame.setSize(720,480);
         new_frame.setTitle("Treasure Hunter");
         new_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel treasurePanel = new JPanel();
@@ -187,122 +189,232 @@ public class GameGui{
         JButton treasure_enter = new JButton("ENTER");
         treasurePanel.add(treasure_enter);
         treasure_enter.addActionListener(new ActionListener()
-        {
+                                         {
             public void actionPerformed(ActionEvent e)
             {
-		String input = tField.getText();
+                String input = tField.getText();
                 numTreasures = Integer.parseInt(input);
                 new_frame.dispose();
                 createMainMenu();
-		
+                
             }
         });
-	treasurePanel.setVisible(true);
-	new_frame.add(treasurePanel, BorderLayout.CENTER);
-       
-
-	JPanel timePanel = new JPanel();
-	JLabel timeLabel = new JLabel("TIME");
-	timeLabel.setForeground(Color.BLACK);
-	timePanel.add(timeLabel);
-	JTextField timeField = new JTextField("Set time limit", 30);
-	timePanel.add(timeField);
-	JButton time_enter = new JButton("ENTER");
-	timePanel.add(time_enter);
-	time_enter.addActionListener(new ActionListener()
-	    {
-		public void actionPerformed(ActionEvent e)
-		{
-		    String timeInput = timeField.getText();
-		    timeSet = Integer.parseInt(timeInput);
-		    new_frame.dispose();
-		    createMainMenu();
-		}
-	    });
-
-	
+        treasurePanel.setVisible(true);
+        new_frame.add(treasurePanel, BorderLayout.CENTER);
+        
+        
+        JPanel timePanel = new JPanel();
+        JLabel timeLabel = new JLabel("TIME");
+        timeLabel.setForeground(Color.BLACK);
+        timePanel.add(timeLabel);
+        JTextField timeField = new JTextField("Set time limit", 30);
+        timePanel.add(timeField);
+        JButton time_enter = new JButton("ENTER");
+        timePanel.add(time_enter);
+        time_enter.addActionListener(new ActionListener()
+                                     {
+            public void actionPerformed(ActionEvent e)
+            {
+                String timeInput = timeField.getText();
+                timeSet = Integer.parseInt(timeInput);
+                new_frame.dispose();
+                createMainMenu();
+            }
+        });
+        
+        
         timePanel.setVisible(true);
         treasurePanel.add(timePanel);
-
+        
+        JPanel spritePanel = new JPanel();
+        JLabel spriteLabel = new JLabel("Pick a character: Player 1");
+        spriteLabel.setForeground(Color.BLACK);
+        JButton player1c = new JButton("CAVEMAN");
+        player1c.addActionListener(new ActionListener()
+                                   {
+            public void actionPerformed(ActionEvent e)
+            {
+                charSprite = 0;
+                new_frame.dispose();
+                createMainMenu();
+            }
+        });
+        JButton player1p = new JButton("POKEMON TRAINER");
+        player1p.addActionListener(new ActionListener()
+                                   {
+            public void actionPerformed(ActionEvent e)
+            {
+                charSprite = 1;
+                new_frame.dispose();
+                createMainMenu();
+            }
+        });
+        
+        JButton player1o = new JButton("ORC PIRATE");
+        player1o.addActionListener(new ActionListener()
+                                   {
+            public void actionPerformed(ActionEvent e)
+            {
+                charSprite = 2;
+                new_frame.dispose();
+                createMainMenu();
+            }
+        });
+        JButton player1d = new JButton("DETECTIVE");
+        player1d.addActionListener(new ActionListener()
+                                   {
+            public void actionPerformed(ActionEvent e)
+            {
+                charSprite = 3;
+                new_frame.dispose();
+                createMainMenu();
+            }
+        });
+        
+        spritePanel.add(spriteLabel);
+        spritePanel.add(player1c);
+        spritePanel.add(player1p);
+        spritePanel.add(player1o);
+        spritePanel.add(player1d);
+        
+        JPanel sprite2Panel = new JPanel();
+        JLabel sprite2Label = new JLabel("Pick a character: Player 2");
+        sprite2Label.setForeground(Color.BLACK);
+        JButton player2c = new JButton("CAVEMAN");
+        player2c.addActionListener(new ActionListener()
+                                   {
+            public void actionPerformed(ActionEvent e)
+            {
+                charSprite2 = 0;
+                new_frame.dispose();
+                createMainMenu();
+            }
+        });
+        JButton player2p = new JButton("POKEMON TRAINER");
+        player2p.addActionListener(new ActionListener()
+                                   {
+            public void actionPerformed(ActionEvent e)
+            {
+                charSprite2 = 1;
+                new_frame.dispose();
+                createMainMenu();
+            }
+        });
+        
+        JButton player2o = new JButton("ORC PIRATE");
+        player2o.addActionListener(new ActionListener()
+                                   {
+            public void actionPerformed(ActionEvent e)
+            {
+                charSprite2 = 2;
+                new_frame.dispose();
+                createMainMenu();
+            }
+        });
+        
+        JButton player2d = new JButton("DETECTIVE");
+        player2d.addActionListener(new ActionListener()
+                                   {
+            public void actionPerformed(ActionEvent e)
+            {
+                charSprite2 = 3;
+                new_frame.dispose();
+                createMainMenu();
+            }
+        });
+        
+        sprite2Panel.add(sprite2Label);
+        sprite2Panel.add(player2c);
+        sprite2Panel.add(player2p);
+        sprite2Panel.add(player2o);
+        sprite2Panel.add(player2d);
+        treasurePanel.add(spritePanel);
+        treasurePanel.add(sprite2Panel);
+        
         new_frame.setLocationRelativeTo(frame.getContentPane());
         new_frame.setVisible(true);
         
     }
-
+    
     public void control_go() {
-
-	JFrame cframe = new JFrame();
+        
+        JFrame cframe = new JFrame();
         cframe.setSize(800,480);
         cframe.setTitle("Controls");
         cframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	JPanel cPanel = new JPanel();
-	JPanel controlPanel = new JPanel();
-	JLabel controlLabel = new JLabel("Use the WASD keys to move your player.");
-	JLabel control2Label = new JLabel("If you are playing multiplayer, move the player on the right using the directional keys");
-	JLabel control3Label = new JLabel("and move the player on the left with the WASD keys.");
-	controlLabel.setFont(new Font("Verdana",1,16));
-	control2Label.setFont(new Font("Verdana",1,16));
-	control3Label.setFont(new Font("Verdana",1,16));
-	JButton cButton = new JButton("MAIN MENU");
-	controlPanel.setLayout(new GridLayout(3,1));
-	controlPanel.add(controlLabel);
-	controlPanel.add(control2Label);
-	controlPanel.add(control3Label);
-	cPanel.add(controlPanel);
-	cPanel.add(cButton);
-	cButton.addActionListener(new ActionListener()
-	  {
-		public void actionPerformed(ActionEvent e)
-		{
-		    cframe.dispose();
-		    createMainMenu();
-		}
-	  });
-	
-	cPanel.setVisible(true);
-	cframe.add(cPanel, BorderLayout.CENTER);
-	cframe.setLocationByPlatform(true);
-	cframe.setLocationRelativeTo(frame.getContentPane());
+        JPanel cPanel = new JPanel();
+        JPanel controlPanel = new JPanel();
+        JLabel controlLabel = new JLabel("Use the WASD keys to move your player.");
+        JLabel control2Label = new JLabel("If you are playing multiplayer, move the player on the right using the directional keys");
+        JLabel control3Label = new JLabel("and move the player on the left with the WASD keys.");
+        JLabel control4Label = new JLabel("After the game ends, press enter to return to the main menu.");
+        controlLabel.setFont(new Font("Verdana",1,16));
+        control2Label.setFont(new Font("Verdana",1,16));
+        control3Label.setFont(new Font("Verdana",1,16));
+        control4Label.setFont(new Font("Verdana",1,16));
+        JButton cButton = new JButton("MAIN MENU");
+        controlPanel.setLayout(new GridLayout(4,1));
+        controlPanel.add(controlLabel);
+        controlPanel.add(control2Label);
+        controlPanel.add(control3Label);
+        controlPanel.add(control4Label);
+        cPanel.add(controlPanel);
+        cPanel.add(cButton);
+        cButton.addActionListener(new ActionListener()
+                                  {
+            public void actionPerformed(ActionEvent e)
+            {
+                cframe.dispose();
+                createMainMenu();
+            }
+        });
+        
+        cPanel.setVisible(true);
+        cframe.add(cPanel, BorderLayout.CENTER);
+        cframe.setLocationByPlatform(true);
+        cframe.setLocationRelativeTo(frame.getContentPane());
         cframe.setVisible(true);
     }
     
     /**
      Changes the player's sprite to reflect the direction that the player is moving in. Depending on the deltas in coordinates, the player sprite can be changed to standing still while facing north, south, west, or east. The number of the sprite is changed; the actual sprite picture is set in the <tt>Player</tt> object's <tt>setSprite()</tt> method.
      */
-    private void performMovement() {
-        if (keyDown[KeyEvent.VK_A]) {
-            player.setX(-1);
-            player.setStartingSprite(4);
-        } else if (keyDown[KeyEvent.VK_D]) {
-            player.setX(1);
-            player.setStartingSprite(8);
-        } else player.setX(0);
+    private void performMovement(Player player) {
+        if(this.player.equals(player)) {
+            if (keyDown[KeyEvent.VK_A]) {
+                player.setX(-1);
+                player.setStartingSprite(4);
+            } else if (keyDown[KeyEvent.VK_D]) {
+                player.setX(1);
+                player.setStartingSprite(8);
+            } else player.setX(0);
+            
+            if (keyDown[KeyEvent.VK_W]) {
+                player.setY(-1);
+                player.setStartingSprite(12);
+            } else if (keyDown[KeyEvent.VK_S]) {
+                player.setY(1);
+                player.setStartingSprite(0);
+            } else player.setY(0);
+        }
         
-        if (keyDown[KeyEvent.VK_W]) {
-            player.setY(-1);
-            player.setStartingSprite(12);
-        } else if (keyDown[KeyEvent.VK_S]) {
-            player.setY(1);
-            player.setStartingSprite(0);
-        } else player.setY(0);
-        
-        if(state == 1) return;
-        
-        if (keyDown[KeyEvent.VK_LEFT]) {
-            player2.setX(-1);
-            player2.setStartingSprite(4);
-        } else if (keyDown[KeyEvent.VK_RIGHT]) {
-            player2.setX(1);
-            player2.setStartingSprite(8);
-        } else player2.setX(0);
-        
-        if (keyDown[KeyEvent.VK_UP]) {
-            player2.setY(-1);
-            player2.setStartingSprite(12);
-        } else if (keyDown[KeyEvent.VK_DOWN]) {
-            player2.setY(1);
-            player2.setStartingSprite(0);
-        } else player2.setY(0);
+        else {
+            if (keyDown[KeyEvent.VK_LEFT]) {
+                player2.setX(-1);
+                player2.setStartingSprite(4);
+            } else if (keyDown[KeyEvent.VK_RIGHT]) {
+                player2.setX(1);
+                player2.setStartingSprite(8);
+            } else player2.setX(0);
+            
+            if (keyDown[KeyEvent.VK_UP]) {
+                player2.setY(-1);
+                player2.setStartingSprite(12);
+            } else if (keyDown[KeyEvent.VK_DOWN]) {
+                player2.setY(1);
+                player2.setStartingSprite(0);
+            } else player2.setY(0);
+        }
     }
     
     private void updatePlayer(Player player) {
@@ -312,7 +424,7 @@ public class GameGui{
         } else {
             component.validate();
             component.repaint();
-            performMovement();
+            performMovement(player);
             if(player.moving()) {
                 player.setSprite(player.getStartingSprite());
                 component.checkMove(player);
@@ -340,16 +452,16 @@ public class GameGui{
         
         // Randomly places 3 treasures on game map
         component = new GameComponent(state);
-        player = new Player(0, 0, 16, 8, "player");
+        player = new Player(0, 0, 16, 8, charSprite, "player");
         component.loadPlayer(player);
         
         // Load the map and randomly set the treasures on the map
-        component.loadMap("map.txt");
+        component.loadMap();
         component.placeTheTreasures(numTreasures);// change the amount of treasures here
-
-	if(timeSet!=0)
-	    component.setTimeLimit(timeSet);
-	
+        
+        if(timeSet!=0)
+            component.setTimeLimit(timeSet);
+        
         
         // Add a listener that listens for directional key presses and tells the character to move accordingly.
         PauseAction pause = new PauseAction();
@@ -372,6 +484,14 @@ public class GameGui{
             public void keyReleased(KeyEvent e) {
                 keypress = e.getKeyCode();
                 keyDown[keypress] = false;
+                
+                if(keypress == KeyEvent.VK_ENTER) {
+                    if(component.gameOver()) {
+                        frame.dispose();
+                        new Treasure("treasure").resetNumFound();
+                        new GameGui().createMainMenu();
+                    }
+                }
             }
         });
         
@@ -388,6 +508,7 @@ public class GameGui{
         
         timer = new Timer("Timer");
         timer.scheduleAtFixedRate(task, 0, 10);
+	    
     }
     
     public void goMulti() {
@@ -402,13 +523,13 @@ public class GameGui{
         
         // Randomly places 3 treasures on game map
         component = new GameComponent(state);
-        player = new Player(0, 0, 16, 8, "player");
+        player = new Player(0, 0, 16, 8, charSprite, "player");
         component.loadPlayer(player);
-        player2 = new Player(0, 0, 16, 8, "player");
+        player2 = new Player(0, 0, 16, 8, charSprite2, "player");
         component.loadPlayer2(player2);
         
         // Load the map and randomly set the treasures on the map
-        component.loadMap("map.txt");
+        component.loadMap();
         component.placeTheTreasures(numTreasures); // change the amount of treasures here
         
         // Add a listener that listens for directional key presses and tells the character to move accordingly.
@@ -432,6 +553,14 @@ public class GameGui{
             public void keyReleased(KeyEvent e) {
                 keypress = e.getKeyCode();
                 keyDown[keypress] = false;
+                
+                if(keypress == KeyEvent.VK_ENTER) {
+                    if(component.gameOver()) {
+                        frame.dispose();
+                        new Treasure("treasure").resetNumFound();
+                        new GameGui().createMainMenu();
+                    }
+                }
             }
         });
         
