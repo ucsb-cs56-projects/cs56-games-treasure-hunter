@@ -1,4 +1,6 @@
 # cs56-games-treasure-hunter
+
+![README image](readmeImage.png)
 ===============
 
 A GUI game called Treasure-Hunter.

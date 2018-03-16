@@ -403,4 +403,8 @@ public class GameComponent extends JComponent
     public void setPause(boolean state) {
         pause = state;
     }
+    
+    public boolean gameOver() {
+        return winningCondition || (System.currentTimeMillis() - startTime - pausedTime) / 1000 >= timeLimit;
+    }
 }
